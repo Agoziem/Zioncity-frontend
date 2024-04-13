@@ -1,6 +1,8 @@
-import "./globals.css";
-import Nav from "../components/Headers/Nav";
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Provider from "../utils/Provider";
+import BootstrapJs from "@/components/BootstrapJs";
+import "./global.css";
 
 export const metadata = {
     title: 'City of God',
@@ -10,16 +12,11 @@ export const metadata = {
 const Rootlayout = ({ children }) => {
     return (
         <html lang="en">
-            <body>
+            <body className='body'>
                 <Provider>
-                    <div className="main">
-                        <div className="gradient" />
-                    </div>
-                    <main className="app">
-                        <Nav />
                         {children}
-                    </main>
                 </Provider>
+                <BootstrapJs />
             </body>
         </html>
     );

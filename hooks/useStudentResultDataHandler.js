@@ -17,9 +17,9 @@ const useStudentDataHandler = (data) => {
       const CA = calculateCA(student);
       const Total = calculateTotal(student, CA);
       const Grade = calculateGrade(Total);
-      const Position = calculatePosition(updatedStudents, Total);
+      const SubjectPosition = calculatePosition(updatedStudents, Total);
       const Remarks = calculateRemarks(Grade);
-      return { ...student, CA, Total, Grade, Position, Remarks };
+      return { ...student, CA, Total, Grade, SubjectPosition, Remarks };
     });
     return updatedStudents;
   };

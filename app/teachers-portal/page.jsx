@@ -3,6 +3,8 @@ import React , {useState,useEffect } from 'react'
 import Datatable from '@/components/Datatable/Datatable';
 // import useFetchSingle  from '@/hooks/useFetchSingle';
 import { data } from "@/components/Datatable/Mockdata";
+import PageTitle from '@/components/PageTitle/PageTitle';
+import Dashboard from '@/components/dashboard/Dashboard';
 
 const teachersportal = () => {
   const [student, setStudent] = useState([])
@@ -19,12 +21,16 @@ const teachersportal = () => {
    }, [data])
 
   return (
-    <div>
-      { loading ? 
-        <div>Loading...</div> 
-        : <Datatable items={student} setItems={setStudent} loading={loading} />
-      }
-    </div>
+    <>
+      <PageTitle pathname={'Dashboard'} />
+      <Dashboard />
+      {/* <div className='mt-5'>
+        { loading ? 
+          <div>Loading...</div> 
+          : <Datatable items={student} setItems={setStudent} loading={loading} />
+        }
+      </div> */}
+    </>
   )
 }
 

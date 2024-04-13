@@ -2,7 +2,9 @@ import React from 'react'
 
 const accounts = () => {
   return (
-    <div>accounts</div>
+    <div>
+      Profile portal
+    </div>
   )
 }
 

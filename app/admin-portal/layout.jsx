@@ -1,8 +1,22 @@
 import React from 'react'
+import Header from "@/components/header/Header"
+import SideBar from '@/components/sidebar/SideBar';
+import Main from '@/components/Main/Main';
+import BackToTop from '@/components/backtotopbutton/BackToTop';
+import Footer from '@/components/footer/Footer';
+import navList from './navitem';
 
-const adminlayout = () => {
+const adminlayout = ({children}) => {
   return (
-    <div>admin layout</div>
+    <div>
+      <Header portalname={'Admin Portal'} portallink={'admin-portal'} />
+      <SideBar navList={navList} />
+      <Main>
+        { children }
+      </Main>
+      <BackToTop />
+      <Footer />
+    </div>
   )
 }
 
