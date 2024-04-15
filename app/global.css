@@ -28,6 +28,7 @@
   font-family: "jost", sans-serif;
   background: var(--bgColor);
   color: #444444;
+  font-weight: 400;
 }
 
 
@@ -44,6 +45,8 @@
 
 .body h1,.body h2,.body h3,.body h4,.body h5,.body h6{
   font-family: "jost", sans-serif;
+  font-weight: 700;
+  color: #012970;
 }
 
 
@@ -180,6 +183,11 @@
   border-color: #d3d3d4;
 }
 
+/* text */
+.body .text-primary{
+  color: #4154f1;
+}
+
 /* Card */
 .body .card {
   margin-bottom: 30px;
@@ -198,7 +206,7 @@
 
 .body .card-title {
   padding: 20px 0 15px 0;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 500;
   color: #012970;
   letter-spacing: 1px;
@@ -226,7 +234,7 @@
   font-size: 20px;
 }
 
-/* Close Button */
+/*  Buttons */
 .body .btn-close {
   background-size: 25%;
 }
@@ -234,6 +242,39 @@
 .body .btn-close:focus {
   outline: 0;
   box-shadow: none;
+}
+.body .btn-primary {
+  background-color: #4154f1;
+  border-color: #4154f1;
+  color: #fff;
+}
+
+.body .btn-accent-success{
+  border-color: #d2f3de;
+  color: #159245;
+  background: #d2f3de;
+  padding: 7px 20px;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.body .btn-accent-primary{
+  border-color: #dfdff3;
+  color: #4154f1;
+  background: #dfdff3;
+  padding: 7px 20px;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+
+.body .btn-primary:hover {
+  outline: none;
+  background-color: #2e3d9e;
+  border-color: #2e3d9e;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
 /* Accordion */
@@ -314,4 +355,13 @@
   background-color: #fff;
   color: #4154f1;
   border-bottom: 2px solid #4154f1;
+}
+
+
+/* forms */
+.body .form-control,.body .form-select {
+  border: none;
+  border-radius: 5px;
+  color: #3e4f6f;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }

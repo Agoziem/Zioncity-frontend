@@ -4,8 +4,9 @@ import Datatableitems from './DatatableItems'
 import DatatablePagination from './DatatablePagination'
 import DatatableinputFilter from './DatatableInputFilter'
 import Datatableselect from './DatatableSelect'
+import "./Datatable.css";
 
-const Datatable = ({items , setItems, loading}) => {
+const Datatable = ({items , setItems, loading,toggleModal,classID,setStudenttodelete}) => {
     const [filterInput, setfilterInput] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10)
@@ -15,7 +16,7 @@ const Datatable = ({items , setItems, loading}) => {
     const filteredItems = items.filter((item) => {
         return filterInput.toLowerCase() === ''
         ? item
-        : item.first_name.toLowerCase().includes(filterInput.toLowerCase());
+        : item.firstname.toLowerCase().includes(filterInput.toLowerCase());
     });
     
 
@@ -27,7 +28,7 @@ const Datatable = ({items , setItems, loading}) => {
 
     return (
         <div>
-            <div className="flex-between mb-4">
+            <div className="row justify-content-between mb-4">
                 <Datatableselect 
                     itemsPerPage={itemsPerPage}
                     setItemsPerPage={setItemsPerPage}
@@ -43,6 +44,9 @@ const Datatable = ({items , setItems, loading}) => {
                 currentItems = {currentItems} 
                 loading={loading}
                 setItems={setItems} 
+                toggleModal={toggleModal}
+                classID={classID}
+                setStudenttodelete={setStudenttodelete}
             /> 
             <DatatablePagination
                 itemsPerPage={itemsPerPage}

@@ -1,8 +1,11 @@
-import React from 'react';
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 function NavAvatar() {
+  const currentUser = useCurrentUser();
+
   return (
     <li className="nav-item dropdown pe-3">
       <a
@@ -10,14 +13,16 @@ function NavAvatar() {
         href="#"
         data-bs-toggle="dropdown"
       >
-        <Image src={'/images/user.jpg'} alt="Profile" width={35} height={35} className="rounded-circle" />
-        <span className="d-none d-md-block dropdown-toggle ps-2">F. David</span>
+        <Image src={`${currentUser && currentUser.headshot ? `/${currentUser.headshot}` : "/images/user.jpg"  }`} alt="Profile" width={35} height={35} className="rounded-circle" />
+        <span className="d-none d-md-block dropdown-toggle ps-2">
+          {currentUser && currentUser.firstname || currentUser && currentUser.firstName || 'User'}
+        </span>
       </a>
 
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li className="dropdown-header">
-          <h6>David</h6>
-          <span>Web Developer</span>
+          <h6>{currentUser && currentUser.firstname || currentUser && currentUser.firstName || 'User'}</h6>
+          <span>{currentUser && currentUser.role || 'Student'}</span>
         </li>
         <li>
           <hr className="dropdown-divider" />

@@ -6,13 +6,15 @@ import BackToTop from '@/components/backtotopbutton/BackToTop';
 import Footer from '@/components/footer/Footer';
 import navList from './navitem';
 
+
+
 const studentslayout = ({children}) => {
   return (
     <div>
       <Header portalname={'Students Portal'} portallink={'students-portal'} />
       <SideBar navList={navList} />
         <Main>
-          { children }
+          {children}
         </Main>
       <BackToTop />
       <Footer />

@@ -8,13 +8,16 @@ const DatatableinputFilter = ({ filterInput, setfilterInput }) => {
     }
 
     return (
-        <input
+        <div className='col-3'>
+            <input
             type="text"
             placeholder="Search items..."
-            className="w-50 px-4 py-2 text-sm border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            className="form-control"
             value={filterInput}
             onChange={handleInputChange}
-        />     
+        />    
+        </div>
+         
     );
 };
 

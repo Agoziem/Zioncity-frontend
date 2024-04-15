@@ -1,5 +1,5 @@
-import PageTitle from '@/components/PageTitle/PageTitle'
 import React from 'react'
+import PageTitle from '@/components/PageTitle/PageTitle'
 
 const page = () => {
   return (

@@ -6,14 +6,17 @@ import BackToTop from '@/components/backtotopbutton/BackToTop';
 import Footer from '@/components/footer/Footer';
 import navList from './navitem';
 
+
+
 const accountslayout = ({children}) => {
+  
   return (
     <div>
       <Header portalname={'finance Portal'} portallink={'accounting-portal'} />
-      <SideBar navList={navList} />
-      <Main>
-        { children }
-      </Main>
+        <SideBar navList={navList} />
+        <Main>
+                {children}    
+        </Main>
       <BackToTop />
       <Footer />
     </div>

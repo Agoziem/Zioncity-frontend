@@ -1,8 +1,7 @@
-"use client";
 import React, { useState } from 'react';
-import { TiArrowSortedUp,TiArrowSortedDown } from "react-icons/ti";
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
-const Datatablesortingicon = ({ itemstosort,setItems ,headername}) => {
+const Datatablesortingicon = ({ itemstosort, setItems, headername }) => {
     const [sortOrder, setSortOrder] = useState(null);
 
     const toggleSortOrder = () => {
@@ -11,7 +10,7 @@ const Datatablesortingicon = ({ itemstosort,setItems ,headername}) => {
         } else {
             setSortOrder('asc');
         }
-        sortItems(sortOrder)
+        sortItems(sortOrder, headername); // Pass headername here
     };
 
     const sortItems = (order, headername) => {
@@ -28,9 +27,9 @@ const Datatablesortingicon = ({ itemstosort,setItems ,headername}) => {
 
     return (
         <>
-            <button className='ms-2' onClick={toggleSortOrder}>
-                {sortOrder === 'asc' ?  <TiArrowSortedDown /> : <TiArrowSortedUp />}
-            </button>
+            <span className='sorting-icon ms-2' onClick={toggleSortOrder} >
+                {sortOrder === 'asc' ? <i className="bi bi-sort-alpha-up h5"></i> : <i className="bi bi-sort-alpha-down h5 "></i>}
+            </span>
         </>
     );
 };

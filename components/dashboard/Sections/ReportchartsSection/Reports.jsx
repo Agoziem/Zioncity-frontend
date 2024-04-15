@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CardFilter from '../../../Card/CardFilter';
+import CardFilter from '../../../TeachersdetailsCard/CardFilter';
 import ReportCharts from './ReportCharts';
 
 function Reports() {

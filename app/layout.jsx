@@ -3,6 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Provider from "../utils/Provider";
 import BootstrapJs from "@/components/BootstrapJs";
 import "./global.css";
+import { SchoolContextProvider } from '@/data/Schoolcontextdata';
+import { TeacherContextProvider } from '@/data/Teachercontextdata';
+import { StudentsContextProvider } from '@/data/Studentcontextdata';
+import { AdminContextProvider } from '@/data/Admincontextdata';
+import { AccountantContextProvider } from '@/data/Accountantcontextdata';
+
 
 export const metadata = {
     title: 'City of God',
@@ -10,12 +16,23 @@ export const metadata = {
 };
 
 const Rootlayout = ({ children }) => {
+
     return (
         <html lang="en">
             <body className='body'>
-                <Provider>
+                <SchoolContextProvider>
+                <TeacherContextProvider>
+                <StudentsContextProvider>
+                <AdminContextProvider >
+                <AccountantContextProvider>
+                    <Provider>
                         {children}
-                </Provider>
+                    </Provider>
+                    </AccountantContextProvider>
+                    </AdminContextProvider>
+                </StudentsContextProvider>
+                </TeacherContextProvider>
+                </SchoolContextProvider>
                 <BootstrapJs />
             </body>
         </html>

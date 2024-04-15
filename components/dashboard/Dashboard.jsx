@@ -2,16 +2,16 @@
 import React from 'react';
 import './dashboard.css';
 
-import Cards from '../Card/Cards';
+import Cards from '../TeachersdetailsCard/Cards';
 import Reports from './Sections/ReportchartsSection/Reports';
-import RecentSales from './Sections/RecentsalesSection/RecentSales';
-import TopSelling from './Sections/TopsellingSection/TopSelling';
+// import RecentSales from './Sections/RecentsalesSection/RecentSales';
+// import TopSelling from './Sections/TopsellingSection/TopSelling';
 import RecentActivity from './Sections/RecentactionsSections/RecentActivity';
-import BudgetReport from './Sections/BudgetSection/BudgetReport';
-import WebTraffic from './Sections/WebtrafficSection/WebTraffic';
-import News from './Sections/Newsection/News';
+// import BudgetReport from './Sections/BudgetSection/BudgetReport';
+// import WebTraffic from './Sections/WebtrafficSection/WebTraffic';
+// import News from './Sections/Newsection/News';
 
-function Dashboard() {
+function TeachersDashboard() {
   return (
     <section className="section dashboard">
       <div className="row">
@@ -21,23 +21,23 @@ function Dashboard() {
             <div className="col-12">
               <Reports />
             </div>
-            <div className="col-12">
+            {/* <div className="col-12">
               <RecentSales />
             </div>
             <div className="col-12">
               <TopSelling />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="col-lg-4">
           <RecentActivity />
-          <BudgetReport />
+          {/* <BudgetReport />
           <WebTraffic />
-          <News />
+          <News /> */}
         </div>
       </div>
     </section>
   );
 }
 
-export default Dashboard;
+export default TeachersDashboard;

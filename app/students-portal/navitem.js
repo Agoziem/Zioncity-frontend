@@ -1,164 +1,79 @@
 const navList = [
-    {
-      Teacher : [
-        {
-          _id: 0,
-          name: 'Dashboard',
-          icon: 'bi bi-speedometer2',
-        },
-        {
-          _id: 1,
-          name: 'Documents',
-          icon: 'bi bi-menu-button-wide',
-          content : [
-            {
-              _id: 0,
-              name: 'Customers',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 1,
-              name: 'Suppliers',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 2,
-              name: 'Logistic',
-              icon: 'bi bi-circle',
-            },
-          ]
-      
-        },
-        {
-          _id: 2,
-          name: 'Forms',
-          icon: 'bi bi-journal-text',
-          content : [
-            {
-              _id: 0,
-              name: 'Application Form',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 1,
-              name: 'Release Form',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 2,
-              name: 'Cancellation Form',
-              icon: 'bi bi-circle',
-            },
-          ]
-      
-        },
-        {
-          _id: 3,
-          name: 'Tables',
-          icon: 'bi bi-layout-text-window-reverse',
-          content : [
-            {
-              _id: 0,
-              name: 'General Tables',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 1,
-              name: 'Data Tables',
-              icon: 'bi bi-circle',
-            }
-          ]
-      
-        },
-        {
-          _id: 4,
-          name: 'Charts',
-          icon: 'bi bi-bar-chart',
-          content : [
-            {
-              _id: 0,
-              name: 'Chart.js',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 1,
-              name: 'ApexCharts',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 2,
-              name: 'ECharts',
-              icon: 'bi bi-circle',
-            },
-          ]
-      
-        },
-        {
-          _id: 5,
-          name: 'Icons',
-          icon: 'bi bi-gem',
-          content : [
-            {
-              _id: 0,
-              name: 'Bootstrap Icons',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 1,
-              name: 'Remix Icons',
-              icon: 'bi bi-circle',
-            },
-            {
-              _id: 2,
-              name: 'Boxicons',
-              icon: 'bi bi-circle',
-            },
-          ]
-      
-        },
-      ],
-    },
-    {
-      Formteacher:[
-        {
-          _id: 6,
-          name: 'Profile',
-          icon: 'bi bi-person',
-        },
-        {
-          _id: 7,
-          name: 'Contact',
-          icon: 'bi bi-envelope',
-        },
-        {
-          _id: 8,
-          name: 'Register',
-          icon: 'bi bi-card-list',
-        },
-        {
-          _id: 9,
-          name: 'Login',
-          icon: 'bi bi-box-arrow-in-right',
-        },
-        {
-          _id: 10,
-          name: 'Setting',
-          icon: 'bi bi-gear',
-        },
-        {
-          _id: 11,
-          name: 'F.A.Q',
-          icon: 'bi bi-question-circle',
-        },
-        {
-          _id: 12,
-          name: 'Blank',
-          icon: 'bi bi-file-earmark',
-        },
-      ]
-    }
-    
-  ];
+  {
+    Teacher : [
+      {
+        _id: 0,
+        name: 'Dashboard',
+        icon: 'bi bi-speedometer2',
+        link: '/teachers-portal',
+      },
+      {
+        _id: 2,
+        name: 'Result Computation',
+        icon: 'bi bi-journal-text',
+        link: '/teachers-portal/result-computation',
+      },
+      {
+        _id: 3,
+        name: 'elibrary',
+        icon: 'bi bi-collection',
+        link: '/teachers-portal/e-library',
+      },
+      {
+        _id: 4,
+        name: 'EduGPT',
+        icon: 'bi bi-gem',
+        link: '/teachers-portal/EduGPT',
+      },
+      {
+        _id: 5,
+        name: 'CBT Questions',
+        icon: 'bi bi-question-circle',
+        link: '/teachers-portal/cbt-questions',
+      },
+      {
+        _id: 5,
+        name: 'Chat Room',
+        icon: 'bi bi-wechat',
+        link: '/teachers-portal/chat-room',
+      },
+    ],
+  },
+  {
+    Formteacher:[
+      {
+        _id: 6,
+        name: 'Students',
+        icon: 'bi bi-people',
+        link: '/teachers-portal/students',
+      },
+      {
+        _id: 7,
+        name: 'Students result',
+        icon: 'bi bi-hdd-stack',
+        link: '/teachers-portal/students-result',
+      },
+      {
+        _id: 8,
+        name: 'Attendance',
+        icon: 'bi bi-calendar2-check',
+        link: '/teachers-portal/attendance',
+      },
+      {
+        _id: 9,
+        name: 'profile',
+        icon: 'bi bi-person-circle',
+        link: '/teachers-portal/profile',
+      },
+      {
+        _id: 10,
+        name: 'logout',
+        icon: 'bi bi-box-arrow-in-right',
+        link: '#',
+      }
+    ]
+  }
   
-  export default navList;
-  
+];
+
+export default navList;
