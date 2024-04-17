@@ -6,11 +6,10 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import Link from 'next/link';
 // make 
 const Datatableitems = ({ currentItems, loading, setItems ,toggleModal,classID,setStudenttodelete}) => {
-    const itemKeys = currentItems.length > 0 ? Object.keys(currentItems[0]) : [];
 
     return (
-        <div className='card datatableCard p-4'>
-            <table className="table  px-3">
+        <div className='card datatableCard table-responsive p-4'>
+            <table className="table table-striped px-3">
                 <thead>
                     <tr>
                         <th className='mx-5 p-2'>
@@ -57,7 +56,7 @@ const Datatableitems = ({ currentItems, loading, setItems ,toggleModal,classID,s
                             </tr>
                         ) : (
                             <>
-                                { currentItems.map((item) => (
+                                { currentItems && currentItems.length > 0 && currentItems.map((item) => (
                                     <tr key={item.id} item={item}>
                                         <td className='mx-7 p-2'>{item.firstname}</td> 
                                         <td className='mx-7 p-2'>{item.surname}</td> 

@@ -8,7 +8,7 @@ const DatatableinputFilter = ({ filterInput, setfilterInput }) => {
     }
 
     return (
-        <div className='col-3'>
+        <div>
             <input
             type="text"
             placeholder="Search items..."

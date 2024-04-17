@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from 'react'
 import Datatable from '@/components/Datatable/Datatable';
+import Datatableitems from '@/components/Datatable/Studentstableitems'
 import Modal from '@/components/Modal/modal';
 import PageTitle from '@/components/PageTitle/PageTitle'
 import { SchoolContext } from '@/data/Schoolcontextdata';
@@ -8,6 +9,7 @@ import { TeacherContext } from '@/data/Teachercontextdata';
 import { FaPlus } from "react-icons/fa6";
 import "@/components/Modal/modal.css"
 import Link from 'next/link';
+import "@/components/Datatable/Datatable.css";
 
 
 const Page = () => {
@@ -30,6 +32,8 @@ const Page = () => {
       classID = teacherData.classFormed.id
       className = teacherData.classFormed.name
     }
+
+    console.log(classID,schoolID)
 
   // fetch the students on page load & when the ids change
   useEffect(() => {
@@ -100,11 +104,14 @@ const Page = () => {
            <Datatable 
               items={student} 
               setItems={setStudent} 
-              loading={loading} 
-              toggleModal={toggleModal}
-              classID={classID}
-              setStudenttodelete={setStudenttodelete}
-          />
+              >
+                <Datatableitems 
+                loading={loading} 
+                toggleModal={toggleModal}
+                classID={classID}
+                setStudenttodelete={setStudenttodelete}
+              /> 
+              </Datatable>
       </div>
 
       <Modal modal={modal} toggleModal={toggleModal}>

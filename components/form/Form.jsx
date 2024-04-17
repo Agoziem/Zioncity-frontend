@@ -8,14 +8,14 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
     <div className='w-50'>
         <form className="row g-3" onSubmit={handleSubmit}>
             <div className="col-md-6">
-                <label for="inputEmail4" className="form-label">Firstname</label>
+                <label htmlFor="inputEmail4" className="form-label">Firstname</label>
                 <input type="text" className="form-control" id="inputEmail4"
                     value={student.firstname}
                     onChange={(e) => setStudent({ ...student, firstname: e.target.value })}
                 />
             </div>
             <div className="col-md-6">
-                <label for="inputPassword4" className="form-label">Surname</label>
+                <label htmlFor="inputPassword4" className="form-label">Surname</label>
                 <input type="text" className="form-control" id="inputPassword4"
                     value={student.surname}
                     onChange={(e) => setStudent({ ...student, surname: e.target.value })} 
@@ -23,7 +23,7 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
             </div>
 
             <div className="col-md-4">
-                <label for="inputState" className="form-label">Gender</label>
+                <label htmlFor="inputState" className="form-label">Gender</label>
                 <select id="inputState" className="form-select" value={student.sex}
                     onChange={(e) => setStudent({ ...student, sex: e.target.value })} >
                     <option selected>Choose...</option>
@@ -40,7 +40,7 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
                     {submitting ? `${type === 'create'?'creating student...':'updating student...'}` : `${type} Student`}
                 </button>
             </div>
-            </form>
+        </form>
     </div>
   )
 }

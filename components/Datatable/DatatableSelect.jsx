@@ -9,7 +9,7 @@ const Datatableselect = ({itemsPerPage,setItemsPerPage}) => {
     };
 
   return (
-    <div className='col-3'>
+    <div>
         <select  
         className="form-select"
         value={itemsPerPage} 

@@ -4,29 +4,31 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 
-const useJsxToPdf = (jsxComponent) => {
-    const [ pdfname, setPdfname ] = useState('MyPdf'); // set the pdf name
-    const pdfRef = jsxComponent ? useRef(jsxComponent) : null;
+const useJsxToPdf = () => {
+    const [pdfname, setPdfname] = useState('MyPdf'); // set the pdf name
     const [loading, setLoading] = useState(true);
 
-    const generatePdf = async () => {
-        setLoading(true);
-        const canvas = await html2canvas(jsxComponent);
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        if (pdfRef.current) {
-            const componentWidth = pdfRef.current.offsetWidth;  // A4 page is 210mm wide
-            const componentHeight = pdfRef.current.offsetHeight;  // A4 page is 297mm high
-            pdf.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight);
-        } else {
-            pdf.addImage(imgData, 'PNG');
-        }
-        setLoading(false);
-        pdf.save(`${pdfname}.pdf`);
-    };
-
-    return {loading, generatePdf, setPdfname};
+    const generatePdf = async (jsxComponent) => {
+    setLoading(true);
+    const canvas = await html2canvas(jsxComponent);
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('l', 'mm', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    
+    const scaleFactor = Math.min(pageWidth / jsxComponent.offsetWidth, pageHeight / jsxComponent.offsetHeight);
+    const scaledWidth = jsxComponent.offsetWidth * scaleFactor;
+    const scaledHeight = jsxComponent.offsetHeight * scaleFactor;
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, scaledWidth, scaledHeight);
+    setLoading(false);
+    pdf.save(`${pdfname}.pdf`);
 };
+
+
+    return { loading, generatePdf };
+};
+
 
 export default useJsxToPdf;
 

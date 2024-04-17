@@ -1,25 +1,24 @@
 "use client";
 import React, {useState} from 'react';
-import { XLSX } from 'xlsx';
-import React from 'react';
-import useJsonToExcel from './useJsonToExcel';
+import * as XLSX from 'xlsx';
 
-const useJsonToExcel = (initialData) => {
+const useJsonToExcel = () => {
   const [excelfilename, setExcelFileName] = useState('MyExcelfile'); // set the excel file name
   const [isjsonArray, setIsJsonArray] = useState(false); // Check if the data is an array of objects or a array of array
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(true);
+  const [loadingexcel, setLoadingExcel] = useState(false);
   
-  const handleExport = () => {
-    setLoading(true);
-    const ws = isjsonArray ? XLSX.utils.json_to_sheet(data): XLSX.utils.aoa_to_sheet(data);
+  const handleExport = (data) => {
+    console.log(isjsonArray)
+    setLoadingExcel(true);
+    const ws = !isjsonArray ? XLSX.utils.json_to_sheet(data): XLSX.utils.aoa_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    setLoading(false);
+    setLoadingExcel(false);
     XLSX.writeFile(wb,`${excelfilename}.xlsx`);
   };
 
-  return {loading, handleExport,setIsJsonArray,setExcelFileName};
+ 
+  return {loadingexcel, handleExport};
 };
 
 export default useJsonToExcel;

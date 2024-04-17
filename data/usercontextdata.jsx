@@ -1,27 +1,23 @@
 "use client";
-import useLocalStorage from '@/hooks/useLocalStorage';
 import React, { createContext, useEffect, useState } from 'react';
+import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
 
 const UserContext = createContext();
 
-const UserContextProvider = ({ children,userID }) => {
+const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
-  const [ updatedUserData,setData ] = useLocalStorage('userData', {});
 
   useEffect(() => {
-    if (Object.keys(updatedUserData).length) {
-      setUserData(updatedUserData);
-    }
-  },[updatedUserData]);
+    setUserData(getDataOrDefault('userData', {}));
+  }, []);
 
-  // Step 3: Define function to update admin data
-  const updateUserData = (newData) => {
-    setUserData(newData);
-  };
+  useEffect(() => {
+    storeData('userData', userData);
+  }, [userData]);
 
   // Step 4: Provide the context value to children components
   return (
-    <UserContext.Provider value={{ userData, updateUserData }}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       {children}
     </UserContext.Provider>
   );

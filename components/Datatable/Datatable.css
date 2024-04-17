@@ -1,3 +1,7 @@
+.datatableCard{
+    max-width: 100%;
+}
+
 .datatableCard .table th{
     color: #012970;
 }
