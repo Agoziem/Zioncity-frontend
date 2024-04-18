@@ -1,5 +1,5 @@
 "use client";
-import Image from 'next/image';
+
 import Link from 'next/link';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
@@ -13,7 +13,7 @@ function NavAvatar() {
         href="#"
         data-bs-toggle="dropdown"
       >
-        <Image src={`${currentUser && currentUser.headshot ? `/${currentUser.headshot}` : "/images/user.jpg"  }`} alt="Profile" width={35} height={35} className="rounded-circle" />
+        <img src={`${currentUser && currentUser.headshot ? `${currentUser.headshot}` : "/images/user.jpg"  }`} alt="Profile" width={35} height={35} className="rounded-circle" />
         <span className="d-none d-md-block dropdown-toggle ps-2">
           {currentUser && currentUser.firstname || currentUser && currentUser.firstName || 'User'}
         </span>

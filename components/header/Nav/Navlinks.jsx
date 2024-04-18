@@ -1,16 +1,15 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 function Navlinks() {
   return (
     <li className="nav-item dropdown d-none d-md-block">
       <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-      <i class="bi bi-box-arrow-up-right"></i>
+        <i class="bi bi-box-arrow-up-right"></i>
       </a>
 
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-
-      {/* teachers Portal */}
+        {/* teachers Portal */}
         <li>
           <Link
             className="dropdown-item d-flex align-items-center"
@@ -24,7 +23,7 @@ function Navlinks() {
           <hr className="dropdown-divider" />
         </li>
 
-      {/* students Portal */}
+        {/* students Portal */}
         <li>
           <Link
             className="dropdown-item d-flex align-items-center"
@@ -38,7 +37,7 @@ function Navlinks() {
           <hr className="dropdown-divider" />
         </li>
 
-      {/* finance Portal */}
+        {/* finance Portal */}
         <li>
           <Link
             className="dropdown-item d-flex align-items-center"
@@ -51,11 +50,14 @@ function Navlinks() {
         <li>
           <hr className="dropdown-divider" />
         </li>
-        
-      {/* Admin Portal */}
+
+        {/* Admin Portal */}
         <li>
-          <Link className="dropdown-item d-flex align-items-center" href="/admin-portal">
-          <i className="bi bi-lock"></i>
+          <Link
+            className="dropdown-item d-flex align-items-center"
+            href="/admin-portal"
+          >
+            <i className="bi bi-lock"></i>
             <span>Admins Portal</span>
           </Link>
         </li>
