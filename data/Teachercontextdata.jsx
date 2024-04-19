@@ -12,6 +12,10 @@ const TeacherContextProvider = ({ children }) => {
     },
     "classes_taught": [
       {
+        "id": 1,
+        "name": "Jss1A"
+      },
+      {
         "id": 2,
         "name": "Jss1B"
       },
@@ -21,6 +25,10 @@ const TeacherContextProvider = ({ children }) => {
       }
     ],
     "subjects_taught": [
+      {
+        "id": 1,
+        "name": "Mathematics"
+      },
       {
         "id": 2,
         "name": "English"
@@ -38,15 +46,16 @@ const TeacherContextProvider = ({ children }) => {
       "id": 2,
       "name": "Jss1B"
     },
-    "firstName": "Ndukwe",
-    "surname": "Winner",
-    "sex": "",
-    "phone_number": "08012345678",
-    "email": "ndukwekosiso@gmail.com",
+    "headshot": "http://127.0.0.1:8000/media/assets/TeachersProfileimages/IMG_20230808_195658.jpg",
+    "firstName": "Chiagoziem",
+    "surname": "Ndukwe",
+    "sex": "Female",
+    "phone_number": "08080982606",
+    "email": "chiagoziendukwe90@gmail.com",
     "teachers_id": "teacher/9723",
     "role": "Formteacher",
     "is_formteacher": true,
-    "headshot": null
+    "address": "No 2, Ojike Street, Awka, Anambra State",
   });
 
   useEffect(() => {
@@ -57,6 +66,8 @@ const TeacherContextProvider = ({ children }) => {
   useEffect(() => {
     storeData('teacherData', teacherData);
   }, [teacherData]);
+
+  
 
   // Step 4: Provide the context value to children components
   return (

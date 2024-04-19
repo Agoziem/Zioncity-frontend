@@ -1,7 +1,7 @@
 "use client";
 
-import Link from 'next/link';
-import useCurrentUser from '@/hooks/useCurrentUser';
+import Link from "next/link";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 function NavAvatar() {
   const currentUser = useCurrentUser();
@@ -13,16 +13,33 @@ function NavAvatar() {
         href="#"
         data-bs-toggle="dropdown"
       >
-        <img src={`${currentUser && currentUser.headshot ? `${currentUser.headshot}` : "/images/user.jpg"  }`} alt="Profile" width={35} height={35} className="rounded-circle" />
+        <img
+          src={`${
+            currentUser && currentUser.headshot
+              ? `${currentUser.headshot}`
+              : "/images/user.jpg"
+          }`}
+          alt="Profile"
+          width={35}
+          height={35}
+          className="rounded-circle object-fit-cover"
+          style={{ objectPosition: "top center" }}
+        />
         <span className="d-none d-md-block dropdown-toggle ps-2">
-          {currentUser && currentUser.firstname || currentUser && currentUser.firstName || 'User'}
+          {(currentUser && currentUser.firstname) ||
+            (currentUser && currentUser.firstName) ||
+            "User"}
         </span>
       </a>
 
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li className="dropdown-header">
-          <h6>{currentUser && currentUser.firstname || currentUser && currentUser.firstName || 'User'}</h6>
-          <span>{currentUser && currentUser.role || 'Student'}</span>
+          <h6>
+            {(currentUser && currentUser.firstname) ||
+              (currentUser && currentUser.firstName) ||
+              "User"}
+          </h6>
+          <span>{(currentUser && currentUser.role) || "Student"}</span>
         </li>
         <li>
           <hr className="dropdown-divider" />
@@ -42,10 +59,7 @@ function NavAvatar() {
         </li>
 
         <li>
-          <Link
-            className="dropdown-item d-flex align-items-center"
-            href="/"
-          >
+          <Link className="dropdown-item d-flex align-items-center" href="/">
             <i className="bi bi-house-door"></i>
             <span>Home page</span>
           </Link>
@@ -53,7 +67,6 @@ function NavAvatar() {
         <li>
           <hr className="dropdown-divider" />
         </li>
-
 
         <li>
           <a

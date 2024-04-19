@@ -32,7 +32,6 @@ export const MultiSelectinput = ({
     }
   };
 
-  console.log(schoolData[schoolkey])
 
   return (
     <>

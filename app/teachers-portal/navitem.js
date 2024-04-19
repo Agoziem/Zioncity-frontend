@@ -2,7 +2,7 @@ const navList = [
     {
       Teacher : [
         {
-          _id: 0,
+          _id: 1,
           name: 'Dashboard',
           icon: 'bi bi-speedometer2',
           link: '/teachers-portal',
@@ -32,7 +32,7 @@ const navList = [
           link: '/teachers-portal/cbt-questions',
         },
         {
-          _id: 5,
+          _id: 6,
           name: 'Chat Room',
           icon: 'bi bi-wechat',
           link: '/teachers-portal/chat-room',

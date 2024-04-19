@@ -10,12 +10,30 @@ const page = () => {
   const { teacherData, setTeacherData } = useContext(TeacherContext);
   const { schoolData } = useContext(SchoolContext);
   const [editMode, setEditMode] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("teacherdata", teacherData);
-    setEditMode(false);
+    setSubmitting(true);
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/teachersapi/update/${teacherData.id}/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(teacherData),
+      });
+      if (res.status === 200) {
+        const data = await res.json();
+        setEditMode(false);
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setSubmitting(false);
+    }
   };
+
   return (
     <>
       <PageTitle pathname={"Teacher's Profile"} />
@@ -27,6 +45,7 @@ const page = () => {
             handleSubmit={handleSubmit}
             setEditMode={setEditMode}
             schoolData={schoolData}
+            submitting={submitting}
           />
         ) : (
           <ProfileCard teacherData={teacherData} setEditMode={setEditMode} />

@@ -24,6 +24,10 @@ const SchoolContextProvider = ({ children }) => {
       {
         "id": 2,
         "class": "Jss1B"
+      },
+      {
+        "id": 3,
+        "class": "Jss1C"
       }
     ],
     "subjects": [
@@ -34,6 +38,14 @@ const SchoolContextProvider = ({ children }) => {
       {
         "id": 2,
         "subject": "English"
+      },
+      {
+        "id": 3,
+        "subject": "Igbo Language"
+      },
+      {
+        "id": 4,
+        "subject": "Agriculture"
       }
     ],
     "Schoollogo": null,

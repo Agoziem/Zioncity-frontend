@@ -33,7 +33,7 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
                     <img
                       src={teacherData.headshot}
                       className="rounded-circle object-fit-cover"
-                      style={{ width: "60px", height: "60px" }}
+                      style={{ width: "60px", height: "60px", objectPosition: "top center"}}
                       alt="profile"
                     />
                   ) : (

@@ -5,7 +5,7 @@ function Navlinks() {
   return (
     <li className="nav-item dropdown d-none d-md-block">
       <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-        <i class="bi bi-box-arrow-up-right"></i>
+        <i className="bi bi-box-arrow-up-right"></i>
       </a>
 
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -43,7 +43,7 @@ function Navlinks() {
             className="dropdown-item d-flex align-items-center"
             href="/accounting-portal"
           >
-            <i class="bi bi-cash-coin"></i>
+            <i className="bi bi-cash-coin"></i>
             <span>Accounting Portal</span>
           </Link>
         </li>

@@ -5,7 +5,6 @@ import { LuUpload } from "react-icons/lu";
 import { FaTimes, FaUserCircle } from "react-icons/fa";
 import { MultiSelectDropdown } from "./MultiSelect";
 import { FaRegFileImage } from "react-icons/fa6";
-import { use } from "echarts";
 
 const ProfileEditForm = ({
   teacherData,
@@ -13,19 +12,21 @@ const ProfileEditForm = ({
   handleSubmit,
   setEditMode,
   schoolData,
+  submitting,
 }) => {
   const [isformteacher, setIsformteacher] = useState(false);
   const [fileName, setFileName] = useState("No Selected file");
   const fileInput = useRef(null);
   const [isclasslistOpen, setIsclasslistOpen] = useState(false);
   const [isSubjectlistOpen, setIsSubjectlistOpen] = useState(false);
+  const image_URL = process.env.NEXT_PUBLIC_DJANGO_IMAGE_BASE_URL;
 
-useEffect(() => {
-    if (teacherData && Object.keys(teacherData).length){
-        let isformteacher = teacherData.role === "Formteacher" ? true : false
-        setIsformteacher(isformteacher)
+  useEffect(() => {
+    if (teacherData && Object.keys(teacherData).length) {
+      let isformteacher = teacherData.role === "Formteacher" ? true : false;
+      setIsformteacher(isformteacher);
     }
-},[teacherData])
+  }, [teacherData]);
 
   return (
     <div className="profile-edit-card">
@@ -64,7 +65,8 @@ useEffect(() => {
                     if (files[0])
                       setTeacherData({
                         ...teacherData,
-                        headshot: URL.createObjectURL(files[0]),
+                        // headshot: URL.createObjectURL(files[0]),
+                        headshot: `${image_URL}${files[0].name}`,
                       });
                   }}
                   hidden
@@ -81,6 +83,7 @@ useEffect(() => {
                           alt="profile"
                           height={75}
                           width={75}
+                          style={{ objectPosition: "top center" }}
                         />
                       ) : (
                         <>
@@ -130,36 +133,79 @@ useEffect(() => {
           </div>
 
           <div className="col-md-6 px-5">
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                First Name
-              </label>
-              <input
-                type="text"
-                className="profile-form-control form-control"
-                id="name"
-                placeholder="firstname.."
-                value={teacherData.firstName}
-                onChange={(e) => {
-                  setTeacherData({ ...teacherData, firstName: e.target.value });
-                }}
-              />
+            <div className=" mb-3 row align-content-center">
+              <div className="col-md">
+                <label htmlFor="name" className="form-label">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="profile-form-control form-control"
+                  id="name"
+                  placeholder="firstname.."
+                  value={teacherData.firstName}
+                  onChange={(e) => {
+                    setTeacherData({
+                      ...teacherData,
+                      firstName: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+              <div className="col-md">
+                <label htmlFor="Surname" className="form-label">
+                  Surname
+                </label>
+                <input
+                  type="text"
+                  className="profile-form-control form-control"
+                  id="Surname"
+                  placeholder="surname..."
+                  value={teacherData.surname}
+                  onChange={(e) => {
+                    setTeacherData({ ...teacherData, surname: e.target.value });
+                  }}
+                />
+              </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="Surname" className="form-label">
-                Surname
-              </label>
-              <input
-                type="text"
-                className="profile-form-control form-control"
-                id="Surname"
-                placeholder="surname..."
-                value={teacherData.surname}
-                onChange={(e) => {
-                  setTeacherData({ ...teacherData, surname: e.target.value });
-                }}
-              />
+
+            <div className="row mb-3 align-items-center">
+              <div className="col-md">
+                <label htmlFor="gender" className="form-label">
+                  Gender
+                </label>
+                <select
+                  className="profile-form-select form-select"
+                  id="gender"
+                  value={teacherData.sex}
+                  onChange={(e) => {
+                    setTeacherData({ ...teacherData, sex: e.target.value });
+                  }}
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div className="col-md">
+                <label htmlFor="phone" className="form-label">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  className="profile-form-control form-control"
+                  id="phone"
+                  placeholder="phone number..."
+                  value={teacherData.phone_number}
+                  onChange={(e) => {
+                    setTeacherData({
+                      ...teacherData,
+                      phone_number: e.target.value,
+                    });
+                  }}
+                />
+              </div>
             </div>
+
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 Email
@@ -175,21 +221,19 @@ useEffect(() => {
                 }}
               />
             </div>
+
             <div className="mb-3">
-              <label htmlFor="phone" className="form-label">
-                Phone Number
+              <label htmlFor="address" className="form-label">
+                Address
               </label>
               <input
                 type="text"
                 className="profile-form-control form-control"
-                id="phone"
-                placeholder="phone number..."
-                value={teacherData.phone_number}
+                id="address"
+                placeholder="your address..."
+                value={teacherData.address}
                 onChange={(e) => {
-                  setTeacherData({
-                    ...teacherData,
-                    phone_number: e.target.value,
-                  });
+                  setTeacherData({ ...teacherData, address: e.target.value });
                 }}
               />
             </div>
@@ -246,7 +290,7 @@ useEffect(() => {
                   onChange={(e) => {
                     setTeacherData({
                       ...teacherData,
-                      classFormed: { id: e.target.value },
+                      classFormed: { id: e.target.value , name: e.target.options[e.target.selectedIndex].text},
                     });
                   }}
                 >
@@ -299,8 +343,12 @@ useEffect(() => {
 
           <hr className="my-5" />
           <div className="col-md-12 justify-content-end  px-5">
-            <button type="submit" className="btn btn-primary">
-              Save Changes
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submitting}
+            >
+              {submitting ? "Submitting..." : "Submit Changes"}
             </button>
           </div>
         </form>
