@@ -159,7 +159,7 @@ const Page = () => {
   
   return (
     <>
-      <PageTitle pathname={'Students Result'} />
+      <PageTitle pathname={'Termly Result'} />
         <div className='row mt-4 justify-content-between'>
             <div className='col-5'>
                 <h3>{className} Class Result </h3>

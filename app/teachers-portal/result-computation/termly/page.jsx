@@ -205,7 +205,7 @@ useEffect(() => {
   
   return (
     <>
-      <PageTitle pathname={'Result Computation'} />
+      <PageTitle pathname={'Termly Result'} />
         <div className='row mt-4 justify-content-between'>
             <div className='col-5'>
                 <h3>{selectedClassName} Students Result </h3>

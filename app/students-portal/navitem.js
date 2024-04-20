@@ -2,78 +2,56 @@ const navList = [
   {
     Teacher : [
       {
-        _id: 0,
+        _id: 1,
         name: 'Dashboard',
         icon: 'bi bi-speedometer2',
-        link: '/teachers-portal',
+        link: '/students-portal',
       },
       {
         _id: 2,
-        name: 'Result Computation',
+        name: 'Results',
         icon: 'bi bi-journal-text',
-        link: '/teachers-portal/result-computation',
+        link: '/students-portal/result',
       },
       {
         _id: 3,
-        name: 'elibrary',
-        icon: 'bi bi-collection',
-        link: '/teachers-portal/e-library',
+        name: 'Payments',
+        icon: 'bi bi-credit-card',
+        link: '/students-portal/payments',
       },
       {
         _id: 4,
-        name: 'EduGPT',
-        icon: 'bi bi-gem',
-        link: '/teachers-portal/EduGPT',
+        name: 'e-learning',
+        icon: 'bi bi-mortarboard',
+        link: '/students-portal/e-learning',
       },
       {
         _id: 5,
-        name: 'CBT Questions',
-        icon: 'bi bi-question-circle',
-        link: '/teachers-portal/cbt-questions',
+        name: 'eduGPT',
+        icon: 'bi bi-robot',
+        link: '/students-portal/EduGPT',
       },
-      {
-        _id: 5,
-        name: 'Chat Room',
-        icon: 'bi bi-wechat',
-        link: '/teachers-portal/chat-room',
-      },
-    ],
-  },
-  {
-    Formteacher:[
       {
         _id: 6,
-        name: 'Students',
-        icon: 'bi bi-people',
-        link: '/teachers-portal/students',
+        name: 'CBT Portal',
+        icon: 'bi bi-laptop',
+        link: '/students-portal/cbt-portal',
       },
       {
         _id: 7,
-        name: 'Students result',
-        icon: 'bi bi-hdd-stack',
-        link: '/teachers-portal/students-result',
-      },
-      {
-        _id: 8,
-        name: 'Attendance',
-        icon: 'bi bi-calendar2-check',
-        link: '/teachers-portal/attendance',
-      },
-      {
-        _id: 9,
-        name: 'profile',
+        name: 'Profile',
         icon: 'bi bi-person-circle',
-        link: '/teachers-portal/profile',
+        link: '/students-portal/profile',
       },
       {
-        _id: 10,
-        name: 'logout',
-        icon: 'bi bi-box-arrow-in-right',
-        link: '#',
-      }
-    ]
-  }
-  
+          _id: 8,
+          name: 'logout',
+          icon: 'bi bi-box-arrow-in-right',
+          link: '#',
+        },
+    ],
+  },
+ 
 ];
 
 export default navList;

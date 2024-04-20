@@ -1,3 +1,5 @@
+import { Children } from "react";
+
 const navList = [
     {
       Teacher : [
@@ -9,9 +11,24 @@ const navList = [
         },
         {
           _id: 2,
-          name: 'Result Computation',
+          name: 'Results',
           icon: 'bi bi-journal-text',
-          link: '/teachers-portal/result-computation',
+          link: '#',
+          content: [
+            {
+              _id: 1,
+              name: 'Termly',
+              icon: 'bi bi-circle',
+              link: '/teachers-portal/result-computation/termly',
+            },
+            {
+              _id: 2,
+              name: 'Annual',
+              icon: 'bi bi-circle',
+              link: '/teachers-portal/result-computation/annual',
+            },
+          ]
+
         },
         {
           _id: 3,
@@ -22,7 +39,7 @@ const navList = [
         {
           _id: 4,
           name: 'EduGPT',
-          icon: 'bi bi-gem',
+          icon: 'bi bi-robot',
           link: '/teachers-portal/EduGPT',
         },
         {
@@ -32,47 +49,57 @@ const navList = [
           link: '/teachers-portal/cbt-questions',
         },
         {
-          _id: 6,
+          _id: 7,
           name: 'Chat Room',
           icon: 'bi bi-wechat',
           link: '/teachers-portal/chat-room',
         },
-      ],
-    },
-    {
-      Formteacher:[
         {
-          _id: 6,
+          _id: 8,
           name: 'Students',
           icon: 'bi bi-people',
           link: '/teachers-portal/students',
         },
         {
-          _id: 7,
-          name: 'Students result',
+          _id: 9,
+          name: 'Students-result',
           icon: 'bi bi-hdd-stack',
-          link: '/teachers-portal/students-result',
+          link: '#',
+          content: [
+            {
+              _id: 1,
+              name: 'Termly',
+              icon: 'bi bi-circle',
+              link: '/teachers-portal/students-result/termly',
+            },
+            {
+              _id: 2,
+              name: 'Annual',
+              icon: 'bi bi-circle',
+              link: '/teachers-portal/students-result/annual',
+            },
+          ]
         },
         {
-          _id: 8,
+          _id: 10,
           name: 'Attendance',
           icon: 'bi bi-calendar2-check',
           link: '/teachers-portal/attendance',
         },
         {
-          _id: 9,
+          _id: 11,
           name: 'profile',
           icon: 'bi bi-person-circle',
           link: '/teachers-portal/profile',
         },
         {
-          _id: 10,
+          _id: 12,
           name: 'logout',
           icon: 'bi bi-box-arrow-in-right',
           link: '#',
         }
-      ]
-    }
+      ],
+    },
     
   ];
   

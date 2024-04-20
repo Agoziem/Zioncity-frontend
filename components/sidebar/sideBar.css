@@ -24,7 +24,7 @@
 }
 
 .sidebar::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
   height: 8px;
   background-color: #fff;
 }
@@ -86,17 +86,25 @@
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: #2e42f7;
+  color: #012970;
   transition: 0.3;
-  background: #e5ebf8;
   padding: 10px 15px;
   border-radius: 4px;
+}
+
+.sidebar-nav .nav-link.active {
+  color: #2e42f7;
+  background: #e3ecff;
 }
 
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: #4154f1;
+  color: #012970;
+}
+
+.sidebar-nav .nav-link.active i  {
+  color: #2e42f7;
 }
 
 .sidebar-nav .nav-link.collapsed {
