@@ -65,7 +65,7 @@ const updateStudent = () => {
           });
     
           if (response.ok) {
-            router.push("/teachers-portal/result-computation");
+            router.push("/teachers-portal/result-computation/termly");
           }
         } catch (error) {
           console.log(error);

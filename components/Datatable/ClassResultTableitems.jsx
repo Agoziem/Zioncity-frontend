@@ -77,7 +77,7 @@ const ClassResultDatatableitems = ({currentItems, loading, setItems}) => {
             currentItems
             .map(item => (
             <tr key={item.id} item={item}>
-                <td className='mx-7 p-2'><Link className='fw-bold' href={`/teachers-portal/result-computation/update-result/?id=${item.id}`}>{item.firstname}</Link></td> 
+                <td className='mx-7 p-2 '>{item.firstname}</td> 
                 <td className='mx-7 p-2'>{item.surname}</td> 
                 <>
                 {

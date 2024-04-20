@@ -5,7 +5,30 @@ import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
 const StudentsContext = createContext();
 
 const StudentsContextProvider = ({ children }) => {
-  const [StudentData, setStudentData] = useState({});
+  const [StudentData, setStudentData] = useState(
+    {
+      "id": 10,
+      "user": {
+        "id": 28,
+        "username": "@EkwunifeChidimma6028"
+      },
+      "studentclass": {
+        "id": 3,
+        "class_": "Jss1C"
+      },
+      "student_school": {
+        "id": 2,
+        "school": "Kings College"
+      },
+      "firstname": "Chidimma",
+      "surname": "Ekwunife",
+      "othername": "",
+      "sex": "Female",
+      "student_id": "smss/6028",
+      "role": "Student",
+      "headshot": null
+    }
+  );
 
   useEffect(() => {
     setStudentData(getDataOrDefault('StudentData', {}));
