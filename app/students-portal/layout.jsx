@@ -8,7 +8,7 @@ import navList from './navitem';
 
 
 
-const studentslayout = ({children}) => {
+const Studentslayout = ({children}) => {
   return (
     <div>
       <Header portalname={'Students Portal'} portallink={'students-portal'} />
@@ -22,4 +22,4 @@ const studentslayout = ({children}) => {
   )
 }
 
-export default studentslayout
+export default Studentslayout

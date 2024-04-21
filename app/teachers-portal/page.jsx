@@ -1,16 +1,11 @@
 'use client';
-import React , {useState,useEffect,useContext } from 'react'
-import Datatable from '@/components/Datatable/Datatable';
-// import useFetchSingle  from '@/hooks/useFetchSingle';
-// import { data } from "@/components/Datatable/Mockdata";
+import React , {useContext } from 'react'
 import PageTitle from '@/components/PageTitle/PageTitle';
 import TeachersDashboard from '@/components/dashboard/Dashboard';
-import { SchoolContext } from '@/data/Schoolcontextdata';
 import { TeacherContext } from '@/data/Teachercontextdata';
 
 
 const TeachersPortal = () => {
-  const { schoolData } = useContext(SchoolContext)
   const { teacherData } = useContext(TeacherContext)
 
 

@@ -8,7 +8,7 @@ import navList from './navitem';
 import { SchoolContextProvider } from '@/data/Schoolcontextdata';
 import { AdminContextProvider } from '@/data/Admincontextdata';
 
-const adminlayout = ({children}) => {
+const Adminlayout = ({children}) => {
   
   return (
     <div>
@@ -27,4 +27,4 @@ const adminlayout = ({children}) => {
   )
 }
 
-export default adminlayout
+export default Adminlayout

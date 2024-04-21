@@ -1,6 +1,6 @@
 import React from 'react'
 
-const accounts = () => {
+const AccountsPage = () => {
   return (
     <div>
       Profile portal
@@ -8,4 +8,4 @@ const accounts = () => {
   )
 }
 
-export default accounts
+export default AccountsPage

@@ -5,7 +5,7 @@ import Main from '@/components/Main/Main';
 import BackToTop from '@/components/backtotopbutton/BackToTop';
 import Footer from '@/components/footer/Footer';
 
-const accountslayout = ({children}) => {
+const Accountslayout = ({children}) => {
   return (
     <div>
       <Header portalname={'Account'} portallink={'account'} />
@@ -19,4 +19,4 @@ const accountslayout = ({children}) => {
   )
 }
 
-export default accountslayout
+export default Accountslayout

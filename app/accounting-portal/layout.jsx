@@ -8,7 +8,7 @@ import navList from './navitem';
 
 
 
-const accountslayout = ({children}) => {
+const Accountinglayout = ({children}) => {
   
   return (
     <div>
@@ -23,4 +23,4 @@ const accountslayout = ({children}) => {
   )
 }
 
-export default accountslayout
+export default Accountinglayout

@@ -4,29 +4,29 @@ import PageTitle from '@/components/PageTitle/PageTitle';
 import Form from '@/components/form/Form';
 import { useRouter } from 'next/navigation';
 
-export async function generateStaticParams() {
-  async function fetchClassIDs() {
-    try {
-      const response = await fetch(`${DJANGO_URL}/adminsapi/classes/`, {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      return data.map(item => item.id);
-    } catch (error) {
-      return [];
-    }
-  }
+// export async function generateStaticParams() {
+//   async function fetchClassIDs() {
+//     try {
+//       const response = await fetch(`${DJANGO_URL}/adminsapi/classes/`, {
+//         method: "GET",
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
+//       const data = await response.json();
+//       return data.map(item => item.id);
+//     } catch (error) {
+//       return [];
+//     }
+//   }
 
-  const classIDs = await fetchClassIDs(); 
-  const paths = classIDs.map(classID => ({
-    params: { classID: classID.toString() }
-  }));
+//   const classIDs = await fetchClassIDs(); 
+//   const paths = classIDs.map(classID => ({
+//     params: { classID: classID.toString() }
+//   }));
 
-  return { paths, fallback: false };
-}
+//   return { paths, fallback: false };
+// }
 
 
 
