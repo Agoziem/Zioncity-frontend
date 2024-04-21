@@ -10,10 +10,11 @@ const updateStudent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const studentID = searchParams.get("id");
+    const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
 
     useEffect(() => {
         const getStudentDetails = async () => {
-          const response = await fetch(`http://127.0.0.1:8000/studentsapi/student/${studentID}/`);
+          const response = await fetch(`${DJANGO_URL}/studentsapi/student/${studentID}/`);
           const data = await response.json();
     
           setStudent({
@@ -35,7 +36,7 @@ const updateStudent = () => {
         if (!studentID) return alert("Missing studentID!");
     
         try {
-          const response = await fetch(`http://127.0.0.1:8000/studentsapi/update/${studentID}/`, {
+          const response = await fetch(`${DJANGO_URL}/studentsapi/update/${studentID}/`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

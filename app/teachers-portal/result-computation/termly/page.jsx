@@ -38,7 +38,7 @@ const Page = () => {
 
   const [loadingterms, setLoadingterms] = useState(false)
   const [loadingresults, setLoadingResults] = useState(false)
-
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
 
 // get the stored credentials from the local storage
 const [storedCredentialValue, setValue] = useLocalStorage('resultcredential', resultcredential)
@@ -97,7 +97,7 @@ useEffect(() => {
       const fetchTerm = async () => {
           setLoadingterms(true);
           try {
-            const response = await fetch(`http://127.0.0.1:8000/adminsapi/terms/`);
+            const response = await fetch(`${DJANGO_URL}/adminsapi/terms/`);
             const termData = await response.json();
             setTerms(termData);
           } catch (error) {
@@ -114,7 +114,7 @@ useEffect(() => {
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/resultapi/getResults/', {
+      const response = await fetch(`${DJANGO_URL}/resultapi/getResults/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ useEffect(() => {
     const itemToUpdate = result.find(item => item.id === itemId);
     const newStatus = !itemToUpdate.is_offering;
     try {
-        const response = await fetch(`http://127.0.0.1:8000/resultapi/updateResult/${itemId}/`, {
+        const response = await fetch(`${DJANGO_URL}/resultapi/updateResult/${itemId}/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ useEffect(() => {
   // 3) Publish the results to the students
   const handlePublishResults = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/resultapi/postResults/', {
+      const response = await fetch(`${DJANGO_URL}/resultapi/postResults/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

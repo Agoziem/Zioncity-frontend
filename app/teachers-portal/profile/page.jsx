@@ -11,12 +11,13 @@ const page = () => {
   const { schoolData } = useContext(SchoolContext);
   const [editMode, setEditMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/teachersapi/update/${teacherData.id}/`, {
+      const res = await fetch(`${DJANGO_URL}/teachersapi/update/${teacherData.id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

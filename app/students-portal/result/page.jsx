@@ -19,6 +19,7 @@ const ResultPage = () => {
 
   const [result, setResults] = useState([]);
   const [loadingresults, setLoadingResults] = useState(false);
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
 
   useEffect(() => {
     if (StudentData) {
@@ -34,7 +35,7 @@ const ResultPage = () => {
   useEffect(() => {
     const fetchTerm = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/adminsapi/terms/`);
+        const response = await fetch(`${DJANGO_URL}/adminsapi/terms/`);
         const termData = await response.json();
         setTerms(termData);
       } catch (error) {
@@ -53,7 +54,7 @@ const ResultPage = () => {
     setLoadingResults(true);
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/resultapi/getsubjectresults/`,
+        `${DJANGO_URL}/resultapi/getsubjectresults/`,
         {
           method: "POST",
           headers: {
@@ -153,76 +154,6 @@ const ResultPage = () => {
             </form>
           </div>
         ) : (
-          //   {
-          //     "id": 80,
-          //     "Student_name": {
-          //         "firstname": "Chinaza",
-          //         "surname": "Ogbuji"
-          //     },
-          //     "Term": {
-          //         "id": 5,
-          //         "term": "1st Term"
-          //     },
-          //     "AcademicSession": {
-          //         "id": 2,
-          //         "session": "2022/2021"
-          //     },
-          //     "TotalScore": "230",
-          //     "Totalnumber": "11",
-          //     "Average": "115",
-          //     "Position": "3rd",
-          //     "Remark": "Excellent",
-          //     "published": true
-          // }
-
-          //   [
-          //     {
-          //         "id": 65,
-          //         "student": "Chinaza",
-          //         "Subject": "English",
-          //         "Term": "1st Term",
-          //         "AcademicSession": "2022/2021",
-          //         "student_class": "Jss1B",
-          //         "student_school": "Kings College",
-          //         "FirstTest": "4",
-          //         "FirstAss": "3",
-          //         "MidTermTest": "5",
-          //         "Project": "2",
-          //         "SecondAss": "4",
-          //         "SecondTest": "5",
-          //         "CA": "23",
-          //         "Exam": "76",
-          //         "Total": "122",
-          //         "Grade": "A",
-          //         "SubjectPosition": "1st",
-          //         "Remark": "Excellent",
-          //         "is_offering": true,
-          //         "published": true
-          //     },
-          //     {
-          //         "id": 101,
-          //         "student": "Chinaza",
-          //         "Subject": "Igbo Language",
-          //         "Term": "1st Term",
-          //         "AcademicSession": "2022/2021",
-          //         "student_class": "Jss1B",
-          //         "student_school": "Kings College",
-          //         "FirstTest": "3",
-          //         "FirstAss": "5",
-          //         "MidTermTest": "8",
-          //         "Project": "4",
-          //         "SecondAss": "4",
-          //         "SecondTest": "3",
-          //         "CA": "27",
-          //         "Exam": "56",
-          //         "Total": "110",
-          //         "Grade": "A",
-          //         "SubjectPosition": "3rd",
-          //         "Remark": "Excellent",
-          //         "is_offering": true,
-          //         "published": true
-          //     }
-          // ]
           result &&
           Object.keys(result).length > 0 && (
             <div>

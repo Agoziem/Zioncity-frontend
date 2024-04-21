@@ -32,6 +32,7 @@ const Page = () => {
 
   const [loadingterms, setLoadingterms] = useState(false)
   const [loadingresults, setLoadingResults] = useState(false)
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
   
 
   // Fetch the terms for the school
@@ -39,7 +40,7 @@ const Page = () => {
     const fetchTerm = async () => {
         setLoadingterms(true);
         try {
-          const response = await fetch(`http://127.0.0.1:8000/adminsapi/terms/`);
+          const response = await fetch(`${DJANGO_URL}/adminsapi/terms/`);
           const termData = await response.json();
           setTerms(termData);
         } catch (error) {
@@ -110,7 +111,7 @@ const Page = () => {
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/resultapi/getResultSummaries/', {
+      const response = await fetch(`${DJANGO_URL}/resultapi/getResultSummaries/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +140,7 @@ const Page = () => {
   // 3) Publish the results to the students
   const handlePublishResults = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/resultapi/postResultSummaries/', {
+      const response = await fetch(`${DJANGO_URL}/resultapi/postResultSummaries/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

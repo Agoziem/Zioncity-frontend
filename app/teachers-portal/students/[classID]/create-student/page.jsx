@@ -9,7 +9,7 @@ const createStudent = ({ params }) => {
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
     const classID = params.classID;
-  
+    const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ const createStudent = ({ params }) => {
         console.log(student);
 
         try {
-          const response = await fetch(`http://127.0.0.1:8000/studentsapi/create/2/${classID}/`, {
+          const response = await fetch(`${DJANGO_URL}/studentsapi/create/2/${classID}/`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',

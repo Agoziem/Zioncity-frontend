@@ -20,7 +20,7 @@ const Page = () => {
   const [modal, setModal] = useState(false);
   const [deleting, setDeleting] = useState(false)
   const [studenttodelete, setStudenttodelete] = useState({studentID:'', studentName:''})
-  
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
 
   let classID;
   let schoolID;
@@ -40,7 +40,7 @@ const Page = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://127.0.0.1:8000/studentsapi/${schoolID}/${classID}/`)
+            const response = await fetch(`${DJANGO_URL}/studentsapi/${schoolID}/${classID}/`)
             const jsonData = await response.json();
             setStudent(jsonData);
         } catch (error) {
@@ -68,7 +68,7 @@ const Page = () => {
     setDeleting(true);
     console.log(id);
     try {
-        const response = await fetch(`http://127.0.0.1:8000/studentsapi/delete/${id}/`,{
+        const response = await fetch(`${DJANGO_URL}/studentsapi/delete/${id}/`,{
           method: "DELETE",
         });
         if (response.ok) {
