@@ -79,10 +79,6 @@ const SchoolContextProvider = ({ children }) => {
     }
   }, [storedschoolData]);
 
-  useEffect(() => {
-    setStoredSchoolData('schoolData', schoolData);
-  }, [schoolData]);
-
 
   return (
     <SchoolContext.Provider value={{ schoolData, setSchoolData }}>

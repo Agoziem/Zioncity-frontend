@@ -15,10 +15,6 @@ const UserContextProvider = ({ children }) => {
     }
   }, [storedUserData])
 
-  useEffect(() => {
-    setStoredUserData('userData', userData);
-  }, [userData]);
-
   // Step 4: Provide the context value to children components
   return (
     <UserContext.Provider value={{ userData, setUserData }}>

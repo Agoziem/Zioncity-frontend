@@ -16,12 +16,6 @@ const AdminContextProvider = ({ children }) => {
     }
   },[storedAdminData])
 
-
-  useEffect(() => {
-    setStoredAdminData('adminData', adminData);
-  }, [adminData]);
-  
-
   return (
     <AdminContext.Provider value={{ adminData, setAdminData }}>
       {children}

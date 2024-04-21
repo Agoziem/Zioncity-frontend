@@ -68,10 +68,6 @@ const TeacherContextProvider = ({ children }) => {
     }
   }, [storedTeacherData])
 
-  useEffect(() => {
-    setStoredTeacherData('teacherData', teacherData);
-  }, [teacherData]);
-
   
 
   // Step 4: Provide the context value to children components

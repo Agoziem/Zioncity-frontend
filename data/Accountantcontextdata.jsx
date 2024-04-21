@@ -15,9 +15,6 @@ const AccountantContextProvider = ({ children }) => {
     }
  },[storedAccountantData])
 
-    useEffect(() => {
-      setStoredAccountantData('accountantData', accountantData);
-    }, [accountantData]);
 
   // Step 4: Provide the context value to children components
   return (
