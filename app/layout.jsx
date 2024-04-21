@@ -1,6 +1,5 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Provider from "../utils/Provider";
 import BootstrapJs from "@/components/BootstrapJs";
 import "./global.css";
 import { SchoolContextProvider } from "@/data/Schoolcontextdata";
@@ -24,7 +23,7 @@ const Rootlayout = ({ children }) => {
             <StudentsContextProvider>
               <AdminContextProvider>
                 <AccountantContextProvider>
-                  <Provider>{children}</Provider>
+                  {children}
                 </AccountantContextProvider>
               </AdminContextProvider>
             </StudentsContextProvider>
