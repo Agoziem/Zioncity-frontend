@@ -9,7 +9,7 @@ import { SchoolContext } from '@/data/Schoolcontextdata';
 import { TeacherContext } from '@/data/Teachercontextdata';
 
 
-const teachersportal = () => {
+const TeachersPortal = () => {
   const { schoolData } = useContext(SchoolContext)
   const { teacherData } = useContext(TeacherContext)
 
@@ -27,4 +27,4 @@ const teachersportal = () => {
   )
 }
 
-export default teachersportal
+export default TeachersPortal

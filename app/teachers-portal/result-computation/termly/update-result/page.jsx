@@ -5,7 +5,7 @@ import PageTitle from '@/components/PageTitle/PageTitle';
 import Resultform from '@/components/form/Resultform';
 
 
-const updateStudent = () => {
+const UpdateStudent = () => {
     const [studentresult, setStudentResult] = useState({ 
       FirstTest: '', 
       FirstAss : '', 
@@ -89,4 +89,4 @@ const updateStudent = () => {
   )
 }
 
-export default updateStudent
+export default UpdateStudent

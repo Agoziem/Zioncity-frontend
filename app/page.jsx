@@ -12,7 +12,7 @@ const Home = () => {
           <span className='text-danger text-center'> ed-impact Software </span>
           </h1>
           <p className='text-center'>
-          edimpact is a Software for School management, including portal for students, teachers and management. It also includes a platform for online learning, payment and exams.'
+          edimpact is a Software for School management, including portal for students, teachers and management. It also includes a platform for online learning, payment and exams.
         </p>
       </section>
     </>

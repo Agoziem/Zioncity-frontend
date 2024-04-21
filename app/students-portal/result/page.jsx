@@ -2,6 +2,7 @@
 import PageTitle from "@/components/PageTitle/PageTitle";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 import { StudentsContext } from "@/data/Studentcontextdata";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { useContext, useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -20,16 +21,23 @@ const ResultPage = () => {
   const [result, setResults] = useState([]);
   const [loadingresults, setLoadingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
+  const [ storedresultdetails, setStoredResultDetails ] = useLocalStorage("resultdetails", {});
 
   useEffect(() => {
     if (StudentData) {
-      console.log(StudentData);
       setResultDetails({
         ...resultdetails,
         student_id: StudentData.id,
       });
     }
   }, [StudentData]);
+
+  useEffect(() => {
+    if (storedresultdetails) {
+      setResultDetails(storedresultdetails);
+    }
+  }, [storedresultdetails]);
+
 
   // Fetch the terms for the school
   useEffect(() => {
@@ -47,6 +55,7 @@ const ResultPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setStoredResultDetails(resultdetails);
     fetchResults();
   };
 
@@ -91,6 +100,7 @@ const ResultPage = () => {
                 <select
                   className="form-select"
                   id="AcademicSession"
+                  value={resultdetails.session_id}
                   onChange={(e) => {
                     setResultDetails({
                       ...resultdetails,
@@ -113,6 +123,7 @@ const ResultPage = () => {
                 <select
                   className="form-select"
                   id="Term"
+                  value={resultdetails.term_id}
                   onChange={(e) => {
                     setResultDetails({
                       ...resultdetails,
@@ -136,6 +147,8 @@ const ResultPage = () => {
                   type="text"
                   className="form-control"
                   id="student_pin"
+                  placeholder="Enter your result pin"
+                  value={resultdetails.student_pin}
                   onChange={(e) => {
                     setResultDetails({
                       ...resultdetails,

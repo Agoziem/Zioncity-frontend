@@ -6,7 +6,7 @@ import { TeacherContext } from "@/data/Teachercontextdata";
 import ProfileEditForm from "@/components/TeachersdetailsCard/ProfileEditForm";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 
-const page = () => {
+const ProfilePage = () => {
   const { teacherData, setTeacherData } = useContext(TeacherContext);
   const { schoolData } = useContext(SchoolContext);
   const [editMode, setEditMode] = useState(false);
@@ -56,4 +56,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;

@@ -2,6 +2,7 @@
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-const nextConfig = {};
+const nextConfig = {
+};
 
 export default nextConfig;

@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { AccountantContext } from '@/data/Accountantcontextdata';
 import { SchoolContext } from '@/data/Schoolcontextdata';
 
-const accountingportal = () => {
+const AccountingPortal = () => {
   const { schoolData } = useContext(SchoolContext)
   const { accountantData } = useContext(AccountantContext);
   return (
@@ -11,4 +11,4 @@ const accountingportal = () => {
   )
 }
 
-export default accountingportal
+export default AccountingPortal

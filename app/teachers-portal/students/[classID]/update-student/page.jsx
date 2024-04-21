@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import PageTitle from '@/components/PageTitle/PageTitle';
 import Form from '@/components/form/Form';
 
-const updateStudent = () => {
+const UpdateStudent = () => {
     const [student, setStudent] = useState({ firstname: '', surname : '', sex : '' });
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
@@ -73,4 +73,4 @@ const updateStudent = () => {
   )
 }
 
-export default updateStudent
+export default UpdateStudent

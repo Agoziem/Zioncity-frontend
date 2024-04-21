@@ -5,7 +5,7 @@ import { SchoolContext } from "@/data/Schoolcontextdata";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import StudentCards from "@/components/Cards/StudentCards";
 
-const page = () => {
+const StudentPage = () => {
   const { schoolData } = useContext(SchoolContext);
   const { StudentData } = useContext(StudentsContext);
 
@@ -20,4 +20,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default StudentPage;

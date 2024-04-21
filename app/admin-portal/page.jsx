@@ -3,7 +3,7 @@ import React,{useContext} from 'react';
 import { AdminContext } from '@/data/Admincontextdata';
 import { SchoolContext } from '@/data/Schoolcontextdata';
 
-const adminportal = () => {
+const AdminPortal = () => {
   const { schoolData } = useContext(SchoolContext)
   const { adminData } = useContext(AdminContext);
 
@@ -14,4 +14,4 @@ const adminportal = () => {
   )
 }
 
-export default adminportal
+export default AdminPortal
