@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useEffect, useState } from 'react';
-import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 const StudentsContext = createContext();
 
@@ -30,12 +30,17 @@ const StudentsContextProvider = ({ children }) => {
     }
   );
 
-  useEffect(() => {
-    setStudentData(getDataOrDefault('StudentData', {}));
-  }, []);
+
+  const [storedStudentData, setStoredStudentData] = useLocalStorage('StudentData', StudentData)
 
   useEffect(() => {
-    storeData('StudentData', StudentData);
+    if (storedStudentData) {
+      setStudentData(storedStudentData)
+    }
+  }, [storedStudentData])
+
+  useEffect(() => {
+    setStoredStudentData('StudentData', StudentData);
   }, [StudentData]);
 
 

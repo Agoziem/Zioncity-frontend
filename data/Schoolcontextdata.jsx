@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useEffect, useState } from 'react';
-import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
+import useLocalStorage from '@/hooks/useLocalStorage';
 const SchoolContext = createContext();
 
 const SchoolContextProvider = ({ children }) => {
@@ -71,12 +71,16 @@ const SchoolContextProvider = ({ children }) => {
     "Whatsapplink": ""
   });
 
-  useEffect(() => {
-    setSchoolData(getDataOrDefault('schoolData', {}));
-  }, []);
+  const [storedschoolData, setStoredSchoolData] = useLocalStorage('schoolData', schoolData)
 
   useEffect(() => {
-    storeData('schoolData', schoolData);
+    if(storedschoolData){
+      setSchoolData(storedschoolData)
+    }
+  }, [storedschoolData]);
+
+  useEffect(() => {
+    setStoredSchoolData('schoolData', schoolData);
   }, [schoolData]);
 
 

@@ -1,20 +1,22 @@
 "use client";
 import React, { createContext, useEffect, useState } from 'react';
-import { getDataOrDefault,storeData } from '@/utils/Localstoragehandler';
-
+import useLocalStorage from '@/hooks/useLocalStorage';
 const AccountantContext = createContext();
 
 const AccountantContextProvider = ({ children }) => {
   const [accountantData, setaccountantData] = useState({});
-  const [updateddata, setUpdateddata] = useState({});
 
-  useEffect(() => {
-    setaccountantData(getDataOrDefault('accountantData', {}));
-  }, []);
-  
+
+ const [storedAccountantData, setStoredAccountantData] = useLocalStorage('accountantData', accountantData)
+ 
+ useEffect(() => {
+    if(storedAccountantData){
+      setaccountantData(storedAccountantData)
+    }
+ },[storedAccountantData])
 
     useEffect(() => {
-      storeData('accountantData', accountantData);
+      setStoredAccountantData('accountantData', accountantData);
     }, [accountantData]);
 
   // Step 4: Provide the context value to children components

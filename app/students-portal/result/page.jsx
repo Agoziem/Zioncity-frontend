@@ -59,6 +59,7 @@ const ResultPage = () => {
     fetchResults();
   };
 
+  // fetch the Student Result
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
@@ -82,6 +83,18 @@ const ResultPage = () => {
       console.error("Error fetching data:", error);
     } finally {
       setLoadingResults(false);
+    }
+  };
+
+  const getColorClass = (remark) => {
+    if (remark === 'Excellent') {
+      return 'text-success'; 
+    } else if(remark === 'Good' ) {
+      return 'text-warning';
+    } else if (remark === 'Pass'){
+        return 'text-secondary'; 
+    } else {
+        return 'text-danger';
     }
   };
 
@@ -172,7 +185,7 @@ const ResultPage = () => {
             <div>
               <h4 className="mb-4">Your Result</h4>
               <div className="card p-5">
-                <div className="row align-items-center justify-content-between ">
+                <div className="row align-items-center">
                   <div className="col-lg-2">
                     {StudentData.headshot ? (
                       <img
@@ -194,45 +207,45 @@ const ResultPage = () => {
                     )}
                   </div>
                   <div className="col-6 col-md-3">
-                    <p>
+                    <p className="mb-1">
                       <strong>Firstname: </strong>
                       {result.resultsummary.Student_name.firstname}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Surname: </strong>
                       {result.resultsummary.Student_name.surname}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Class: </strong>
                       {StudentData.studentclass.class_}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Session: </strong>
                       {result.resultsummary.AcademicSession.session}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Term: </strong>
                       {result.resultsummary.Term.term}
                     </p>
                   </div>
                   <div className="col-6 col-md-3">
-                    <p>
+                    <p className="mb-1">
                       <strong>Total Score: </strong>
                       {result.resultsummary.TotalScore}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Total Number: </strong>
                       {result.resultsummary.Totalnumber}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Average: </strong>
                       {result.resultsummary.Average}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Position: </strong>
                       {result.resultsummary.Position}
                     </p>
-                    <p>
+                    <p className="mb-1">
                       <strong>Remark: </strong>
                       {result.resultsummary.Remark}
                     </p>
@@ -274,7 +287,7 @@ const ResultPage = () => {
                         <td>{subject.Total}</td>
                         <td>{subject.Grade}</td>
                         <td>{subject.SubjectPosition}</td>
-                        <td>{subject.Remark}</td>
+                        <td className={`${getColorClass(subject.Remark)} fw-bold `}>{subject.Remark}</td>
                       </tr>
                     ))}
                   </tbody>

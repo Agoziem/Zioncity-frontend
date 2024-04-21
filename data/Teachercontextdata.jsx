@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useEffect, useState } from 'react';
-import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
+import useLocalStorage from '@/hooks/useLocalStorage';
+
 const TeacherContext = createContext();
 
 const TeacherContextProvider = ({ children }) => {
@@ -58,13 +59,17 @@ const TeacherContextProvider = ({ children }) => {
     "address": "No 2, Ojike Street, Awka, Anambra State",
   });
 
-  useEffect(() => {
-    const teacherData = getDataOrDefault('teacherData', {});
-    setTeacherData(teacherData);
-  }, []);
+
+  const [storedTeacherData, setStoredTeacherData] = useLocalStorage('teacherData', teacherData)
 
   useEffect(() => {
-    storeData('teacherData', teacherData);
+    if (storedTeacherData) {
+      setTeacherData(storedTeacherData)
+    }
+  }, [storedTeacherData])
+
+  useEffect(() => {
+    setStoredTeacherData('teacherData', teacherData);
   }, [teacherData]);
 
   

@@ -185,7 +185,7 @@
 
 /* text */
 .body .text-primary{
-  color: #4154f1;
+  color: #012970;
 }
 
 /* Card */
@@ -380,4 +380,8 @@
   border-radius: 5px;
   color: #3e4f6f;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.body table thead th {
+  color: #012970;
 }

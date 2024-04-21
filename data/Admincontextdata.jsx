@@ -1,17 +1,24 @@
 "use client";
 import React, { createContext, useEffect, useState } from 'react';
-import { getDataOrDefault, storeData } from '@/utils/Localstoragehandler';
+import useLocalStorage from '@/hooks/useLocalStorage';
+
 const AdminContext = createContext();
 
 const AdminContextProvider = ({ children }) => {
   const [adminData, setAdminData] = useState({});
 
-  useEffect(() => {
-    setAdminData(getDataOrDefault('adminData', {}));
-  }, []);
+  
+  const [storedAdminData, setStoredAdminData] = useLocalStorage('adminData', adminData)
 
   useEffect(() => {
-    storeData('adminData', adminData);
+    if(storedAdminData){
+      setAdminData(storedAdminData)
+    }
+  },[storedAdminData])
+
+
+  useEffect(() => {
+    setStoredAdminData('adminData', adminData);
   }, [adminData]);
   
 
