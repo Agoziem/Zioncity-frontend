@@ -1,9 +1,12 @@
+import PageTitle from '@/components/PageTitle/PageTitle'
 import React from 'react'
 
-const cbtpage = () => {
+const CbtPage = () => {
   return (
-    <div>cbt</div>
+    <div>
+      <PageTitle pathname={"CBT Portal"} />
+    </div>
   )
 }
 
-export default cbtpage
+export default CbtPage

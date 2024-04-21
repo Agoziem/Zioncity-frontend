@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import { FaUserCircle } from "react-icons/fa";
 
 function NavAvatar() {
   const currentUser = useCurrentUser();
@@ -13,18 +14,18 @@ function NavAvatar() {
         href="#"
         data-bs-toggle="dropdown"
       >
-        <img
-          src={`${
-            currentUser && currentUser.headshot
-              ? `${currentUser.headshot}`
-              : "/images/user.jpg"
-          }`}
-          alt="Profile"
-          width={35}
-          height={35}
-          className="rounded-circle object-fit-cover"
-          style={{ objectPosition: "top center" }}
-        />
+        {currentUser && currentUser.headshot ? (
+          <img
+            src={`${currentUser.headshot}`}
+            alt="Profile"
+            width={35}
+            height={35}
+            className="rounded-circle object-fit-cover"
+            style={{ objectPosition: "top center" }}
+          />
+        ) : (
+          <FaUserCircle className="text-muted" style={{ fontSize: "35px" }} />
+        )}
         <span className="d-none d-md-block dropdown-toggle ps-2">
           {(currentUser && currentUser.firstname) ||
             (currentUser && currentUser.firstName) ||

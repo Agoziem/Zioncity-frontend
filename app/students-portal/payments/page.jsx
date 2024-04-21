@@ -1,9 +1,12 @@
+import PageTitle from '@/components/PageTitle/PageTitle'
 import React from 'react'
 
-const paymentpage = () => {
+const PaymentPage = () => {
   return (
-    <div>payment</div>
+    <div>
+      <PageTitle pathname={"Payment Portal"} />
+    </div>
   )
 }
 
-export default paymentpage
+export default PaymentPage
