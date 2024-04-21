@@ -7,24 +7,24 @@ const StudentsContext = createContext();
 const StudentsContextProvider = ({ children }) => {
   const [StudentData, setStudentData] = useState(
     {
-      "id": 10,
+      "id": 13,
       "user": {
-        "id": 28,
-        "username": "@EkwunifeChidimma6028"
+        "id": 31,
+        "username": "@OgbujiChinaza7588"
       },
       "studentclass": {
-        "id": 3,
-        "class_": "Jss1C"
+        "id": 2,
+        "class_": "Jss1B"
       },
       "student_school": {
         "id": 2,
         "school": "Kings College"
       },
-      "firstname": "Chidimma",
-      "surname": "Ekwunife",
+      "firstname": "Chinaza",
+      "surname": "Ogbuji",
       "othername": "",
       "sex": "Female",
-      "student_id": "smss/6028",
+      "student_id": "smss/7588",
       "role": "Student",
       "headshot": null
     }

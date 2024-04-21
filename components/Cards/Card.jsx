@@ -4,9 +4,9 @@ import './card.css';
 
 function Card({ cardtitle,cardbody,icon }) {
   const [filter, setFilter] = useState('Today');
-  const handleFilterChange = filter => {
-    setFilter(filter);
-  };
+  // const handleFilterChange = filter => {
+  //   setFilter(filter);
+  // };
 
   return (
     <div className="col-xxl-4 col-md-6">
@@ -14,6 +14,8 @@ function Card({ cardtitle,cardbody,icon }) {
           ${
             cardtitle === "classes taught" ? "classes" :
             cardtitle === "Subjects taught" ? "subjects" :
+            cardtitle === "School classes" ? "classes" :
+            cardtitle === "School Subjects" ? "subjects" :
             "Form-teacher"
         }`}>
         <div className="card-body">
@@ -33,6 +35,9 @@ function Card({ cardtitle,cardbody,icon }) {
                 {
                   cardtitle === "classes taught" ? "classes" :
                   cardtitle === "Subjects taught" ? "subjects" :
+                  cardtitle === "School classes" ? "classes" :
+                  cardtitle === "School Subjects" ? "Subjects" :
+                  cardtitle === "Student Class" ? "Student Class" :
                   "Form teacher"
                 }
               </span>

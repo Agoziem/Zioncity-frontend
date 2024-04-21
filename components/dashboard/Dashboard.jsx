@@ -2,7 +2,7 @@
 import React from 'react';
 import './dashboard.css';
 
-import Cards from '../TeachersdetailsCard/Cards';
+import Cards from '../Cards/Cards';
 import Reports from './Sections/ReportchartsSection/Reports';
 // import RecentSales from './Sections/RecentsalesSection/RecentSales';
 // import TopSelling from './Sections/TopsellingSection/TopSelling';
@@ -11,13 +11,13 @@ import RecentActivity from './Sections/RecentactionsSections/RecentActivity';
 // import WebTraffic from './Sections/WebtrafficSection/WebTraffic';
 // import News from './Sections/Newsection/News';
 
-function TeachersDashboard() {
+function TeachersDashboard({ teacherData}) {
   return (
     <section className="section dashboard">
       <div className="row">
         <div className="col-lg-8">
           <div className="row">
-            <Cards />
+            <Cards data={teacherData} />
             <div className="col-12">
               <Reports />
             </div>

@@ -17,7 +17,11 @@ const teachersportal = () => {
   return (
     <>
       <PageTitle pathname={'Dashboard'} />
-      <TeachersDashboard />
+      {/* pass the teacherData from here */}
+      <div className="mb-4">
+        <h4>Welcome, {teacherData.firstName}</h4>
+      </div>
+      <TeachersDashboard teacherData={teacherData} />
 
     </>
   )

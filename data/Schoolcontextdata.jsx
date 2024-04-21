@@ -9,11 +9,23 @@ const SchoolContextProvider = ({ children }) => {
     "sessions": [
       {
         "id": 2,
-        "session": "2022/2021"
+        "session": "2022/2021",
+        "terms": [
+          {
+            "id": 3,
+            "term": "2nd Term"
+          }
+        ]
       },
       {
         "id": 3,
-        "session": "2023/2024"
+        "session": "2023/2024",
+        "terms": [
+          {
+            "id": 3,
+            "term": "2nd Term"
+          }
+        ]
       }
     ],
     "classes": [

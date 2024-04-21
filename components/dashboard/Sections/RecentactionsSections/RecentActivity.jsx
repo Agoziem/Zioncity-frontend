@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CardFilter from '../../../TeachersdetailsCard/CardFilter';
+import CardFilter from '../../../Cards/CardFilter';
 import './recentActivity.css';
 import RecentActivityItem from './RecentActivityItem';
 

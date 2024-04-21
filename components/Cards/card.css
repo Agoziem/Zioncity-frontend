@@ -1,9 +1,9 @@
 /* Info Cards */
-.dashboard .info-card {
+.body .info-card {
   padding-bottom: 10px;
 }
 
-.dashboard .info-card h6 {
+.body .info-card h6 {
   font-size: 28px;
   color: #012970;
   font-weight: 700;
@@ -11,7 +11,7 @@
   padding: 0;
 }
 
-.dashboard .card-icon {
+.body .card-icon {
   font-size: 32px;
   line-height: 0;
   width: 64px;
@@ -20,17 +20,17 @@
   flex-grow: 0;
 }
 
-.dashboard .classes .card-icon {
+.body .classes .card-icon {
   color: #4154f1;
   background: #f6f6fe;
 }
 
-.dashboard .subjects .card-icon {
+.body .subjects .card-icon {
   color: #2eca6a;
   background: #e0f8e9;
 }
 
-.dashboard .Form-teacher .card-icon {
+.body .Form-teacher .card-icon {
   color: #ff771d;
   background: #ffecdf;
 }
