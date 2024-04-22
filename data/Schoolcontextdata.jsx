@@ -4,84 +4,22 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 const SchoolContext = createContext();
 
 const SchoolContextProvider = ({ children }) => {
-  const [schoolData, setSchoolData] = useState({
-    "id": 2,
-    "sessions": [
-      {
-        "id": 2,
-        "session": "2022/2021",
-        "terms": [
-          {
-            "id": 3,
-            "term": "2nd Term"
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "session": "2023/2024",
-        "terms": [
-          {
-            "id": 3,
-            "term": "2nd Term"
-          }
-        ]
-      }
-    ],
-    "classes": [
-      {
-        "id": 1,
-        "class": "Jss1A"
-      },
-      {
-        "id": 2,
-        "class": "Jss1B"
-      },
-      {
-        "id": 3,
-        "class": "Jss1C"
-      }
-    ],
-    "subjects": [
-      {
-        "id": 1,
-        "subject": "Mathematics"
-      },
-      {
-        "id": 2,
-        "subject": "English"
-      },
-      {
-        "id": 3,
-        "subject": "Igbo Language"
-      },
-      {
-        "id": 4,
-        "subject": "Agriculture"
-      }
-    ],
-    "Schoollogo": null,
-    "Schoolname": "Kings College",
-    "Schoolofficialline": "08012345678",
-    "Schoolmotto": "Education for all",
-    "Schoollocation": "Lagos",
-    "Emailaddress": "kingscollege@gmail.com",
-    "Facebookpage": "kingscollege",
-    "Twitterhandle": "kingscollege",
-    "Whatsapplink": ""
-  });
-
-  const [storedschoolData, setStoredSchoolData] = useLocalStorage('schoolData', schoolData)
+  const [schoolID,setSchoolID] = useState(2)
+  const [schoolData, setSchoolData] = useState({});
 
   useEffect(() => {
-    if(storedschoolData){
-      setSchoolData(storedschoolData)
+    if(schoolID){
+      fetch(`${process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL}/adminsapi/schools/${schoolID}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSchoolData(data);
+      });
     }
-  }, [storedschoolData]);
+  }, [schoolID]);
 
 
   return (
-    <SchoolContext.Provider value={{ schoolData, setSchoolData }}>
+    <SchoolContext.Provider value={{ schoolData, setSchoolData,setSchoolID }}>
       {children}
     </SchoolContext.Provider>
   );

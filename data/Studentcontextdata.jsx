@@ -5,30 +5,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 const StudentsContext = createContext();
 
 const StudentsContextProvider = ({ children }) => {
-  const [StudentData, setStudentData] = useState(
-    {
-      "id": 13,
-      "user": {
-        "id": 31,
-        "username": "@OgbujiChinaza7588"
-      },
-      "studentclass": {
-        "id": 2,
-        "class_": "Jss1B"
-      },
-      "student_school": {
-        "id": 2,
-        "school": "Kings College"
-      },
-      "firstname": "Chinaza",
-      "surname": "Ogbuji",
-      "othername": "",
-      "sex": "Female",
-      "student_id": "smss/7588",
-      "role": "Student",
-      "headshot": null
-    }
-  );
+  const [StudentData, setStudentData] = useState({});
 
 
   const [storedStudentData, setStoredStudentData] = useLocalStorage('StudentData', StudentData)

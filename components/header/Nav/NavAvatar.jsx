@@ -3,10 +3,16 @@
 import Link from "next/link";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { FaUserCircle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 function NavAvatar() {
   const currentUser = useCurrentUser();
+  const router = useRouter();
 
+  const logoutDashboard = () => {
+    localStorage.clear();
+    router.push("/");
+  };
   return (
     <li className="nav-item dropdown pe-3">
       <a
@@ -96,10 +102,12 @@ function NavAvatar() {
         </li>
 
         <li>
-          <a className="dropdown-item d-flex align-items-center" href="#">
+          <Link className="dropdown-item d-flex align-items-center" href="/#"
+          { ...({onClick: (e) => { e.preventDefault(); logoutDashboard(); }})}
+          >
             <i className="bi bi-box-arrow-right"></i>
             <span>Sign Out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </li>

@@ -2,78 +2,74 @@ const navList = [
   {
     Teacher : [
       {
-        _id: 0,
+        _id: 1,
         name: 'Dashboard',
         icon: 'bi bi-speedometer2',
-        link: '/teachers-portal',
+        link: '/admin-portal',
       },
       {
         _id: 2,
-        name: 'Result Computation',
+        name: 'Results',
         icon: 'bi bi-journal-text',
-        link: '/teachers-portal/result-computation',
+        link: '/admin-portal/results',
       },
       {
         _id: 3,
-        name: 'elibrary',
-        icon: 'bi bi-collection',
-        link: '/teachers-portal/e-library',
+        name: 'Payments',
+        icon: 'bi bi-credit-card',
+        link: '/admin-portal/payments',
       },
       {
         _id: 4,
-        name: 'EduGPT',
-        icon: 'bi bi-gem',
-        link: '/teachers-portal/EduGPT',
+        name: 'e-learning',
+        icon: 'bi bi-mortarboard',
+        link: '/admin-portal/e-learning',
       },
       {
         _id: 5,
-        name: 'CBT Questions',
-        icon: 'bi bi-question-circle',
-        link: '/teachers-portal/cbt-questions',
+        name: 'students',
+        icon: 'bi bi-people-fill',
+        link: '/admin-portal/students',
       },
-      {
-        _id: 5,
-        name: 'Chat Room',
-        icon: 'bi bi-wechat',
-        link: '/teachers-portal/chat-room',
-      },
-    ],
-  },
-  {
-    Formteacher:[
       {
         _id: 6,
-        name: 'Students',
-        icon: 'bi bi-people',
-        link: '/teachers-portal/students',
+        name: 'Attendance',
+        icon: 'bi bi-calendar2-check',
+        link: '/admin-portal/attendance',
       },
       {
         _id: 7,
-        name: 'Students result',
-        icon: 'bi bi-hdd-stack',
-        link: '/teachers-portal/students-result',
+        name: 'Admissions',
+        icon: 'bi bi-door-open-fill',
+        link: '/admin-portal/admissions',
       },
       {
         _id: 8,
-        name: 'Attendance',
-        icon: 'bi bi-calendar2-check',
-        link: '/teachers-portal/attendance',
+        name: 'teachers',
+        icon: 'bi bi-people',
+        link: '/admin-portal/teachers',
       },
       {
         _id: 9,
-        name: 'profile',
-        icon: 'bi bi-person-circle',
-        link: '/teachers-portal/profile',
+        name: 'CBT Questions',
+        icon: 'bi bi-laptop',
+        link: '/admin-portal/cbt-questions',
       },
       {
         _id: 10,
-        name: 'logout',
-        icon: 'bi bi-box-arrow-in-right',
-        link: '#',
-      }
-    ]
-  }
-  
+        name: 'Profile',
+        icon: 'bi bi-person-circle',
+        link: '/admin-portal/profile',
+      },
+      {
+          _id: 11,
+          name: 'logout',
+          icon: 'bi bi-box-arrow-in-right',
+          link: '#',
+        },
+    ],
+  },
+ 
 ];
 
 export default navList;

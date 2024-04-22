@@ -2,10 +2,16 @@
 import React from "react";
 import "./sideBar.css";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 function SideBar({ navList }) {
   const paths = usePathname();
+  const router = useRouter();
+
+  const logoutDashboard = () => {
+    localStorage.clear();
+    router.push("/");
+  };
 
   return (
     <aside id="sidebar" className="sidebar">
@@ -13,7 +19,7 @@ function SideBar({ navList }) {
         {navList[0].Teacher.map((navGroup) => (
           <li className="nav-item" key={navGroup._id}>
             <Link
-              className={`nav-link ${paths === navGroup.link && 'active' } ${
+              className={`nav-link ${paths === navGroup.link && "active"} ${
                 navGroup.content && navGroup.content.length > 0
                   ? "collapsed"
                   : ""
@@ -25,6 +31,7 @@ function SideBar({ navList }) {
                   : ""
               }
               data-bs-target={`#${navGroup.name}`}
+              {...(navGroup.name === "logout" && { onClick: (e) => { e.preventDefault(); logoutDashboard(); } })}
             >
               <i className={navGroup.icon}></i>
               <span>{navGroup.name}</span>
@@ -40,7 +47,12 @@ function SideBar({ navList }) {
               >
                 {navGroup.content.map((subNav) => (
                   <li key={subNav._id}>
-                    <Link className={`nav-link ${paths === subNav.link && 'active' }`}href={subNav.link}>
+                    <Link
+                      className={`nav-link ${
+                        paths === subNav.link && "active"
+                      }`}
+                      href={subNav.link}
+                    >
                       <i className={subNav.icon}></i>
                       <span>{subNav.name}</span>
                     </Link>
