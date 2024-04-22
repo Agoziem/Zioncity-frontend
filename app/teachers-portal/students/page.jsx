@@ -33,8 +33,6 @@ const Page = () => {
       className = teacherData.classFormed.name
     }
 
-    console.log(classID,schoolID)
-
   // fetch the students on page load & when the ids change
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +64,6 @@ const Page = () => {
   // Delete Student Function
   const handleDelete = async (id) => {
     setDeleting(true);
-    console.log(id);
     try {
         const response = await fetch(`${DJANGO_URL}/studentsapi/delete/${id}/`,{
           method: "DELETE",
@@ -94,7 +91,7 @@ const Page = () => {
             <div className='col-5 d-flex flex-column align-items-end justify-content-center'>
               <Link style={{ fontWeight:500 }} 
               type="button" 
-              class="btn btn-primary px-5 me-3"
+              className="btn btn-primary px-5 me-3"
               href={`/teachers-portal/students/${classID}/create-student`}
               ><FaPlus className='me-2 mb-1' /> Add Student</Link>
             </div>

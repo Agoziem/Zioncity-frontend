@@ -4,13 +4,13 @@ import { FaTimes } from "react-icons/fa";
 import './modal.css';
 
 const Modal = ({ children,modal,toggleModal}) => {
-  
-  
-    if(modal) {
-      document.body.classList.add('active-modal')
+  if (typeof document !== 'undefined') {
+    if (modal) {
+      document.body.classList.add('active-modal');
     } else {
-      document.body.classList.remove('active-modal')
+      document.body.classList.remove('active-modal');
     }
+  }
   
 
     return (
