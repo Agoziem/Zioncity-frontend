@@ -1,0 +1,50 @@
+.body .student_card_container{
+    width: 877px;
+    height: 1240px;
+    background-color: rgb(235, 235, 235);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    grid-auto-rows: 153.85px;
+    gap: 16px;
+    padding: 18px;
+    padding-top: 32px;
+  }
+
+  .body .studentcard {
+    position: relative;
+    width: 276.67px;
+    height: 153.85px;
+  }
+  
+  .studentcardimg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .body .text-overlay {
+    position: absolute;
+    top: -7.472441px;
+    left: 25.793701px;
+    color: #113325; 
+  }
+
+  .text-overlay h1 {
+    margin: 12px;
+    font-size: 29.516px;
+    font-weight: bolder;
+  }
+  
+  .text-overlay h2 {
+    margin: 0;
+    font-size: 11.4px;
+    font-weight: 900;
+  }
+  
+  .text-overlay p {
+    margin: -1px 0;
+    font-size: 11.072px; 
+    font-weight: 700;
+  }

@@ -4,7 +4,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 const SchoolContext = createContext();
 
 const SchoolContextProvider = ({ children }) => {
-  const [schoolID,setSchoolID] = useState(2)
+  const [schoolID,setSchoolID] = useState(1)
   const [schoolData, setSchoolData] = useState({});
 
   useEffect(() => {

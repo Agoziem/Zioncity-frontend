@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import CardFilter from '../../../Cards/CardFilter';
-import ReportCharts from './ReportCharts';
+import React, { useState } from "react";
+import CardFilter from "../../../Cards/CardFilter";
+// import ReportCharts from "./ReportCharts";
 
 function Reports() {
-  const [filter, setFilter] = useState('Today');
-  const handleFilterChange = filter => {
+  const [filter, setFilter] = useState("Today");
+  const handleFilterChange = (filter) => {
     setFilter(filter);
   };
   return (
@@ -14,7 +14,7 @@ function Reports() {
         <h5 className="card-title">
           Reports <span>/{filter}</span>
         </h5>
-        <ReportCharts />
+        {/* <>{typeof window !== "undefined" && <ReportCharts />}</> */}
       </div>
     </div>
   );

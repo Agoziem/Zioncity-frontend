@@ -11,6 +11,7 @@ import {
   FaUserLock,
   FaUserTie,
 } from "react-icons/fa6";
+import Link from "next/link";
 
 const Home = () => {
   const { schoolData } = useContext(SchoolContext);
@@ -72,6 +73,9 @@ const Home = () => {
     <>
       {/* <MainHeader /> */}
       <section className="d-flex flex-column align-items-center justify-content-center my-5 py-2">
+        <Link href={'/accounts'}>
+          Students Card
+        </Link>
         <div className="card my-5 py-2">
           <div
             className="row align-items-center justify-content-center p-0"
@@ -104,7 +108,7 @@ const Home = () => {
               </h5>
               <p className="text-center">
                 The School Portal is a platform that allows students, teachers,
-                bursars and admin to access the school's information and
+                bursars and admin to access the schools information and
                 resources.
               </p>
               {loginState ? (
