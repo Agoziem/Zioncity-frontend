@@ -48,7 +48,7 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
                     {teacherData && teacherData.surname}
                   </h5>
                   <div className="mt-1">
-                    {teacherData && teacherData.user.username}
+                    {teacherData && teacherData.user && teacherData.user.username}
                   </div>
                   <div className="small">
                     {teacherData && teacherData.teachers_id}

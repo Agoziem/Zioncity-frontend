@@ -21,7 +21,6 @@ const AccountsPage = () => {
     total_number_of_students / number_of_students_per_card
   );
 
-  console.log(paginateddata);
   const fetchSchoolStudents = async () => {
     setLoadingStudents(true);
     try {

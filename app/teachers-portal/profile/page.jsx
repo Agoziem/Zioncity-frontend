@@ -5,9 +5,11 @@ import ProfileCard from "@/components/TeachersdetailsCard/ProfileCard";
 import { TeacherContext } from "@/data/Teachercontextdata";
 import ProfileEditForm from "@/components/TeachersdetailsCard/ProfileEditForm";
 import { SchoolContext } from "@/data/Schoolcontextdata";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const ProfilePage = () => {
   const { teacherData, setTeacherData } = useContext(TeacherContext);
+  const [ storedteacherData, setStoredTeacherData ] = useLocalStorage("teacherData", teacherData);
   const { schoolData } = useContext(SchoolContext);
   const [editMode, setEditMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -26,6 +28,8 @@ const ProfilePage = () => {
       });
       if (res.status === 200) {
         const data = await res.json();
+        setTeacherData(data);
+        setStoredTeacherData(data);
         setEditMode(false);
       }
     } catch (error) {

@@ -73,9 +73,9 @@ const Home = () => {
     <>
       {/* <MainHeader /> */}
       <section className="d-flex flex-column align-items-center justify-content-center my-5 py-2">
-        <Link href={'/accounts'}>
+        {/* <Link href={'/accounts'}>
           Students Card
-        </Link>
+        </Link> */}
         <div className="card my-5 py-2">
           <div
             className="row align-items-center justify-content-center p-0"
@@ -83,11 +83,10 @@ const Home = () => {
           >
             <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
               <div className="mb-5 text-center">
-                <Image
-                  src="/images/GDD Impact.jpg"
+                <img
+                  src={schoolData.Schoollogo}
                   alt="logo"
-                  width={70}
-                  height={70}
+                  width={150}
                   className=" mb-3 rounded-circle"
                 />
                 <h4>{schoolData.Schoolname}</h4>

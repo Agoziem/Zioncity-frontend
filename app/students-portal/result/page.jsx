@@ -20,8 +20,11 @@ const ResultPage = () => {
 
   const [result, setResults] = useState([]);
   const [loadingresults, setLoadingResults] = useState(false);
-  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL
-  const [ storedresultdetails, setStoredResultDetails ] = useLocalStorage("resultdetails", {});
+  const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
+  const [storedresultdetails, setStoredResultDetails] = useLocalStorage(
+    "resultdetails",
+    {}
+  );
 
   useEffect(() => {
     if (StudentData) {
@@ -37,7 +40,6 @@ const ResultPage = () => {
       setResultDetails(storedresultdetails);
     }
   }, [storedresultdetails]);
-
 
   // Fetch the terms for the school
   useEffect(() => {
@@ -87,14 +89,14 @@ const ResultPage = () => {
   };
 
   const getColorClass = (remark) => {
-    if (remark === 'Excellent') {
-      return 'text-success'; 
-    } else if(remark === 'Good' ) {
-      return 'text-warning';
-    } else if (remark === 'Pass'){
-        return 'text-secondary'; 
+    if (remark === "Excellent") {
+      return "text-success";
+    } else if (remark === "Good") {
+      return "text-warning";
+    } else if (remark === "Pass") {
+      return "text-secondary";
     } else {
-        return 'text-danger';
+      return "text-danger";
     }
   };
 
@@ -107,6 +109,7 @@ const ResultPage = () => {
         {!showResult ? (
           <div className="card d-flex p-5" style={{ maxWidth: "400px" }}>
             <h6 className="mb-4">Select result details to view your result</h6>
+            
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
                 <label htmlFor="AcademicSession">Academic Session</label>
@@ -122,7 +125,8 @@ const ResultPage = () => {
                   }}
                 >
                   <option value="0">Select Session</option>
-                  {schoolData &&
+                  {schoolData.sessions &&
+                    schoolData.sessions.length > 0 &&
                     schoolData.sessions.map((session) => (
                       <option key={session.id} value={session.id}>
                         {session.session}
@@ -287,7 +291,13 @@ const ResultPage = () => {
                         <td>{subject.Total}</td>
                         <td>{subject.Grade}</td>
                         <td>{subject.SubjectPosition}</td>
-                        <td className={`${getColorClass(subject.Remark)} fw-bold `}>{subject.Remark}</td>
+                        <td
+                          className={`${getColorClass(
+                            subject.Remark
+                          )} fw-bold `}
+                        >
+                          {subject.Remark}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

@@ -74,7 +74,6 @@ const Loginform = ({
 
   const handleSubmit = async (e, url) => {
     e.preventDefault();
-    console.log(usercredentials);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -182,7 +181,7 @@ const Loginform = ({
             />
 
             <label
-              class="input-group-text"
+              className="input-group-text"
               style={{ cursor: "pointer" }}
               onClick={togglePasswordVisibility}
             >

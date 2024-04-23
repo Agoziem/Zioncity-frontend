@@ -67,7 +67,7 @@ const ProfileEditForm = ({
                       setTeacherData({
                         ...teacherData,
                         // headshot: URL.createObjectURL(files[0]),
-                        headshot: `${image_URL}${files[0].name}`,
+                        headshot: `${files[0].name}`,
                       });
                   }}
                   hidden
@@ -100,6 +100,7 @@ const ProfileEditForm = ({
                     <div>
                       <button
                         className="btn btn-sm btn-outline-primary mt-3"
+                        disabled
                         onClick={(e) => {
                           e.preventDefault();
                           fileInput.current.click();
@@ -262,7 +263,7 @@ const ProfileEditForm = ({
               </label>
               <select
                 id="Role"
-                class="profile-form-select form-select"
+                className="profile-form-select form-select"
                 aria-label="Default select example"
                 value={teacherData.role}
                 onChange={(e) => {
@@ -285,7 +286,7 @@ const ProfileEditForm = ({
                 </label>
                 <select
                   id="ClassFormed"
-                  class="profile-form-select form-select"
+                  className="profile-form-select form-select"
                   aria-label="Default select example"
                   value={teacherData.classFormed.id}
                   onChange={(e) => {

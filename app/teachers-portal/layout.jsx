@@ -5,6 +5,7 @@ import Main from "@/components/Main/Main";
 import BackToTop from "@/components/backtotopbutton/BackToTop";
 import Footer from "@/components/footer/Footer";
 import navList from "./navitem";
+import { Suspense } from 'react'
 
 const TeachersLayout = ({ children }) => {
   return (
