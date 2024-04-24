@@ -13,7 +13,7 @@ function TeachersDashboard({ teacherData}) {
           <div className="row">
             <Cards data={teacherData} />
             <div className="col-12">
-              <Reports />
+              {/* the other Links */}
             </div>
           </div>
         </div>

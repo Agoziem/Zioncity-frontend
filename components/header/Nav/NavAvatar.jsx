@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import useCurrentUser from "@/hooks/useCurrentUser";
-import { FaUserCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 function NavAvatar() {
-  const currentUser = useCurrentUser();
+  const { currentUser, currentRoot } = useCurrentUser();
   const router = useRouter();
 
   const logoutDashboard = () => {
@@ -30,7 +29,7 @@ function NavAvatar() {
             style={{ objectPosition: "top center" }}
           />
         ) : (
-          <FaUserCircle className="text-muted" style={{ fontSize: "35px" }} />
+          <i class="bi bi-person" style={{ fontSize: "30px" }}></i>
         )}
         <span className="d-none d-md-block dropdown-toggle ps-2">
           {(currentUser && currentUser.firstname) ||
@@ -53,22 +52,22 @@ function NavAvatar() {
         </li>
 
         <li>
-          <a
-            className="dropdown-item d-flex align-items-center"
-            href="users-profile.html"
-          >
-            <i className="bi bi-person"></i>
-            <span>My Profile</span>
-          </a>
+          <Link className="dropdown-item d-flex align-items-center" href={`/${currentRoot}`}>
+            <i className="bi bi-house-door"></i>
+            <span>Home page</span>
+          </Link>
         </li>
         <li>
           <hr className="dropdown-divider" />
         </li>
 
         <li>
-          <Link className="dropdown-item d-flex align-items-center" href="/">
-            <i className="bi bi-house-door"></i>
-            <span>Home page</span>
+          <Link
+            className="dropdown-item d-flex align-items-center"
+            href={`/${currentRoot}/profile`}
+          >
+            <i className="bi bi-person"></i>
+            <span>My Profile</span>
           </Link>
         </li>
         <li>
@@ -102,8 +101,15 @@ function NavAvatar() {
         </li>
 
         <li>
-          <Link className="dropdown-item d-flex align-items-center" href="/#"
-          { ...({onClick: (e) => { e.preventDefault(); logoutDashboard(); }})}
+          <Link
+            className="dropdown-item d-flex align-items-center"
+            href="/#"
+            {...{
+              onClick: (e) => {
+                e.preventDefault();
+                logoutDashboard();
+              },
+            }}
           >
             <i className="bi bi-box-arrow-right"></i>
             <span>Sign Out</span>

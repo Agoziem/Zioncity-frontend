@@ -8,7 +8,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 function SideBar({ navList }) {
   const paths = usePathname();
   const router = useRouter();
-  const currentUser = useCurrentUser();
+  const {currentUser} = useCurrentUser();
 
   const logoutDashboard = () => {
     localStorage.clear();
@@ -25,7 +25,9 @@ function SideBar({ navList }) {
               paths.startsWith("/teachers-portal") &&
               !currentUser.is_formteacher &&
               (navGroup.name === "Students" ||
-                navGroup.name === "Students-result")
+                navGroup.name === "Students-result" || 
+                navGroup.name === "Attendance"
+              )
             );
           })
           .map((navGroup) => (
