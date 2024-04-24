@@ -30,11 +30,11 @@ const ProfileEditForm = ({
 
   return (
     <div className="profile-edit-card">
-      <h5>Edit Profile</h5>
-      <div className="card p-4 px-5 py-5">
+      <h5 className="my-4">Edit Profile</h5>
+      <div className="card p-2 py-4 p-md-5">
         <div className="d-flex justify-content-end">
           <FaTimes
-            className=" text-muted h4"
+            className=" text-muted h4 me-3 me-md-0"
             onClick={() => {
               setEditMode(false);
             }}

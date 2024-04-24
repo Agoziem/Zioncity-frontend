@@ -2,15 +2,15 @@ import React from "react";
 import { RiPencilLine } from "react-icons/ri";
 import { PiGraduationCapFill } from "react-icons/pi";
 import { BiSolidUserAccount } from "react-icons/bi";
-import { FaUser } from "react-icons/fa6";
+import { FaPen, FaUser } from "react-icons/fa6";
 import "./profile.css";
 
 const ProfileCard = ({ teacherData, setEditMode }) => {
   return (
     <>
       {/* The Title */}
-      <h4>Profile Settings</h4>
-      <div className="profile row mt-3">
+      <h5 className="my-3 mt-4">Profile Settings</h5>
+      <div className="profile row">
         {/* the Section highlight */}
         <div className="col-md-3 d-none d-md-block ">
           <div className="card p-3 py-4">
@@ -24,16 +24,28 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
 
         {/* the Section for the Profile */}
         <div className="col-md-9">
-          <div className="card p-5 py-5">
-            <h6 className="mb-3 ps-2">Account Information</h6>
-            <div className="d-flex p-4 border rounded p-3 justify-content-between mb-4">
-              <div className="d-flex">
-                <div className="me-4">
+          <div className="card p-4 p-md-5">
+            <div className="d-flex d-md-block justify-content-between">
+              <h6 className="mb-3 ps-2">Account Information</h6>
+              <div className="d-block d-md-none">
+                <FaPen className="h6" style={{cursor:"pointer",color:"#012970"}}
+                  onClick={() => setEditMode(true)}
+                />
+              </div>
+            </div>
+
+            <div className="d-block d-md-flex p-4 border rounded  justify-content-between mb-4">
+              <div className="d-block d-md-flex">
+                <div className="mb-3 me-0 mb-md-0 me-md-4">
                   {teacherData && teacherData.headshot ? (
                     <img
                       src={teacherData.headshot}
                       className="rounded-circle object-fit-cover"
-                      style={{ width: "60px", height: "60px", objectPosition: "top center"}}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectPosition: "top center",
+                      }}
                       alt="profile"
                     />
                   ) : (
@@ -48,27 +60,30 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
                     {teacherData && teacherData.surname}
                   </h5>
                   <div className="mt-1">
-                    {teacherData && teacherData.user && teacherData.user.username}
+                    {teacherData &&
+                      teacherData.user &&
+                      teacherData.user.username}
                   </div>
                   <div className="small">
                     {teacherData && teacherData.teachers_id}
                   </div>
                 </div>
               </div>
-              <div>
+
+              <div className="d-none d-md-block">
                 <button
-                  className="btn btn-sm btn-outline-secondary small"
+                  className="btn btn-sm btn-outline-secondary"
                   onClick={() => setEditMode(true)}
                 >
-                  <RiPencilLine className="me-2 h5" />
+                  <RiPencilLine className="me-2 h6" />
                   Edit Profile
                 </button>
               </div>
             </div>
             <h6 className="mb-3 ps-2">Personal Information</h6>
-            <div className="d-flex p-4 border rounded p-3 justify-content-between mb-4">
-              <div className="d-flex align-items-center">
-                <div className="profile-icon-bio me-4 rounded-circle">
+            <div className="d-block d-md-flex  p-4 border rounded p-3 justify-content-between mb-4">
+              <div className="d-block d-md-flex  align-items-center">
+                <div className="profile-icon-bio mb-3 me-0 mb-md-0 me-md-4 rounded-circle">
                   <BiSolidUserAccount className="h2" />
                 </div>
                 <div>
@@ -109,9 +124,10 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
             </div>
 
             <h6 className="mb-3 ps-2">School Information</h6>
-            <div className="d-flex p-4 border rounded p-3 justify-content-between">
-              <div className="d-flex align-items-center">
-                <div className="profile-icon me-4 rounded-circle">
+
+            <div className="d-block d-md-flex  p-4 border rounded p-3 justify-content-between">
+              <div className="d-block d-md-flex  align-items-center">
+                <div className="profile-icon mb-3 me-0 mb-md-0 me-md-4 rounded-circle">
                   <PiGraduationCapFill className="h2" />
                 </div>
                 <div>
