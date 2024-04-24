@@ -10,7 +10,7 @@ const Resultcredentials = ({handleSubmit,
     teachersubjects,
     schoolterms}) => {
   return (
-    <div>
+    <div className='card px-4 py-5'>
         <form className="row g-3" onSubmit={handleSubmit}>
             {/* term */}
             <div className="col-md-6">

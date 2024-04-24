@@ -261,17 +261,17 @@
 
 .published-successful-indicator,.published-unsuccessful-indicator{
   background: #d2f3de;
-  color: #13793a;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-weight: 600;
-  font-size: 12px;
-  width: 30%;
-  text-align: center;
 }
 
 .published-unsuccessful-indicator{
   background: #e8e8e8;
+}
+
+.published-successful-indicator span{
+  color: #13793a;
+}
+
+.published-unsuccessful-indicator span{
   color: grey;
 }
 
