@@ -8,7 +8,7 @@ import { FaCheck,FaTimes } from "react-icons/fa";
 import "@/components/Datatable/Datatable.css";
 import Datatable from '@/components/Datatable/Datatable';
 import ClassResultDatatableitems from '@/components/Datatable/ClassResultTableitems';
-import ClassResultcredentials from '@/components/Form/ClassResultcredentials';
+import ClassResultcredentials from '@/components/form/ClassResultcredentials';
 
 import useLocalStorage from '@/hooks/useLocalStorage';
 import classResulthandler from '@/utils/classResulthandler';

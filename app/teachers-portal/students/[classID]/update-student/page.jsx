@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageTitle from '@/components/PageTitle/PageTitle';
-import Form from '@/components/Form/Form';
+import Form from '@/components/form/Form';
 
 const UpdateStudent = () => {
     const [student, setStudent] = useState({ firstname: '', surname : '', sex : '' });
