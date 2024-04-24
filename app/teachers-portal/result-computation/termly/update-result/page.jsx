@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageTitle from '@/components/PageTitle/PageTitle';
-import Resultform from '@/components/form/Resultform';
+import ResultForm from '@/components/form/Resultform';
 
 
 const UpdateStudent = () => {
@@ -79,7 +79,7 @@ const UpdateStudent = () => {
     <div>
         <PageTitle pathname={'Student Result'} />
         <h3 className='mb-3'>Update Student Result</h3>
-        <Resultform 
+        <ResultForm 
           studentresult={studentresult} 
           setStudentResult={setStudentResult} 
           submitting={submitting}

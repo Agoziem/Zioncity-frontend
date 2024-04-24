@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 
-const Resultform = ({studentresult,setStudentResult,submitting,handleSubmit}) => {
+const ResultForm = ({studentresult,setStudentResult,submitting,handleSubmit}) => {
   return (
     <div className='w-50'>
       <form onSubmit={handleSubmit}>
@@ -55,4 +55,4 @@ const Resultform = ({studentresult,setStudentResult,submitting,handleSubmit}) =>
   )
 }
 
-export default Resultform
+export default ResultForm
