@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
 
-function Cards({schoolData, data }) {
+function Cards({ schoolData, data }) {
   return (
     <>
       {data && Object.keys(data).length > 0 && (
@@ -17,13 +17,11 @@ function Cards({schoolData, data }) {
             cardbody={data.subjects_taught.length}
             icon={"bi bi-journal-bookmark-fill"}
           />
-          {data.is_formteacher && (
-            <Card
-              cardtitle="Class"
-              cardbody={data.classFormed.name}
-              icon={"bi bi-people"}
-            />
-          )}
+          <Card
+            cardtitle="School Teachers"
+            cardbody={schoolData.num_teachers}
+            icon={"bi bi-people"}
+          />
         </>
       )}
     </>

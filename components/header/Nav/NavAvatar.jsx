@@ -29,7 +29,7 @@ function NavAvatar() {
             style={{ objectPosition: "top center" }}
           />
         ) : (
-          <i class="bi bi-person" style={{ fontSize: "30px" }}></i>
+          <i className="bi bi-person" style={{ fontSize: "30px" }}></i>
         )}
         <span className="d-none d-md-block dropdown-toggle ps-2">
           {(currentUser && currentUser.firstname) ||

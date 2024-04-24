@@ -38,7 +38,7 @@ function Card({ cardtitle,cardbody,icon }) {
                   cardtitle === "School classes" ? "classes" :
                   cardtitle === "School Subjects" ? "Subjects" :
                   cardtitle === "Student Class" ? "Student Class" :
-                  "Form teacher"
+                  "School Teachers"
                 }
               </span>
             </div>
