@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import PageTitle from '@/components/PageTitle/PageTitle';
-import ResultForm from '@/components/form/Resultform';
+import ResultForm from '@/components/form/ResultForm';
 
 
 const UpdateStudent = () => {
