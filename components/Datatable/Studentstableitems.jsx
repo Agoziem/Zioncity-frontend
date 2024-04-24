@@ -9,7 +9,7 @@ const Datatableitems = ({ currentItems, loading, setItems ,toggleModal,classID,s
 
     return (
         <div className='card datatableCard table-responsive p-4'>
-            <table className="table table-striped px-3">
+            <table className="table table-striped px-0">
                 <thead>
                     <tr>
                         <th className='mx-5 p-2'>
