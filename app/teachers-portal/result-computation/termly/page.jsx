@@ -213,7 +213,6 @@ const Page = () => {
     <>
       <PageTitle pathname={"Termly Result"} />
       <h3>{selectedClassName} Students Result </h3>
-
       <div className="row mt-3 justify-content-between">
         <div className="col-md-5 mb-4 mb-md-0">
           {computedResults[0] && computedResults[0].published ? (

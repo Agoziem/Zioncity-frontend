@@ -1,8 +1,9 @@
 "use client";
-import React, { forwardRef } from 'react'
+import React from 'react'
 import Datatablesortingicon from './DatatableSortingIcon'
 import Link from 'next/link';
 import { TiTimes } from "react-icons/ti";
+import "./Datatable.css";
 // make 
 const ResultDatatableitems = ({currentItems, loading, setItems,toggleOfferingStatus}) => {
 
