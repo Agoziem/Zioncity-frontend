@@ -7,6 +7,7 @@ import { TeacherContext } from "@/data/Teachercontextdata";
 import { StudentsContext } from "@/data/Studentcontextdata";
 import { AdminContext } from "@/data/Admincontextdata";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import "@/components/TeachersdetailsCard/profile.css";
 
 const Loginform = ({
   datalist,
@@ -95,7 +96,7 @@ const Loginform = ({
   };
 
   return (
-    <div className="px-3">
+    <div className="profile-edit-card px-3 px-md-5">
       <form>
         {selectedPortal === "students" && (
           <div className="mb-3">
@@ -103,7 +104,7 @@ const Loginform = ({
               Select Class
             </label>
             <select
-              className="form-select"
+              className="profile-form-select form-select"
               id="classselect"
               onChange={handleClasschange}
             >
@@ -127,7 +128,7 @@ const Loginform = ({
               : "Admin"}
           </label>
           <select
-            className="form-select"
+            className="profile-form-select form-select"
             id="dataselect"
             onChange={(e) =>
               setUsercredentials({ ...usercredentials, id: e.target.value })
@@ -168,7 +169,7 @@ const Loginform = ({
           <div className="input-group">
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control"
+              className="profile-form-control form-control"
               id="password"
               placeholder="Enter your ID"
               value={usercredentials.password}
@@ -194,21 +195,22 @@ const Loginform = ({
           </div>
         </div>
 
-        <div className="mt-5 d-flex align-items-center">
+        <div className="mt-4 d-flex align-items-center flex-wrap">
+          <button
+            type="submit"
+            className="btn btn-primary w-100  mb-4"
+            onClick={(e) => handleSubmit(e, apiurl())}
+          >
+            go to dashboard
+          </button>
+        
           <button
             type="button"
-            className="btn btn-accent-primary me-3"
+            className="btn btn-accent-primary w-100"
             onClick={() => setLoginState(false)}
           >
             <IoArrowUndoSharp className="me-2 h5" />
             Back to home
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={(e) => handleSubmit(e, apiurl())}
-          >
-            go to dashboard
           </button>
         </div>
       </form>

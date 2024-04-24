@@ -71,33 +71,25 @@ const Home = () => {
   // fetch the School Bursar later
   return (
     <>
-      {/* <MainHeader /> */}
       <section className="d-flex flex-column align-items-center justify-content-center my-5 py-2">
         {/* <Link href={'/accounts'}>
           Students Card
         </Link> */}
-        <div className="card my-5 py-2">
+        <div className="card my-4 py-2 px-2 rounded">
           <div
-            className="row align-items-center justify-content-center p-0"
+            className="row align-items-center justify-content-center py-4"
             style={{ maxWidth: "950px" }}
           >
             <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
-              <div className="mb-5 text-center">
+              <div className="mb-0 mb-md-5 text-center">
                 <img
                   src={schoolData.Schoollogo}
                   alt="logo"
-                  width={150}
-                  className=" mb-3 rounded-circle"
+                  className="mb-0 mb-md-3 rounded-circle"
+                  style={{ width: "70%",maxWidth:"300px"}}
                 />
-                <h4>{schoolData.Schoolname}</h4>
+                <h4 className="d-none d-md-block">{schoolData.Schoolname}</h4>
               </div>
-
-              <img
-                src="/images/Portalimage3.webp"
-                alt="logo"
-                className="object-fit-cover "
-                style={{ height: "100%", width: "100%" }}
-              />
             </div>
 
             {/* The Portals Card */}
@@ -130,10 +122,10 @@ const Home = () => {
                   />
                 </div>
               ) : (
-                <div className="row">
+                <div className="row px-4">
                   <div className="col-md-6">
-                    <div className="card d-flex flex-column align-items-center p-4 me-3">
-                      <div className="mb-3 student-portal-icon p-3">
+                    <div className="card d-flex flex-column align-items-center p-4 me-0 me-md-3">
+                      <div className="mb-3 student-portal-icon p-3 shadow-sm ">
                         <FaUserGraduate style={{ fontSize: "40px" }} />
                       </div>
                       <h6 className="text-center mb-3">Students Portal</h6>
@@ -150,8 +142,8 @@ const Home = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <div className="card d-flex flex-column align-items-center p-4 me-3">
-                      <div className="mb-3 teacher-portal-icon p-3">
+                    <div className="card d-flex flex-column align-items-center p-4 me-0 me-md-3">
+                      <div className="mb-3 teacher-portal-icon p-3 shadow-sm">
                         <FaUserTie style={{ fontSize: "40px" }} />
                       </div>
                       <h6 className="text-center mb-3">Teachers Portal</h6>
@@ -168,8 +160,8 @@ const Home = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <div className="card d-flex flex-column align-items-center p-4 me-3">
-                      <div className="mb-3 bursar-portal-icon p-3">
+                    <div className="card d-flex flex-column align-items-center p-4 me-0 me-md-3">
+                      <div className="mb-3 bursar-portal-icon p-3 shadow-sm">
                         <FaMoneyBillTrendUp style={{ fontSize: "40px" }} />
                       </div>
                       <h6 className="text-center mb-3">Bursar</h6>
@@ -185,8 +177,8 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="card d-flex flex-column align-items-center p-4 me-3">
-                      <div className="mb-3 admin-portal-icon p-3">
+                    <div className="card d-flex flex-column align-items-center p-4 me-0 me-md-3">
+                      <div className="mb-3 admin-portal-icon p-3 shadow-sm">
                         <FaUserLock style={{ fontSize: "40px" }} />
                       </div>
                       <h6 className="text-center mb-3">Admin Portal</h6>
