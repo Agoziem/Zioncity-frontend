@@ -10,7 +10,7 @@ import "@/components/Modal/modal.css"
 import "@/components/Datatable/Datatable.css";
 import Datatable from '@/components/Datatable/Datatable';
 import ResultDatatableitems from '@/components/Datatable/Resulttableitems';
-import Resultcredentials  from '@/components/form/Resultcredentials';
+import Resultcredentials  from '@/components/Form/Resultcredentials';
 import Notofferingresultlist from '@/components/Datatable/Notofferingresultlist';
 import calculateStudentResults from '@/utils/studentResulthandler';
 

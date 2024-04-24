@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react'
 import PageTitle from '@/components/PageTitle/PageTitle';
-import Form from '@/components/form/Form';
+import Form from '@/components/Form/Form';
 import { useRouter } from 'next/navigation';
 
 // export async function generateStaticParams() {
