@@ -17,6 +17,7 @@ const ProfilePage = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(teacherData)
     setSubmitting(true);
     try {
       const res = await fetch(`${DJANGO_URL}/teachersapi/update/${teacherData.id}/`, {
@@ -28,6 +29,7 @@ const ProfilePage = () => {
       });
       if (res.status === 200) {
         const data = await res.json();
+        console.log(data)
         setTeacherData(data);
         setStoredTeacherData(data);
         setEditMode(false);

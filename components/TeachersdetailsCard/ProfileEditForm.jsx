@@ -20,8 +20,7 @@ const ProfileEditForm = ({
   const [isclasslistOpen, setIsclasslistOpen] = useState(false);
   const [isSubjectlistOpen, setIsSubjectlistOpen] = useState(false);
   const image_URL = process.env.NEXT_PUBLIC_DJANGO_IMAGE_BASE_URL;
- 
-  
+
   useEffect(() => {
     if (teacherData && Object.keys(teacherData).length) {
       let isformteacher = teacherData.role === "Formteacher" ? true : false;
@@ -267,18 +266,22 @@ const ProfileEditForm = ({
                 aria-label="Default select example"
                 value={teacherData.role}
                 onChange={(e) => {
-                  if (e.target.value === "Formteacher") {
-                    setIsformteacher(true);
-                  } else {
-                    setIsformteacher(false);
-                  }
-                  setTeacherData({ ...teacherData, role: e.target.value });
+                  setTeacherData((prevTeacherData) => {
+                    const newTeacherData = {
+                      ...prevTeacherData,
+                      role: e.target.value,
+                    };
+                    const isFormTeacher = e.target.value === "Formteacher";
+                    return { ...newTeacherData, is_formteacher: isFormTeacher };
+                  });
                 }}
               >
+                <option value="">Select your Role</option>
                 <option value="Teacher">Teacher</option>
                 <option value="Formteacher">Formteacher</option>
               </select>
             </div>
+
             {isformteacher && (
               <div className="mb-3">
                 <label htmlFor="ClassFormed" className="form-label">
@@ -288,14 +291,18 @@ const ProfileEditForm = ({
                   id="ClassFormed"
                   className="profile-form-select form-select"
                   aria-label="Default select example"
-                  value={teacherData.classFormed.id}
+                  value={teacherData.classFormed ? teacherData.classFormed.id : ''}
                   onChange={(e) => {
                     setTeacherData({
                       ...teacherData,
-                      classFormed: { id: e.target.value , name: e.target.options[e.target.selectedIndex].text},
+                      classFormed: {
+                        id: e.target.value,
+                        name: e.target.options[e.target.selectedIndex].text,
+                      },
                     });
                   }}
                 >
+                  <option value="">Select your Class</option>
                   {schoolData &&
                     schoolData.classes.length > 0 &&
                     schoolData.classes.map((item, index) => (
