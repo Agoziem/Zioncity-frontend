@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
 
-function Cards({ data }) {
+function Cards({schoolData, data }) {
   return (
     <>
       {data && Object.keys(data).length > 0 && (

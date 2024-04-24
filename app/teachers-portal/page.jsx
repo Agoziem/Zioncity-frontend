@@ -3,10 +3,12 @@ import React , {useContext } from 'react'
 import PageTitle from '@/components/PageTitle/PageTitle';
 import TeachersDashboard from '@/components/dashboard/Dashboard';
 import { TeacherContext } from '@/data/Teachercontextdata';
+import { SchoolContext } from '@/data/Schoolcontextdata';
 
 
 const TeachersPortal = () => {
   const { teacherData } = useContext(TeacherContext)
+  const { schoolData } = useContext(SchoolContext)
 
 
   return (
@@ -16,8 +18,7 @@ const TeachersPortal = () => {
       <div className="mb-4">
         <h4>Welcome, {teacherData.firstName}</h4>
       </div>
-      <TeachersDashboard teacherData={teacherData} />
-
+      <TeachersDashboard schoolData={schoolData} teacherData={teacherData} />
     </>
   )
 }

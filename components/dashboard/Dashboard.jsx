@@ -2,16 +2,15 @@
 import React from 'react';
 import './dashboard.css';
 import Cards from '../Cards/Cards';
-import Reports from './Sections/ReportchartsSection/Reports';
 import RecentActivity from './Sections/RecentactionsSections/RecentActivity';
 
-function TeachersDashboard({ teacherData}) {
+function TeachersDashboard({ schoolData, teacherData}) {
   return (
     <section className="section dashboard">
       <div className="row">
         <div className="col-lg-8">
           <div className="row">
-            <Cards data={teacherData} />
+            <Cards schoolData={schoolData} data={teacherData} />
             <div className="col-12">
               {/* the other Links */}
             </div>
