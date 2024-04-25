@@ -376,10 +376,10 @@
 
 /* forms */
 .body .form-control,.body .form-select {
-  border: none;
+  border: 1.2px solid rgb(209 213 219 / 1);
   border-radius: 5px;
   color: #3e4f6f;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  box-shadow: none;
 }
 
 .body table thead th {
