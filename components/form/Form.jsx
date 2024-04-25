@@ -50,7 +50,7 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
             value={student.sex}
             onChange={(e) => setStudent({ ...student, sex: e.target.value })}
           >
-            <option selected>Choose...</option>
+            <option value=''>Choose...</option>
             <option>Male</option>
             <option>Female</option>
           </select>

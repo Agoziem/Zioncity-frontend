@@ -1,32 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import Form from "@/components/form/Form";
 import { useRouter } from "next/navigation";
+import { SchoolContext } from "@/data/Schoolcontextdata";
 
-// export async function generateStaticParams() {
-//   async function fetchClassIDs() {
-//     try {
-//       const response = await fetch(`${DJANGO_URL}/adminsapi/classes/`, {
-//         method: "GET",
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
-//       const data = await response.json();
-//       return data.map(item => item.id);
-//     } catch (error) {
-//       return [];
-//     }
-//   }
-
-//   const classIDs = await fetchClassIDs();
-//   const paths = classIDs.map(classID => ({
-//     params: { classID: classID.toString() }
-//   }));
-
-//   return { paths, fallback: false };
-// }
 
 const CreateStudent = ({ params }) => {
   const [student, setStudent] = useState({
@@ -38,6 +16,7 @@ const CreateStudent = ({ params }) => {
   const router = useRouter();
   const classID = params.classID;
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
+  const {schoolData} = useContext(SchoolContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +25,7 @@ const CreateStudent = ({ params }) => {
 
     try {
       const response = await fetch(
-        `${DJANGO_URL}/studentsapi/create/2/${classID}/`,
+        `${DJANGO_URL}/studentsapi/create/${schoolData.id}/${classID}/`,
         {
           method: "POST",
           headers: {
