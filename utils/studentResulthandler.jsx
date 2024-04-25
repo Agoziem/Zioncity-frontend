@@ -11,7 +11,7 @@ const calculateTotal = (student, CA) => {
     return '-';
   } else {
     return Object.keys(student)
-      .filter(key => key.startsWith("CA") || key.startsWith("Exam"))
+      .filter(key => key.startsWith("Exam"))
       .reduce((sum, key) => sum + (isNaN(student[key]) ? 0 : parseInt(student[key])), CA);
   }
 };

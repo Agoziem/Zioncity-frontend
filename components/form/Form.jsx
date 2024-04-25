@@ -47,7 +47,7 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
           <select
             id="inputState"
             className="form-select"
-            value={student.sex}
+            value={student.sex ? student.sex : ""}
             onChange={(e) => setStudent({ ...student, sex: e.target.value })}
           >
             <option value=''>Choose...</option>
