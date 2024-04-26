@@ -175,7 +175,7 @@ const Page = () => {
                 "Delete Student"
               )}
             </button>
-            <button className="btn btn-primary" onClick={toggleModal}>
+            <button className="btn btn-secondary" onClick={toggleModal}>
               Cancel
             </button>
           </div>

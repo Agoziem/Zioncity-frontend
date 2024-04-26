@@ -60,13 +60,14 @@ const Datatableitems = ({
 
             <th className="mx-5 p-2">Student ID</th>
 
-            <th className="mx-5 p-2">edit student</th>
+            <th className="mx-5 p-2">edit</th>
+            <th className="mx-5 p-2">delete</th>
           </tr>
         </thead>
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="5" className="text-center p-2">
+              <td colSpan="6" className="text-center p-2">
                 Loading...
               </td>
             </tr>
@@ -85,10 +86,13 @@ const Datatableitems = ({
                         href={`/teachers-portal/students/${classID}/update-student/?id=${item.id}`}
                       >
                         <FaRegPenToSquare
-                          className="text-success me-4 h5"
+                          className="text-primary me-4 h5"
                           style={{ cursor: "pointer" }}
                         />
                       </Link>
+                    </td>
+                    
+                    <td className="mx-7 p-2">
                       <IoTrashOutline
                         className="text-danger h5"
                         style={{ cursor: "pointer" }}
