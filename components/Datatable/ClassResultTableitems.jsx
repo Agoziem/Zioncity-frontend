@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import Datatablesortingicon from "./DatatableSortingIcon";
-import Link from "next/link";
+import "./Datatable.css";
+import { HiRefresh } from "react-icons/hi";
 
-const ClassResultDatatableitems = ({ currentItems, loading, setItems }) => {
+const ClassResultDatatableitems = ({refresh, currentItems, loading, setItems }) => {
   const SubjectResults =
     currentItems && currentItems.length > 0
       ? currentItems[0].subjects_total
@@ -22,6 +23,12 @@ const ClassResultDatatableitems = ({ currentItems, loading, setItems }) => {
 
   return (
     <div className="card datatableCard table-responsive p-4">
+      <div>
+        <div style={{ cursor: "pointer" }} onClick={refresh} className="float-end d-flex align-items-center">
+          <span className="me-2">Refresh</span>
+          <HiRefresh className={`h4 ${loading ? "icon-rotate" : ""}`} />
+        </div>
+      </div>
       <table className="table table-striped px-3">
         <thead>
           <tr>
@@ -72,8 +79,8 @@ const ClassResultDatatableitems = ({ currentItems, loading, setItems }) => {
               {currentItems && currentItems.length > 0 ? (
                 currentItems.map((item) => (
                   <tr key={item.id} item={item}>
-                    <td className="mx-7 p-2 ">{item.firstname}</td>
-                    <td className="mx-7 p-2">{item.surname}</td>
+                    <td className="mx-7 p-2 text-primary fw-bold">{item.firstname}</td>
+                    <td className="mx-7 p-2 text-primary fw-bold">{item.surname}</td>
                     <>
                       {item.subjects_total.map((subject, index) => (
                         <td key={index} className="mx-7 p-2">

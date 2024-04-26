@@ -41,22 +41,22 @@ const Page = () => {
   }
 
   // fetch the students on page load & when the ids change
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${DJANGO_URL}/studentsapi/${schoolID}/${classID}/`
+      );
+      const jsonData = await response.json();
+      setStudent(jsonData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          `${DJANGO_URL}/studentsapi/${schoolID}/${classID}/`
-        );
-        const jsonData = await response.json();
-        setStudent(jsonData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    // call the function only if the ids are available
     if (schoolID && classID) {
       fetchData();
     }
@@ -88,6 +88,12 @@ const Page = () => {
     }
   };
 
+  const refreshData = () => {
+    if (schoolID && classID) {
+      fetchData();
+    }
+  };
+
   return (
     <>
       <PageTitle pathname={"Students"} />
@@ -110,6 +116,7 @@ const Page = () => {
       <div className="mt-3">
         <Datatable items={student} setItems={setStudent}>
           <Datatableitems
+            refresh={refreshData}
             loading={loading}
             toggleModal={toggleModal}
             classID={classID}

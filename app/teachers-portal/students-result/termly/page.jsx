@@ -163,6 +163,17 @@ const Page = () => {
     }
   };
 
+  const refreshData = () => {
+    if (
+      classresultcredential.school_id &&
+      classresultcredential.class_id &&
+      classresultcredential.term_id &&
+      classresultcredential.session_id
+    ) {
+      fetchResults();
+    }
+  }
+
   return (
     <>
       <PageTitle pathname={"Termly Result"} />
@@ -207,7 +218,7 @@ const Page = () => {
           items={computedResults} //input the computed results here
           setItems={setResults}
         >
-          <ClassResultDatatableitems loading={loadingresults} />
+          <ClassResultDatatableitems refresh={refreshData} loading={loadingresults} />
         </Datatable>
       </div>
 
