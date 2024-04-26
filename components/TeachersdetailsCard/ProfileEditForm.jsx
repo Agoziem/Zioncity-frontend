@@ -5,8 +5,10 @@ import { LuUpload } from "react-icons/lu";
 import { FaTimes, FaUserCircle } from "react-icons/fa";
 import { MultiSelectDropdown } from "./MultiSelect";
 import { FaRegFileImage } from "react-icons/fa6";
+import Alert from "../Alert/Alert";
 
 const ProfileEditForm = ({
+  showAlert,
   teacherData,
   setTeacherData,
   handleSubmit,
@@ -353,7 +355,10 @@ const ProfileEditForm = ({
           </div>
 
           <hr className="my-5" />
-          <div className="col-md-12 justify-content-end  px-5">
+          <div className="col-md-6 justify-content-end px-5">
+            {showAlert.show && showAlert.type === "danger" && (
+              <Alert type={showAlert.type}>{showAlert.message}</Alert>
+            )}
             <button
               type="submit"
               className="btn btn-primary"

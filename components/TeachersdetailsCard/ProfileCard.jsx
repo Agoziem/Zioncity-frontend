@@ -4,8 +4,9 @@ import { PiGraduationCapFill } from "react-icons/pi";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { FaPen, FaUser } from "react-icons/fa6";
 import "./profile.css";
+import Alert from "../Alert/Alert";
 
-const ProfileCard = ({ teacherData, setEditMode }) => {
+const ProfileCard = ({ showAlert, teacherData, setEditMode }) => {
   return (
     <>
       {/* The Title */}
@@ -27,6 +28,9 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
           <div className="card p-4 p-md-5">
             <div className="d-flex d-md-block justify-content-between">
               <h6 className="mb-3 ps-2">Account Information</h6>
+              {showAlert.show && showAlert.type === "success" && (
+                <Alert type={showAlert.type}>{showAlert.message}</Alert>
+              )}
               <div className="d-block d-md-none">
                 <FaPen
                   className="h6 text-muted"

@@ -16,6 +16,11 @@ const ProfilePage = () => {
   const { schoolData } = useContext(SchoolContext);
   const [editMode, setEditMode] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    type: "",
+    message: "",
+  });
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
   const handleSubmit = async (e) => {
@@ -37,9 +42,28 @@ const ProfilePage = () => {
         setTeacherData(data);
         setStoredTeacherData(data);
         setEditMode(false);
+        setShowAlert(
+          {
+            show: true,
+            type: "success",
+            message: "Profile updated successfully",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, type: "", message: "" });
+          }, 3000)
+        );
       }
     } catch (error) {
-      console.log(error);
+      setShowAlert(
+        {
+          show: true,
+          type: "danger",
+          message: "Something went wrong! Please try again.",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, type: "", message: "" });
+        }, 3000)
+      );
     } finally {
       setSubmitting(false);
     }
@@ -51,6 +75,7 @@ const ProfilePage = () => {
       <div>
         {editMode ? (
           <ProfileEditForm
+            showAlert={showAlert}
             teacherData={teacherData}
             setTeacherData={setTeacherData}
             handleSubmit={handleSubmit}
@@ -59,7 +84,11 @@ const ProfilePage = () => {
             submitting={submitting}
           />
         ) : (
-          <ProfileCard teacherData={teacherData} setEditMode={setEditMode} />
+          <ProfileCard
+            showAlert={showAlert}
+            teacherData={teacherData}
+            setEditMode={setEditMode}
+          />
         )}
       </div>
     </>
