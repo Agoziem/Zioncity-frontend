@@ -38,6 +38,7 @@ const Loginform = ({
     "adminData",
     {}
   );
+  const [loadingPortal, setLoadingPortal] = useState(false);
   const router = useRouter();
 
   const togglePasswordVisibility = () => {
@@ -75,6 +76,7 @@ const Loginform = ({
 
   const handleSubmit = async (e, url) => {
     e.preventDefault();
+    setLoadingPortal(true);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -92,6 +94,8 @@ const Loginform = ({
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingPortal(false);
     }
   };
 
@@ -200,10 +204,23 @@ const Loginform = ({
             type="submit"
             className="btn btn-primary w-100  mb-4"
             onClick={(e) => handleSubmit(e, apiurl())}
+            disabled={loadingPortal}
           >
-            go to dashboard
+            {loadingPortal ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  aria-hidden="true"
+                ></span>
+                <span>
+                  Logging in ...
+                </span>
+              </>
+            ) : (
+              "go to dashboard"
+            )}
           </button>
-        
+
           <button
             type="button"
             className="btn btn-accent-primary w-100"

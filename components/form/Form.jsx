@@ -50,7 +50,7 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
             value={student.sex ? student.sex : ""}
             onChange={(e) => setStudent({ ...student, sex: e.target.value })}
           >
-            <option value=''>Choose...</option>
+            <option value="">Choose...</option>
             <option>Male</option>
             <option>Female</option>
           </select>
@@ -69,13 +69,23 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
             className="btn btn-primary"
             disabled={submitting}
           >
-            {submitting
-              ? `${
-                  type === "create"
-                    ? "creating student..."
-                    : "updating student..."
-                }`
-              : `${type} Student`}
+            {submitting ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span>
+                  {" "}
+                  {type === "create"
+                    ? "creating student ..."
+                    : "updating student ..."}
+                </span>
+              </>
+            ) : (
+              `${type} Student`
+            )}
           </button>
         </div>
       </form>

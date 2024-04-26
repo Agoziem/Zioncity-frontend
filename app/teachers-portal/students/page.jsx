@@ -127,7 +127,17 @@ const Page = () => {
               disabled={deleting}
               onClick={() => handleDelete(studenttodelete.studentID)}
             >
-              {deleting ? "Deleting Student..." : "Delete Student"}
+              {deleting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>deleting student ...</span>
+                </>
+              ) : (
+                "Delete Student"
+              )}
             </button>
             <button className="btn btn-primary" onClick={toggleModal}>
               Cancel

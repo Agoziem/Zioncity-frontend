@@ -18,7 +18,8 @@ const ResultForm = ({
   return (
     <div className="card p-4">
       <h5 className="text-center mb-4">
-        Update {studentresult.student ? studentresult.student : "Student"}{"'s "}
+        Update {studentresult.student ? studentresult.student : "Student"}
+        {"'s "}
         Result
       </h5>
 
@@ -158,7 +159,17 @@ const ResultForm = ({
               className="btn btn-primary mt-4 w-100"
               disabled={submitting}
             >
-              {submitting ? "Submitting Result..." : "Submit Result"}
+              {submitting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>submitting result ...</span>
+                </>
+              ) : (
+                "Submit Result"
+              )}
             </button>
           </div>
         </div>
