@@ -54,22 +54,14 @@ function SideBar({ navList }) {
                     ? "collapsed"
                     : ""
                 }`}
-                href={'#'}
+                href={`${navGroup.link}`}
                 data-bs-toggle={
                   navGroup.content && navGroup.content.length > 0
                     ? "collapse"
                     : ""
                 }
                 data-bs-target={`#${navGroup.name}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navGroup.content && navGroup.content.length > 0) {
-                    return;
-                  } else {
-                    router.push(`${navGroup.link}`);
-                    handleSidebarClose();
-                  }
-                }}
+               
                 {...(navGroup.name === "logout" && {
                   onClick: (e) => {
                     e.preventDefault();
@@ -95,12 +87,8 @@ function SideBar({ navList }) {
                         className={`nav-link ${
                           paths === subNav.link && "active"
                         }`}
-                        href={'#'}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          router.push(`${subNav.link}`);
-                          handleSidebarClose()
-                        }}
+                        href={`${subNav.link}`}
+                        
                       >
                         <i className={subNav.icon}></i>
                         <span>{subNav.name}</span>
