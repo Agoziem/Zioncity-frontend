@@ -14,6 +14,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import classResulthandler from "@/utils/classResulthandler";
 import SubjectResultPublishedlist from "@/components/Datatable/SubjectResultPublishedlist";
 import Alert from "@/components/Alert/Alert";
+import Modal from "@/components/Modal/modal";
 
 const Page = () => {
   const { schoolData } = useContext(SchoolContext);
@@ -26,6 +27,7 @@ const Page = () => {
     message: "",
     type: "",
   });
+  const [showModal, setShowModal] = useState(false);
   const [classresultcredential, setClassResultscredential] = useState({
     term_id: "",
     session_id: "",
@@ -35,6 +37,7 @@ const Page = () => {
 
   const [loadingterms, setLoadingterms] = useState(false);
   const [loadingresults, setLoadingResults] = useState(false);
+  const [publishingResults, setPublishingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
   // Fetch the terms for the school
@@ -148,6 +151,7 @@ const Page = () => {
 
   // 3) Publish the results to the students
   const handlePublishResults = async () => {
+    setPublishingResults(true);
     try {
       const response = await fetch(
         `${DJANGO_URL}/resultapi/postResultSummaries/`,
@@ -167,6 +171,8 @@ const Page = () => {
             published: true,
           }))
         );
+        setPublishingResults(false);
+        setShowModal(!showModal);
         setShowAlert(
           {
             show: true,
@@ -179,7 +185,19 @@ const Page = () => {
         );
       }
     } catch (error) {
-      console.error("Error publishing results:", error);
+      setPublishingResults(false);
+      setShowModal(!showModal);
+      setShowAlert(
+        {
+          show: true,
+          message: "An error occurred while Publishing Student Results",
+          type: "danger",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, message: "", type: "" });
+        }, 3000)
+      );
+      console.error("Error:", error);
     }
   };
 
@@ -224,7 +242,7 @@ const Page = () => {
             <button
               style={{ fontWeight: 500 }}
               className="btn btn-accent-primary w-100"
-              onClick={handlePublishResults}
+              onClick={() => setShowModal(true)}
             >
               <TiArrowForward className="me-2 mb-1" /> Publish Results{" "}
             </button>
@@ -268,6 +286,41 @@ const Page = () => {
           />
         </div>
       </div>
+
+      {/* Modal for Publishing Result */}
+      <Modal showmodal={showModal} toggleModal={() => setShowModal(!showModal)}>
+        <div>
+          <p>
+            are you sure you want to publish your students results, it will be
+            open to them immediately you Publish
+          </p>
+          <div className="d-flex justify-content-end">
+            <button
+              className="btn btn-primary me-3"
+              onClick={handlePublishResults}
+              disabled={publishingResults}
+            >
+              {publishingResults ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>Publishing Results ...</span>
+                </>
+              ) : (
+                "Publish Results"
+              )}
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setShowModal(!showModal)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

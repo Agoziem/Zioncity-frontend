@@ -14,6 +14,7 @@ import Resultcredentials from "@/components/form/Resultcredentials";
 import Notofferingresultlist from "@/components/Datatable/Notofferingresultlist";
 import calculateStudentResults from "@/utils/studentResulthandler";
 import Alert from "@/components/Alert/Alert";
+import Modal from "@/components/Modal/modal";
 
 const Page = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
@@ -30,6 +31,7 @@ const Page = () => {
     type: "",
     message: "",
   });
+  const [showModal, setShowModal] = useState(false);
 
   const [resultcredential, setResultscredential] = useState({
     term_id: "",
@@ -41,6 +43,7 @@ const Page = () => {
 
   const [loadingterms, setLoadingterms] = useState(false);
   const [loadingresults, setLoadingResults] = useState(false);
+  const [publishingResults, setPublishingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
   // get the stored credentials from the local storage
@@ -198,6 +201,7 @@ const Page = () => {
 
   // Publish the results to the students
   const handlePublishResults = async () => {
+    setPublishingResults(true);
     try {
       const response = await fetch(`${DJANGO_URL}/resultapi/postResults/`, {
         method: "PUT",
@@ -214,7 +218,8 @@ const Page = () => {
             published: true,
           }))
         );
-        
+        setPublishingResults(false);
+        setShowModal(!showModal);
         setShowAlert(
           {
             show: true,
@@ -227,6 +232,8 @@ const Page = () => {
         );
       }
     } catch (error) {
+      setPublishingResults(false);
+      setShowModal(!showModal);
       setShowAlert(
         {
           show: true,
@@ -281,7 +288,7 @@ const Page = () => {
             <button
               style={{ fontWeight: 500 }}
               className="btn btn-accent-primary w-100 w-md-50 mb-3"
-              onClick={handlePublishResults}
+              onClick={() => setShowModal(!showModal)}
             >
               <TiArrowForward className="me-2 mb-1 h5" /> Publish Results{" "}
             </button>
@@ -325,6 +332,41 @@ const Page = () => {
           />
         </div>
       </div>
+
+      {/* Modal for Publishing Result */}
+      <Modal showmodal={showModal} toggleModal={() => setShowModal(!showModal)}>
+        <div>
+          <p>
+            are you sure you want to publish your students results, it will be
+            opened to the formteacher for Review before final Publishing
+          </p>
+          <div className="d-flex justify-content-end">
+            <button
+              className="btn btn-primary me-3"
+              onClick={handlePublishResults}
+              disabled={publishingResults}
+            >
+              {publishingResults ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>Publishing Results ...</span>
+                </>
+              ) : (
+                "Publish Results"
+              )}
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setShowModal(!showModal)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

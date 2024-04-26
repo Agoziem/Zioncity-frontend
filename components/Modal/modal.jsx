@@ -3,9 +3,9 @@ import React from 'react';
 import { FaTimes } from "react-icons/fa";
 import './modal.css';
 
-const Modal = ({ children,modal,toggleModal}) => {
+const Modal = ({ children,showmodal,toggleModal}) => {
   if (typeof document !== 'undefined') {
-    if (modal) {
+    if (showmodal) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
@@ -15,7 +15,7 @@ const Modal = ({ children,modal,toggleModal}) => {
 
     return (
         <>
-          {modal && (
+          {showmodal && (
             <div>
                 <div className="modal">
                   <div onClick={toggleModal} className="overlay"></div>

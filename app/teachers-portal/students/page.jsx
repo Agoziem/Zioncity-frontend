@@ -154,7 +154,7 @@ const Page = () => {
         </Datatable>
       </div>
 
-      <Modal modal={modal} toggleModal={toggleModal}>
+      <Modal showmodal={modal} toggleModal={toggleModal}>
         <div>
           <p>Are you sure you want to delete {studenttodelete.studentName}?</p>
           <div className="d-flex justify-content-end">
