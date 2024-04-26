@@ -18,7 +18,7 @@ const ResultForm = ({
   return (
     <div className="card p-4">
       <h5 className="text-center mb-4">
-        Update {studentresult.student ? studentresult.student : "Student"}{" "}
+        Update {studentresult.student ? studentresult.student : "Student"}{"'s "}
         Result
       </h5>
 
@@ -143,7 +143,7 @@ const ResultForm = ({
           <div className="col-md mx-0 mx-md-3">
             <button
               type="submit"
-              className="btn btn-accent-primary mt-4 me-2 w-100"
+              className="btn btn-accent-primary mt-4 w-100"
               disabled={submitting}
               onClick={handleGoBack}
             >
