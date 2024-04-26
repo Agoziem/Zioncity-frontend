@@ -1,19 +1,24 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-const useClickOutside = (ref, callback) => {
+const useClickOutside = (ref, refbutton = null, callback) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        callback();
+        if (
+          !refbutton ||
+          (refbutton && !refbutton.current.contains(event.target))
+        ) {
+          callback();
+        }
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [ref, refbutton, callback]);
 };
 
 export default useClickOutside;

@@ -7,7 +7,8 @@ import { TeacherContextProvider } from "@/data/Teachercontextdata";
 import { StudentsContextProvider } from "@/data/Studentcontextdata";
 import { AdminContextProvider } from "@/data/Admincontextdata";
 import { AccountantContextProvider } from "@/data/Accountantcontextdata";
-
+import { SidebartoggleRefProvider } from "@/components/sidebar/sideBarTogglerContext";
+ 
 export const metadata = {
   title: "City of God",
   description:
@@ -23,7 +24,9 @@ const Rootlayout = ({ children }) => {
             <StudentsContextProvider>
               <AdminContextProvider>
                 <AccountantContextProvider>
+                  <SidebartoggleRefProvider>
                   {children}
+                  </SidebartoggleRefProvider>
                 </AccountantContextProvider>
               </AdminContextProvider>
             </StudentsContextProvider>
