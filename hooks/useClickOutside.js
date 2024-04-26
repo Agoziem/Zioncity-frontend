@@ -1,13 +1,15 @@
 "use client";
 import { useEffect } from "react";
 
-const useClickOutside = (ref, refbutton = null, callback) => {
+const useClickOutside = (ref, refbutton, callback) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         if (
           !refbutton ||
-          (refbutton && !refbutton.current.contains(event.target))
+          (refbutton &&
+            refbutton.current &&
+            !refbutton.current.contains(event.target))
         ) {
           callback();
         }

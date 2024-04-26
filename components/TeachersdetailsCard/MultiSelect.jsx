@@ -6,23 +6,25 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import useClickOutside from "@/hooks/useClickOutside";
 
 export const MultiSelectinput = ({
-  schoolData,
-  teacherData,
-  setTeacherData,
-  keyname,
-  schoollist,
-  schoolkey,
-  setIsOpen,
-  isOpen,
-  itemName,
+  multiselectbuttonref, // the ref of the button to toggle the dropdown
+  schoolData, // the school data to be displayed in the dropdown
+  teacherData, // the teacher data to be updated
+  setTeacherData, // the function to update the data
+  keyname, // the keyname of the data to be updated e.g classes or Subjects
+  schoollist, // the keyname of the data to be displayed on the dropdown input
+  schoolkey, // the keyname of the data to be displayed on the dropdown list
+  setIsOpen, // the function to toggle the dropdown
+  isOpen, // the state to toggle the dropdown
+  itemName, // the name of the data Caption to be displayed eg classes or subjects
 }) => {
-  
-
   const handleChange = (event, item) => {
     if (event.target.checked) {
       setTeacherData({
         ...teacherData,
-        [keyname]: [...teacherData[keyname], { id: item.id, name: item[schoollist] }],
+        [keyname]: [
+          ...teacherData[keyname],
+          { id: item.id, name: item[schoollist] },
+        ],
       });
     } else {
       setTeacherData({
@@ -31,7 +33,6 @@ export const MultiSelectinput = ({
       });
     }
   };
-
 
   return (
     <>
@@ -42,8 +43,8 @@ export const MultiSelectinput = ({
             className="d-flex flex-wrap align-items-center"
             style={{ maxWidth: "85%" }}
           >
-            { keyname &&
-            teacherData &&
+            {keyname &&
+              teacherData &&
               teacherData[keyname].length !== 0 &&
               teacherData[keyname].map((option) => (
                 <div
@@ -77,7 +78,7 @@ export const MultiSelectinput = ({
             </div>
           </div>
 
-          <div className="ms-2">
+          <div className="ms-2" ref={multiselectbuttonref}>
             <RiArrowDropDownLine
               className="h4"
               onClick={() => setIsOpen(!isOpen)}
@@ -94,12 +95,12 @@ export const MultiSelectinput = ({
             isOpen ? "show" : ""
           }`}
         >
-          {schoolkey && schoolData &&
+          {schoolkey &&
+            schoolData &&
             schoolData[schoolkey] !== 0 &&
             schoolData[schoolkey].map((item, index) => (
-              <>
+              <React.Fragment key={item.id}>
                 <li
-                  key={item.id}
                   className="dropdown-item d-flex align-items-center"
                 >
                   <input
@@ -113,11 +114,11 @@ export const MultiSelectinput = ({
                   <label htmlFor={item[schoollist]}>{item[schoollist]}</label>
                 </li>
                 {index !== schoolData[schoolkey].length - 1 && (
-                  <li>
+                  <li key={`Divider-${index}`}>
                     <hr className="dropdown-divider" />
                   </li>
                 )}
-              </>
+              </React.Fragment>
             ))}
         </ul>
       </div>
@@ -125,6 +126,8 @@ export const MultiSelectinput = ({
   );
 };
 
+
+// The Main Dropdown component
 export const MultiSelectDropdown = ({
   isOpen,
   setIsOpen,
@@ -137,11 +140,15 @@ export const MultiSelectDropdown = ({
   schoolDataKey,
 }) => {
   const multipleselectdropdownRef = useRef(null);
-  useClickOutside(multipleselectdropdownRef, () => setIsOpen(false));
+  const multiselectbuttonref = useRef(null);
+  useClickOutside(multipleselectdropdownRef, multiselectbuttonref, () =>
+    setIsOpen(false)
+  );
 
   return (
     <div ref={multipleselectdropdownRef}>
       <MultiSelectinput
+        multiselectbuttonref={multiselectbuttonref}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         itemName={itemName}
