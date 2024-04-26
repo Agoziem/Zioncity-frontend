@@ -2,8 +2,16 @@
 import Link from "next/link";
 import React from "react";
 import { IoArrowUndoSharp } from "react-icons/io5";
+import Alert from "../Alert/Alert";
 
-const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
+const Form = ({
+  showAlert,
+  type,
+  student,
+  setStudent,
+  submitting,
+  handleSubmit,
+}) => {
   return (
     <div className="card p-4 py-5">
       <h4 className="text-center">{type} Student</h4>
@@ -55,6 +63,13 @@ const Form = ({ type, student, setStudent, submitting, handleSubmit }) => {
             <option>Female</option>
           </select>
         </div>
+
+        {showAlert.show && (
+          <div className="col-md-12">
+            <Alert type={showAlert.type}>{showAlert.message}</Alert>
+          </div>
+        )}
+        
         <div className="col-12 mt-5 d-flex align-items-center  ">
           <Link
             href={"/teachers-portal/students"}

@@ -13,6 +13,7 @@ import ClassResultcredentials from "@/components/form/ClassResultcredentials";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import classResulthandler from "@/utils/classResulthandler";
 import SubjectResultPublishedlist from "@/components/Datatable/SubjectResultPublishedlist";
+import Alert from "@/components/Alert/Alert";
 
 const Page = () => {
   const { schoolData } = useContext(SchoolContext);
@@ -20,7 +21,11 @@ const Page = () => {
   const [terms, setTerms] = useState([]);
   const [result, setResults] = useState([]);
   const [computedResults, setComputedResults] = useState([]);
-
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
   const [classresultcredential, setClassResultscredential] = useState({
     term_id: "",
     session_id: "",
@@ -156,7 +161,22 @@ const Page = () => {
       );
 
       if (response.ok) {
-        alert("Results published successfully");
+        setComputedResults((prevResults) =>
+          prevResults.map((result) => ({
+            ...result,
+            published: true,
+          }))
+        );
+        setShowAlert(
+          {
+            show: true,
+            message: "Results Published Successfully",
+            type: "success",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, message: "", type: "" });
+          }, 3000)
+        );
       }
     } catch (error) {
       console.error("Error publishing results:", error);
@@ -172,7 +192,7 @@ const Page = () => {
     ) {
       fetchResults();
     }
-  }
+  };
 
   return (
     <>
@@ -214,11 +234,17 @@ const Page = () => {
 
       {/* Result Datatable */}
       <div className="mt-3">
+        {showAlert.show && (
+          <Alert type={showAlert.type}>{showAlert.message}</Alert>
+        )}
         <Datatable
           items={computedResults} //input the computed results here
           setItems={setResults}
         >
-          <ClassResultDatatableitems refresh={refreshData} loading={loadingresults} />
+          <ClassResultDatatableitems
+            refresh={refreshData}
+            loading={loadingresults}
+          />
         </Datatable>
       </div>
 

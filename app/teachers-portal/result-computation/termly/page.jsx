@@ -208,6 +208,13 @@ const Page = () => {
       });
 
       if (response.ok) {
+        setComputedResults((prevResults) =>
+          prevResults.map((result) => ({
+            ...result,
+            published: true,
+          }))
+        );
+        
         setShowAlert(
           {
             show: true,

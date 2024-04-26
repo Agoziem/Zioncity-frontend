@@ -10,6 +10,7 @@ import { FaPlus } from "react-icons/fa6";
 import "@/components/Modal/modal.css";
 import Link from "next/link";
 import "@/components/Datatable/Datatable.css";
+import Alert from "@/components/Alert/Alert";
 
 const Page = () => {
   const { schoolData } = useContext(SchoolContext);
@@ -21,6 +22,11 @@ const Page = () => {
   const [studenttodelete, setStudenttodelete] = useState({
     studentID: "",
     studentName: "",
+  });
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "",
   });
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
@@ -80,8 +86,28 @@ const Page = () => {
         );
         setStudenttodelete({ studentID: "", studentName: "" });
         toggleModal();
+        setShowAlert(
+          {
+            show: true,
+            message: "Student deleted successfully",
+            type: "success",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, message: "", type: "" });
+          }, 3000)
+        );
       }
     } catch (error) {
+      setShowAlert(
+        {
+          show: true,
+          message: "An error occurred, while deleting student",
+          type: "danger",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, message: "", type: "" });
+        }, 3000)
+      );
       console.log(error);
     } finally {
       setDeleting(false);
@@ -114,6 +140,9 @@ const Page = () => {
       </div>
 
       <div className="mt-3">
+        {showAlert.show && (
+          <Alert type={showAlert.type}>{showAlert.message}</Alert>
+        )}
         <Datatable items={student} setItems={setStudent}>
           <Datatableitems
             refresh={refreshData}
