@@ -118,6 +118,7 @@ const Loginform = ({
           setShowAlert({ show: false, type: "", message: "" });
         }, 3000)
       )
+      console.error("Error:", error);
     } finally {
       setLoadingPortal(false);
     }

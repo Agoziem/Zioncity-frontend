@@ -19,6 +19,11 @@ const UpdateStudent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const resultID = searchParams.get("id");
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
   useEffect(() => {
@@ -27,7 +32,7 @@ const UpdateStudent = () => {
         `${DJANGO_URL}/resultapi/getResult/${resultID}/`
       );
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setStudentResult({
         student: data.student,
         FirstTest: data.FirstTest,
@@ -71,10 +76,37 @@ const UpdateStudent = () => {
       );
 
       if (response.ok) {
+        setShowAlert(
+          {
+            show: true,
+            message: "Student result updated successfully",
+            type: "success",
+          },
+          setTimeout(() => {
+            setShowAlert({
+              show: false,
+              message: "",
+              type: "",
+            });
+          }, 3000)
+        );
         router.push("/teachers-portal/result-computation/termly");
       }
     } catch (error) {
-      console.log(error);
+      setShowAlert(
+        {
+          show: true,
+          message: "An error occurred",
+          type: "danger",
+        },
+        setTimeout(() => {
+          setShowAlert({
+            show: false,
+            message: "",
+            type: "",
+          });
+        }, 3000)
+      );
     } finally {
       setSubmitting(false);
     }
@@ -86,6 +118,7 @@ const UpdateStudent = () => {
       <div className="row justify-content-center pt-4 my-3 ">
         <div className="col-md-7">
           <ResultForm
+            showAlert={showAlert}
             studentresult={studentresult}
             setStudentResult={setStudentResult}
             submitting={submitting}

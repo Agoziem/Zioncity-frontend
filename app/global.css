@@ -285,6 +285,11 @@
   font-weight: 600;
 }
 
+.body .btn-accent-primary:hover{
+  background: #4154f1;
+  color: #dfdff3;
+}
+
 
 .body .btn-primary:hover {
   outline: none;

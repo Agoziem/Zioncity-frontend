@@ -13,6 +13,7 @@ import ResultDatatableitems from "@/components/Datatable/Resulttableitems";
 import Resultcredentials from "@/components/form/Resultcredentials";
 import Notofferingresultlist from "@/components/Datatable/Notofferingresultlist";
 import calculateStudentResults from "@/utils/studentResulthandler";
+import Alert from "@/components/Alert/Alert";
 
 const Page = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
@@ -24,6 +25,11 @@ const Page = () => {
   const [studentsnotoffering, setStudentsNotOffering] = useState([]);
   const [studentsoffering, setStudentsOffering] = useState([]);
   const [computedResults, setComputedResults] = useState([]);
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    type: "",
+    message: "",
+  });
 
   const [resultcredential, setResultscredential] = useState({
     term_id: "",
@@ -182,7 +188,7 @@ const Page = () => {
     }
   };
 
-  // 2) Compute the results by the passing it through the Student Result Computation Algorithm
+  // Compute the results by the passing it through the Student Result Computation Algorithm
   useEffect(() => {
     if (studentsoffering.length > 0) {
       const computedResults = calculateStudentResults(studentsoffering);
@@ -190,7 +196,7 @@ const Page = () => {
     }
   }, [studentsoffering]);
 
-  // 3) Publish the results to the students
+  // Publish the results to the students
   const handlePublishResults = async () => {
     try {
       const response = await fetch(`${DJANGO_URL}/resultapi/postResults/`, {
@@ -202,10 +208,42 @@ const Page = () => {
       });
 
       if (response.ok) {
-        alert("Results published successfully");
+        setShowAlert(
+          {
+            show: true,
+            type: "success",
+            message: "Results Published Successfully",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, type: "", message: "" });
+          }, 3000)
+        );
       }
     } catch (error) {
+      setShowAlert(
+        {
+          show: true,
+          type: "danger",
+          message: "Results not Published, an error occured. Try Again",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, type: "", message: "" });
+        }, 3000)
+      );
       console.error("Error publishing results:", error);
+    }
+  };
+
+  // Refresh Result
+  const refresh = () => {
+    if (
+      resultcredential.school_id &&
+      resultcredential.class_id &&
+      resultcredential.term_id &&
+      resultcredential.session_id &&
+      resultcredential.subject_id
+    ) {
+      fetchResults();
     }
   };
 
@@ -238,7 +276,7 @@ const Page = () => {
               className="btn btn-accent-primary w-100 w-md-50 mb-3"
               onClick={handlePublishResults}
             >
-              <TiArrowForward className="me-2 mb-1" /> Publish Results{" "}
+              <TiArrowForward className="me-2 mb-1 h5" /> Publish Results{" "}
             </button>
           </div>
         ) : null}
@@ -246,8 +284,12 @@ const Page = () => {
 
       {/* Result Datatable */}
       <div className="mt-3">
+        {showAlert.show && (
+          <Alert type={showAlert.type}>{showAlert.message}</Alert>
+        )}
         <Datatable items={computedResults} setItems={setStudentsOffering}>
           <ResultDatatableitems
+            refresh={refresh}
             loading={loadingresults}
             toggleOfferingStatus={toggleOfferingStatus}
           />

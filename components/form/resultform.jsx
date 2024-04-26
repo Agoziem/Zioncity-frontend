@@ -1,18 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { IoArrowUndoSharp } from "react-icons/io5";
+import Alert from "../Alert/Alert";
 
 const ResultForm = ({
+  showAlert,
   studentresult,
   setStudentResult,
   submitting,
   handleSubmit,
 }) => {
   const router = useRouter();
-
   const handleGoBack = () => {
-    router.back(); // Navigate back to the previous route
+    router.back();
   };
 
   return (
@@ -141,6 +142,9 @@ const ResultForm = ({
         </div>
 
         <div className="row mt-3 align-items-center ">
+          {showAlert.show && (
+            <Alert type={showAlert.type}>{showAlert.message}</Alert>
+          )}
           <div className="col-md mx-0 mx-md-3">
             <button
               type="submit"
@@ -148,7 +152,7 @@ const ResultForm = ({
               disabled={submitting}
               onClick={handleGoBack}
             >
-              <IoArrowUndoSharp className="me-2 h5" />
+              <IoArrowUndoSharp className="me-3 h5" />
               back to results
             </button>
           </div>
