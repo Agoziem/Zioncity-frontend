@@ -291,7 +291,9 @@ const ProfileEditForm = ({
                   id="ClassFormed"
                   className="profile-form-select form-select"
                   aria-label="Default select example"
-                  value={teacherData.classFormed ? teacherData.classFormed.id : ''}
+                  value={
+                    teacherData.classFormed ? teacherData.classFormed.id : ""
+                  }
                   onChange={(e) => {
                     setTeacherData({
                       ...teacherData,
@@ -357,7 +359,17 @@ const ProfileEditForm = ({
               className="btn btn-primary"
               disabled={submitting}
             >
-              {submitting ? "Submitting..." : "Submit Changes"}
+              {submitting ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>updating profile ...</span>
+                </>
+              ) : (
+                "update profile"
+              )}
             </button>
           </div>
         </form>

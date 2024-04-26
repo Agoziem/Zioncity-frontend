@@ -28,7 +28,8 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
             <div className="d-flex d-md-block justify-content-between">
               <h6 className="mb-3 ps-2">Account Information</h6>
               <div className="d-block d-md-none">
-                <FaPen className="h6" style={{cursor:"pointer",color:"#012970"}}
+                <FaPen
+                  className="h6 text-muted"
                   onClick={() => setEditMode(true)}
                 />
               </div>
@@ -80,8 +81,9 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
                 </button>
               </div>
             </div>
+
             <h6 className="mb-3 ps-2">Personal Information</h6>
-            <div className="d-block d-md-flex  p-4 border rounded p-3 justify-content-between mb-4">
+            <div className="d-block d-md-flex border rounded p-3 justify-content-between mb-4">
               <div className="d-block d-md-flex  align-items-center">
                 <div className="profile-icon-bio mb-3 me-0 mb-md-0 me-md-4 rounded-circle">
                   <BiSolidUserAccount className="h2" />
@@ -125,9 +127,9 @@ const ProfileCard = ({ teacherData, setEditMode }) => {
 
             <h6 className="mb-3 ps-2">School Information</h6>
 
-            <div className="d-block d-md-flex  p-4 border rounded p-3 justify-content-between">
+            <div className="d-block d-md-flex border rounded p-3 justify-content-between">
               <div className="d-block d-md-flex  align-items-center">
-                <div className="profile-icon mb-3 me-0 mb-md-0 me-md-4 rounded-circle">
+                <div className="profile-icon mb-3 me-0 mb-md-0 me-md-4 rounded-circle px-3">
                   <PiGraduationCapFill className="h2" />
                 </div>
                 <div>
