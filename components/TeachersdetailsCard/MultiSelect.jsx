@@ -7,8 +7,8 @@ import useClickOutside from "@/hooks/useClickOutside";
 
 export const MultiSelectinput = ({
   multiselectbuttonref, // the ref of the button to toggle the dropdown
-  schoolData, // the school data to be displayed in the dropdown
-  teacherData, // the teacher data to be updated
+  schoolData, // the data to be displayed in the dropdown
+  teacherData, // the data to be updated
   setTeacherData, // the function to update the data
   keyname, // the keyname of the data to be updated e.g classes or Subjects
   schoollist, // the keyname of the data to be displayed on the dropdown input
