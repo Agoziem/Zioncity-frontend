@@ -8,6 +8,7 @@ import { StudentsContext } from "@/data/Studentcontextdata";
 import { AdminContext } from "@/data/Admincontextdata";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import "@/components/TeachersdetailsCard/profile.css";
+import Alert from "@/components/Alert/Alert";
 
 const Loginform = ({
   datalist,
@@ -18,6 +19,11 @@ const Loginform = ({
   setLoginState,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    type: "",
+    message: "",
+  });
   const [usercredentials, setUsercredentials] = useState({
     id: "",
     password: "",
@@ -90,10 +96,28 @@ const Loginform = ({
         const data = await response.json();
         setuserdetails(data);
       } else {
-        alert("Invalid ID or Password");
+        setShowAlert(
+          {
+            show: true,
+            type: "danger",
+            message: "Invalid ID or Password",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, type: "", message: "" });
+          }, 3000)
+        )
       }
     } catch (error) {
-      console.log(error);
+      setShowAlert(
+        {
+          show: true,
+          type: "danger",
+          message: "an error occured, please try again later",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, type: "", message: "" });
+        }, 3000)
+      )
     } finally {
       setLoadingPortal(false);
     }
@@ -101,6 +125,9 @@ const Loginform = ({
 
   return (
     <div className="profile-edit-card px-3 px-md-5">
+      {showAlert.show && (
+        <Alert type={showAlert.type}>{showAlert.message}</Alert>
+      )}
       <form>
         {selectedPortal === "students" && (
           <div className="mb-3">
@@ -212,9 +239,7 @@ const Loginform = ({
                   className="spinner-border spinner-border-sm me-2"
                   aria-hidden="true"
                 ></span>
-                <span>
-                  Logging in ...
-                </span>
+                <span>Logging in ...</span>
               </>
             ) : (
               "go to dashboard"
