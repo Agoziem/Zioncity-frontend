@@ -10,7 +10,7 @@ import { AccountantContextProvider } from "@/data/Accountantcontextdata";
 import { SidebartoggleRefProvider } from "@/components/sidebar/sideBarTogglerContext";
  
 export const metadata = {
-  title: "City of God",
+  title: "City of Glory",
   description:
     "City of God App is a Software for School management, including portal for students, teachers and management. It also includes a platform for online learning, payment and exams.",
 };
