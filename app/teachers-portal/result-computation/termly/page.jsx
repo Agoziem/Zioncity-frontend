@@ -64,12 +64,7 @@ const Page = () => {
   let schoolterms = [];
 
   // set the needed data when they are available
-  if (
-    schoolData &&
-    teacherData &&
-    Object.keys(schoolData).length &&
-    Object.keys(teacherData).length
-  ) {
+  if (schoolData && teacherData) {
     schoolsessions = schoolData.sessions || [];
     schoolID = schoolData.id || "";
     teachersclasses = teacherData.classes_taught || [];
@@ -352,7 +347,7 @@ const Page = () => {
                     className="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"
                   ></span>
-                  <span>Publishing Results ...</span>
+                  <span>Publishing Results</span>
                 </>
               ) : (
                 "Publish Results"

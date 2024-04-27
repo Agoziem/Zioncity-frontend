@@ -1,4 +1,5 @@
 "use client";
+import Alert from "@/components/Alert/Alert";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 import { StudentsContext } from "@/data/Studentcontextdata";
@@ -21,25 +22,29 @@ const ResultPage = () => {
   const [result, setResults] = useState([]);
   const [loadingresults, setLoadingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
+
   const [storedresultdetails, setStoredResultDetails] = useLocalStorage(
     "resultdetails",
-    {}
+    resultdetails
   );
 
   useEffect(() => {
-    if (StudentData) {
-      setResultDetails({
-        ...resultdetails,
-        student_id: StudentData.id,
-      });
-    }
-  }, [StudentData]);
+    setResultDetails(storedresultdetails);
+  }, []);
 
   useEffect(() => {
-    if (storedresultdetails) {
-      setResultDetails(storedresultdetails);
+    if (StudentData.id) {
+      setResultDetails((prev) => ({
+        ...prev,
+        student_id: StudentData.id,
+      }));
     }
-  }, [storedresultdetails]);
+  }, [StudentData.id]);
 
   // Fetch the terms for the school
   useEffect(() => {
@@ -75,13 +80,25 @@ const ResultPage = () => {
           body: JSON.stringify(resultdetails),
         }
       );
-      if (!response.ok) {
+      if (response.status === 404) {
         throw new Error("Invalid Credentials, Please try again");
+      } else if (response.status === 400) {
+        throw new Error("Your Result have not been published yet, Please check back later");
       }
       const jsonData = await response.json();
       setResults(jsonData);
       setShowResult(true);
     } catch (error) {
+      setShowAlert(
+        {
+          show: true,
+          message: `${error.message}`,
+          type: `${error.message === "Invalid Credentials, Please try again" ? "danger" : "warning"}`,
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, message: "", type: "" });
+        }, 3000)
+      );
       console.error("Error fetching data:", error);
     } finally {
       setLoadingResults(false);
@@ -109,8 +126,11 @@ const ResultPage = () => {
         {!showResult ? (
           <div className="card d-flex p-5" style={{ maxWidth: "400px" }}>
             <h6 className="mb-4">Select result details to view your result</h6>
-            
+
             <form onSubmit={handleSubmit}>
+              {showAlert.show && (
+                <Alert type={showAlert.type}>{showAlert.message}</Alert>
+              )}
               <div className="form-group mb-3">
                 <label htmlFor="AcademicSession">Academic Session</label>
                 <select
@@ -179,7 +199,13 @@ const ResultPage = () => {
                 className="btn btn-primary w-100"
                 disabled={loadingresults}
               >
-                {loadingresults ? "Loading Result..." : "View Result"}
+                {loadingresults ? <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span>Loading Results</span>
+                </> : "View Result"}
               </button>
             </form>
           </div>

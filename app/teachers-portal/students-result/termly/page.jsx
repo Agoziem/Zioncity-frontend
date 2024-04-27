@@ -306,7 +306,7 @@ const Page = () => {
                     className="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"
                   ></span>
-                  <span>Publishing Results ...</span>
+                  <span>Publishing Results</span>
                 </>
               ) : (
                 "Publish Results"
