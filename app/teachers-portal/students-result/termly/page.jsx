@@ -149,7 +149,7 @@ const Page = () => {
     }
   }, [result]);
 
-  // 3) Publish the results to the students
+  // Publish the results to the students
   const handlePublishResults = async () => {
     setPublishingResults(true);
     try {
@@ -191,6 +191,58 @@ const Page = () => {
         {
           show: true,
           message: "An error occurred while Publishing Student Results",
+          type: "danger",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, message: "", type: "" });
+        }, 3000)
+      );
+      console.error("Error:", error);
+    }
+  };
+
+  // handle unpublish results
+  const handleUnpublishResults = async () => {
+    setPublishingResults(true);
+    try {
+      const response = await fetch(
+        `${DJANGO_URL}/resultapi/unpublishResultSummaries/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(computedResults),
+        }
+      );
+
+      if (response.ok) {
+        setComputedResults((prevResults) =>
+          prevResults.map((result) => ({
+            ...result,
+            published: false,
+          }))
+        );
+        setPublishingResults(false);
+        setShowModal(!showModal);
+        setShowAlert(
+          {
+            show: true,
+            message: "Results Unpublished Successfully",
+            type: "success",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, message: "", type: "" });
+          }, 3000)
+        );
+      }
+    } catch (error) {
+      setPublishingResults(false);
+      setShowModal(!showModal);
+      setShowAlert(
+        {
+          show: true,
+          message: "An error occurred while Unpublishing Student Results",
           type: "danger",
         },
         setTimeout(() => {
@@ -244,7 +296,10 @@ const Page = () => {
               className="btn btn-accent-primary w-100"
               onClick={() => setShowModal(true)}
             >
-              <TiArrowForward className="me-2 mb-1" /> Publish Results{" "}
+              <TiArrowForward className="me-2 mb-1" />
+              {computedResults[0] && computedResults[0].published
+                ? "Unpublish Results"
+                : "Publish Results"}{" "}
             </button>
           </div>
         ) : null}
@@ -273,6 +328,7 @@ const Page = () => {
             <ClassResultcredentials
               handleSubmit={handleSubmit}
               loadingterms={loadingterms}
+              loadingresults={loadingresults}
               schoolterms={schoolterms}
               schoolsessions={schoolsessions}
               setClassResultscredential={setClassResultscredential}
@@ -297,7 +353,11 @@ const Page = () => {
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-primary me-3"
-              onClick={handlePublishResults}
+              onClick={() => {
+                computedResults[0] && computedResults[0].published
+                  ? handleUnpublishResults()
+                  : handlePublishResults();
+              }}
               disabled={publishingResults}
             >
               {publishingResults ? (
@@ -306,10 +366,18 @@ const Page = () => {
                     className="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"
                   ></span>
-                  <span>Publishing Results</span>
+                  <span>
+                    {computedResults[0] && computedResults[0].published
+                      ? "Unpublishing Results"
+                      : "Publishing Results"}
+                  </span>
                 </>
               ) : (
-                "Publish Results"
+                <>
+                  {computedResults[0] && computedResults[0].published
+                    ? "Unpublish Results"
+                    : "Publish Results"}
+                </>
               )}
             </button>
             <button

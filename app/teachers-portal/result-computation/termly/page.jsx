@@ -243,6 +243,58 @@ const Page = () => {
     }
   };
 
+  // unpublish the results function
+  const handleUnpublishResults = async () => {
+    setPublishingResults(true);
+    try {
+      const response = await fetch(
+        `${DJANGO_URL}/resultapi/unpublishResults/`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(computedResults),
+        }
+      );
+
+      if (response.ok) {
+        setComputedResults((prevResults) =>
+          prevResults.map((result) => ({
+            ...result,
+            published: false,
+          }))
+        );
+        setPublishingResults(false);
+        setShowModal(!showModal);
+        setShowAlert(
+          {
+            show: true,
+            type: "success",
+            message: "Results unpublished Successfully",
+          },
+          setTimeout(() => {
+            setShowAlert({ show: false, type: "", message: "" });
+          }, 3000)
+        );
+      }
+    } catch (error) {
+      setPublishingResults(false);
+      setShowModal(!showModal)
+      setShowAlert(
+        {
+          show: true,
+          type: "danger",
+          message: "Results not Unpublished, an error occured. Try Again",
+        },
+        setTimeout(() => {
+          setShowAlert({ show: false, type: "", message: "" });
+        }, 3000)
+      );
+      console.error("Error unpublishing results:", error);
+    }
+  };
+
   // Refresh Result
   const refresh = () => {
     if (
@@ -285,7 +337,10 @@ const Page = () => {
               className="btn btn-accent-primary w-100 w-md-50 mb-3"
               onClick={() => setShowModal(!showModal)}
             >
-              <TiArrowForward className="me-2 mb-1 h5" /> Publish Results{" "}
+              <TiArrowForward className="me-2 mb-1 h5" />
+              {computedResults[0] && computedResults[0].published
+                ? "unpublish  Results"
+                : "Publish Results"}{" "}
             </button>
           </div>
         ) : null}
@@ -331,14 +386,27 @@ const Page = () => {
       {/* Modal for Publishing Result */}
       <Modal showmodal={showModal} toggleModal={() => setShowModal(!showModal)}>
         <div>
-          <p>
-            are you sure you want to publish your students results, it will be
-            opened to the formteacher for Review before final Publishing
-          </p>
+          {computedResults[0] && computedResults[0].published ? (
+            <p>
+              {" "}
+              are you sure you want to unpublish your students results, it will
+              no longer be accessible to the formteacher
+            </p>
+          ) : (
+            <p>
+              {" "}
+              are you sure you want to publish your students results, it will be
+              opened to the formteacher for Review before final Publishing{" "}
+            </p>
+          )}
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-primary me-3"
-              onClick={handlePublishResults}
+              onClick={() => {
+                computedResults[0] && computedResults[0].published
+                  ? handleUnpublishResults()
+                  : handlePublishResults();
+              }}
               disabled={publishingResults}
             >
               {publishingResults ? (
@@ -347,10 +415,18 @@ const Page = () => {
                     className="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"
                   ></span>
-                  <span>Publishing Results</span>
+                  <span>
+                    {computedResults[0] && computedResults[0].published
+                      ? "Unpublishing Results"
+                      : "Publishing Results"}
+                  </span>
                 </>
               ) : (
-                "Publish Results"
+                <>
+                  {computedResults[0] && computedResults[0].published
+                    ? "Unpublish Results"
+                    : "Publish Results"}
+                </>
               )}
             </button>
             <button

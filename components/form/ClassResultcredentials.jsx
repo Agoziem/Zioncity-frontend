@@ -3,6 +3,7 @@ import React from "react";
 
 const ClassResultcredentials = ({
   handleSubmit,
+  loadingterms,
   loadingresults,
   classresultcredential,
   setClassResultscredential,
@@ -28,11 +29,16 @@ const ClassResultcredentials = ({
               })
             }
           >
-            {schoolterms.length === 0 ? (
+            {schoolterms.length === 0 && (
               <option value="">No Term Found</option>
-            ) : (
-              <option value="">Select Term</option>
             )}
+
+            {
+              <option value="">
+                {loadingterms ? "Loading Terms..." : "Select Term"}
+              </option>
+            }
+            
             {schoolterms.map((term) => (
               <option key={term.id} value={term.id}>
                 {term.term}
