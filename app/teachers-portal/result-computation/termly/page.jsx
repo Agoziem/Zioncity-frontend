@@ -271,6 +271,9 @@ const Page = () => {
     <>
       <PageTitle pathname={"Termly Result"} />
       <h3>{selectedClassName} Students Result </h3>
+      <p className="mb-3">
+          compute Student results for your Subject and Class and publish it to the formteacher
+        </p>
       <div className="row mt-3 justify-content-between">
         <div className="col-md-5 mb-4 mb-md-0">
           {computedResults[0] && computedResults[0].published ? (

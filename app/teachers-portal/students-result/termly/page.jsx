@@ -225,7 +225,7 @@ const Page = () => {
       <div className="row mt-4 justify-content-between">
         <h3 className="mt-3">{className} Class Result </h3>
         <p className="mb-3">
-          Compute the results of the students in this class
+          review your class results and Publish them to your Students
         </p>
         <div className="col-md-7 mb-4 mb-md-0">
           {computedResults[0] && computedResults[0].published ? (
