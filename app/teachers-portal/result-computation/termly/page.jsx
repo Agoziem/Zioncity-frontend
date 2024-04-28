@@ -194,23 +194,33 @@ const Page = () => {
     }
   }, [studentsoffering]);
 
-  // Publish the results to the students
-  const handlePublishResults = async () => {
+  // Publish or Unpublish the computed results
+  const handlePublishOrUnpublishResults = async (publish) => {
     setPublishingResults(true);
+    const endpoint = publish
+      ? `${DJANGO_URL}/resultapi/postResults/`
+      : `${DJANGO_URL}/resultapi/unpublishResults/`;
+    const successMessage = publish
+      ? "Results Published Successfully"
+      : "Results Unpublished Successfully";
+    const errorMessage = publish
+      ? "Results not Published, an error occured. Try Again"
+      : "Results not Unpublished, an error occured. Try Again";
+  
     try {
-      const response = await fetch(`${DJANGO_URL}/resultapi/postResults/`, {
+      const response = await fetch(endpoint, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(computedResults),
       });
-
+  
       if (response.ok) {
         setComputedResults((prevResults) =>
           prevResults.map((result) => ({
             ...result,
-            published: true,
+            published: publish,
           }))
         );
         setPublishingResults(false);
@@ -219,7 +229,7 @@ const Page = () => {
           {
             show: true,
             type: "success",
-            message: "Results Published Successfully",
+            message: successMessage,
           },
           setTimeout(() => {
             setShowAlert({ show: false, type: "", message: "" });
@@ -233,67 +243,16 @@ const Page = () => {
         {
           show: true,
           type: "danger",
-          message: "Results not Published, an error occured. Try Again",
+          message: errorMessage,
         },
         setTimeout(() => {
           setShowAlert({ show: false, type: "", message: "" });
         }, 3000)
       );
-      console.error("Error publishing results:", error);
+      console.error("Error:", publish ? "publishing" : "unpublishing", "results:", error);
     }
   };
 
-  // unpublish the results function
-  const handleUnpublishResults = async () => {
-    setPublishingResults(true);
-    try {
-      const response = await fetch(
-        `${DJANGO_URL}/resultapi/unpublishResults/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(computedResults),
-        }
-      );
-
-      if (response.ok) {
-        setComputedResults((prevResults) =>
-          prevResults.map((result) => ({
-            ...result,
-            published: false,
-          }))
-        );
-        setPublishingResults(false);
-        setShowModal(!showModal);
-        setShowAlert(
-          {
-            show: true,
-            type: "success",
-            message: "Results unpublished Successfully",
-          },
-          setTimeout(() => {
-            setShowAlert({ show: false, type: "", message: "" });
-          }, 3000)
-        );
-      }
-    } catch (error) {
-      setPublishingResults(false);
-      setShowModal(!showModal)
-      setShowAlert(
-        {
-          show: true,
-          type: "danger",
-          message: "Results not Unpublished, an error occured. Try Again",
-        },
-        setTimeout(() => {
-          setShowAlert({ show: false, type: "", message: "" });
-        }, 3000)
-      );
-      console.error("Error unpublishing results:", error);
-    }
-  };
 
   // Refresh Result
   const refresh = () => {
@@ -404,8 +363,8 @@ const Page = () => {
               className="btn btn-primary me-3"
               onClick={() => {
                 computedResults[0] && computedResults[0].published
-                  ? handleUnpublishResults()
-                  : handlePublishResults();
+                  ? handlePublishOrUnpublishResults(false)
+                  : handlePublishOrUnpublishResults(true);
               }}
               disabled={publishingResults}
             >

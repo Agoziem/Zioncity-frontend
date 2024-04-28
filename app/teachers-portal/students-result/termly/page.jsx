@@ -149,78 +149,33 @@ const Page = () => {
     }
   }, [result]);
 
-  // Publish the results to the students
-  const handlePublishResults = async () => {
+  // handle Publish & Unpublish results
+  const handlePublishOrUnpublishResults = async (publish) => {
     setPublishingResults(true);
-    try {
-      const response = await fetch(
-        `${DJANGO_URL}/resultapi/postResultSummaries/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(computedResults),
-        }
-      );
+    const endpoint = publish
+      ? `${DJANGO_URL}/resultapi/postResultSummaries/`
+      : `${DJANGO_URL}/resultapi/unpublishResultSummaries/`;
+    const successMessage = publish
+      ? "Results Published Successfully"
+      : "Results Unpublished Successfully";
+    const errorMessage = publish
+      ? "An error occurred while Publishing Student Results"
+      : "An error occurred while Unpublishing Student Results";
 
-      if (response.ok) {
-        setComputedResults((prevResults) =>
-          prevResults.map((result) => ({
-            ...result,
-            published: true,
-          }))
-        );
-        setPublishingResults(false);
-        setShowModal(!showModal);
-        setShowAlert(
-          {
-            show: true,
-            message: "Results Published Successfully",
-            type: "success",
-          },
-          setTimeout(() => {
-            setShowAlert({ show: false, message: "", type: "" });
-          }, 3000)
-        );
-      }
-    } catch (error) {
-      setPublishingResults(false);
-      setShowModal(!showModal);
-      setShowAlert(
-        {
-          show: true,
-          message: "An error occurred while Publishing Student Results",
-          type: "danger",
+    try {
+      const response = await fetch(endpoint, {
+        method: publish ? "POST" : "PUT",
+        headers: {
+          "Content-Type": "application/json",
         },
-        setTimeout(() => {
-          setShowAlert({ show: false, message: "", type: "" });
-        }, 3000)
-      );
-      console.error("Error:", error);
-    }
-  };
-
-  // handle unpublish results
-  const handleUnpublishResults = async () => {
-    setPublishingResults(true);
-    try {
-      const response = await fetch(
-        `${DJANGO_URL}/resultapi/unpublishResultSummaries/`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(computedResults),
-        }
-      );
+        body: JSON.stringify(computedResults),
+      });
 
       if (response.ok) {
         setComputedResults((prevResults) =>
           prevResults.map((result) => ({
             ...result,
-            published: false,
+            published: publish,
           }))
         );
         setPublishingResults(false);
@@ -228,7 +183,7 @@ const Page = () => {
         setShowAlert(
           {
             show: true,
-            message: "Results Unpublished Successfully",
+            message: successMessage,
             type: "success",
           },
           setTimeout(() => {
@@ -242,7 +197,7 @@ const Page = () => {
       setShowAlert(
         {
           show: true,
-          message: "An error occurred while Unpublishing Student Results",
+          message: errorMessage,
           type: "danger",
         },
         setTimeout(() => {
@@ -346,17 +301,25 @@ const Page = () => {
       {/* Modal for Publishing Result */}
       <Modal showmodal={showModal} toggleModal={() => setShowModal(!showModal)}>
         <div>
-          <p>
-            are you sure you want to publish your students results, it will be
-            open to them immediately you Publish
-          </p>
+          {computedResults[0] && computedResults[0].published ? (
+            <p>
+              are you sure you want to retrieve your students results, it will
+              no longer be opened to them immediately you Unpublish
+            </p>
+          ) : (
+            <p>
+              are you sure you want to publish your students results, it will be
+              opened to them immediately you Publish
+            </p>
+          )}
+
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-primary me-3"
               onClick={() => {
                 computedResults[0] && computedResults[0].published
-                  ? handleUnpublishResults()
-                  : handlePublishResults();
+                  ? handlePublishOrUnpublishResults(false)
+                  : handlePublishOrUnpublishResults(true);
               }}
               disabled={publishingResults}
             >
