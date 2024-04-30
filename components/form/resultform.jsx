@@ -27,7 +27,7 @@ const ResultForm = ({
       <form onSubmit={handleSubmit}>
         <div className="row mb-3">
           <div className="col-md mx-0 mx-md-3 form-group">
-            <label htmlFor="FirstTest">First Test</label>
+            <label htmlFor="FirstTest">Resumption Test</label>
             <input
               type="text"
               className="form-control"

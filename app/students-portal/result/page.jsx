@@ -129,137 +129,131 @@ const ResultPage = () => {
       <PageTitle pathname={"Student Result"} />
 
       {/* The result Pin confirmation */}
-      <div className="d-flex justify-content-center mt-5">
+      <div className="mt-4">
         {!showResult ? (
-          <div className="card d-flex p-5" style={{ maxWidth: "400px" }}>
-            <h6 className="mb-4">Select result details to view your result</h6>
+          <div className="d-flex justify-content-center mt-5">
+            <div className="card d-flex p-5" style={{ maxWidth: "400px" }}>
+              <h6 className="mb-4">
+                Select result details to view your result
+              </h6>
 
-            <form onSubmit={handleSubmit}>
-              {showAlert.show && (
-                <Alert type={showAlert.type}>{showAlert.message}</Alert>
-              )}
-              <div className="form-group mb-3">
-                <label htmlFor="AcademicSession">Academic Session</label>
-                <select
-                  className="form-select"
-                  id="AcademicSession"
-                  value={resultdetails.session_id}
-                  onChange={(e) => {
-                    setResultDetails({
-                      ...resultdetails,
-                      session_id: e.target.value,
-                    });
-                  }}
-                >
-                  <option value="0">Select Session</option>
-                  {schoolData.sessions &&
-                    schoolData.sessions.length > 0 &&
-                    schoolData.sessions.map((session) => (
-                      <option key={session.id} value={session.id}>
-                        {session.session}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div className="form-group mb-3">
-                <label htmlFor="Term">Term</label>
-                <select
-                  className="form-select"
-                  id="Term"
-                  value={resultdetails.term_id}
-                  onChange={(e) => {
-                    setResultDetails({
-                      ...resultdetails,
-                      term_id: e.target.value,
-                    });
-                  }}
-                >
-                  <option value="0">Select Term</option>
-                  {terms.length > 0 &&
-                    terms.map((term) => (
-                      <option key={term.id} value={term.id}>
-                        {term.term}
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              <div className="form-group mb-4">
-                <label htmlFor="student_pin">Result Pin</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="student_pin"
-                  placeholder="Enter your result pin"
-                  value={resultdetails.student_pin}
-                  onChange={(e) => {
-                    setResultDetails({
-                      ...resultdetails,
-                      student_pin: e.target.value,
-                    });
-                  }}
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary w-100"
-                disabled={loadingresults}
-              >
-                {loadingresults ? (
-                  <>
-                    <span
-                      className="spinner-border spinner-border-sm me-2"
-                      aria-hidden="true"
-                    ></span>
-                    <span>Loading Results</span>
-                  </>
-                ) : (
-                  "View Result"
+              <form onSubmit={handleSubmit}>
+                {showAlert.show && (
+                  <Alert type={showAlert.type}>{showAlert.message}</Alert>
                 )}
-              </button>
-            </form>
+                <div className="form-group mb-3">
+                  <label htmlFor="AcademicSession">Academic Session</label>
+                  <select
+                    className="form-select"
+                    id="AcademicSession"
+                    value={resultdetails.session_id}
+                    onChange={(e) => {
+                      setResultDetails({
+                        ...resultdetails,
+                        session_id: e.target.value,
+                      });
+                    }}
+                  >
+                    <option value="0">Select Session</option>
+                    {schoolData.sessions &&
+                      schoolData.sessions.length > 0 &&
+                      schoolData.sessions.map((session) => (
+                        <option key={session.id} value={session.id}>
+                          {session.session}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <div className="form-group mb-3">
+                  <label htmlFor="Term">Term</label>
+                  <select
+                    className="form-select"
+                    id="Term"
+                    value={resultdetails.term_id}
+                    onChange={(e) => {
+                      setResultDetails({
+                        ...resultdetails,
+                        term_id: e.target.value,
+                      });
+                    }}
+                  >
+                    <option value="0">Select Term</option>
+                    {terms.length > 0 &&
+                      terms.map((term) => (
+                        <option key={term.id} value={term.id}>
+                          {term.term}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <div className="form-group mb-4">
+                  <label htmlFor="student_pin">Result Pin</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="student_pin"
+                    placeholder="Enter your result pin"
+                    value={resultdetails.student_pin}
+                    onChange={(e) => {
+                      setResultDetails({
+                        ...resultdetails,
+                        student_pin: e.target.value,
+                      });
+                    }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  disabled={loadingresults}
+                >
+                  {loadingresults ? (
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        aria-hidden="true"
+                      ></span>
+                      <span>Loading Results</span>
+                    </>
+                  ) : (
+                    "View Result"
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         ) : (
           result &&
           Object.keys(result).length > 0 && (
-            <div>
-              <h4 className="mb-4">Your Result</h4>
+            <div className="px-1 px-md-5">
               <div className="card p-5">
                 <div className="row align-items-center">
                   <div className="col-md-3">
-                    {StudentData.headshot ? (
-                      <img
-                        src={StudentData.headshot}
-                        className="rounded-circle object-fit-cover me-3"
-                        alt="profile"
-                        height={75}
-                        width={75}
-                        style={{ objectPosition: "top center" }}
-                      />
-                    ) : (
-                      <>
-                        <FaUserCircle
-                          className="me-3 text-muted"
-                          alt="profile"
-                          style={{ fontSize: "75px" }}
-                        />
-                      </>
-                    )}
+                    <img
+                      src={schoolData.Schoollogo}
+                      className="me-3 mb-2 mb-md-0"
+                      alt="profile"
+                      height={100}
+                      width={138}
+                    />
                   </div>
 
                   <div className="col-md-7">
                     <div className="row">
                       <div className="col-md-6">
-                        <p className="mb-1">
-                          <strong>Firstname: </strong>
-                          {result.resultsummary.Student_name.firstname}
+                        <p className="mb-1 text-uppercase">
+                          <strong>
+                            {result.resultsummary.Student_name.firstname}
+                          </strong>
                         </p>
                       </div>
                       <div className="col-md-6">
-                        <p className="mb-1">
-                          <strong>Surname: </strong>
-                          {result.resultsummary.Student_name.surname}
+                        <p className="mb-1 text-uppercase">
+                          <strong>
+                            {result.resultsummary.Student_name.surname}
+                          </strong>
                         </p>
                       </div>
                     </div>
@@ -297,82 +291,89 @@ const ResultPage = () => {
                 </div>
               </div>
 
-              <div className="mt-4 card resultCard table-responsive p-5">
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Subject</th>
-                      <th>1stT</th>
-                      <th>2ndT</th>
-                      <th>PRO</th>
-                      <th>MDT</th>
-                      <th>IstA</th>
-                      <th>2ndA</th>
-                      <th>CA</th>
-                      <th>Exam</th>
-                      <th>Total</th>
-                      <th>Grade</th>
-                      <th>POS</th>
-                      <th>Remark</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.subjectresults.map((subject) => (
-                      <tr key={subject.id}>
-                        <td>{subject.Subject}</td>
-                        <td>{subject.FirstTest}</td>
-                        <td>{subject.SecondTest}</td>
-                        <td>{subject.Project}</td>
-                        <td>{subject.MidTermTest}</td>
-                        <td>{subject.FirstAss}</td>
-                        <td>{subject.SecondAss}</td>
-                        <td>{subject.CA}</td>
-                        <td>{subject.Exam}</td>
-                        <td>{subject.Total}</td>
-                        <td>{subject.Grade}</td>
-                        <td>{subject.SubjectPosition}</td>
+              <div className="card p-4">
+                <div className="mt-4 resultCard table-responsive p-2">
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Subject</th>
+                        <th>ResT</th>
+                        <th>2ndT</th>
+                        <th>PRO</th>
+                        <th>MDT</th>
+                        <th>IstA</th>
+                        <th>2ndA</th>
+                        <th>CA</th>
+                        <th>Exam</th>
+                        <th>Total</th>
+                        <th>Grade</th>
+                        <th>POS</th>
+                        <th>Remark</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.subjectresults.map((subject) => (
+                        <tr key={subject.id}>
+                          <td>{subject.Subject}</td>
+                          <td>{subject.FirstTest}</td>
+                          <td>{subject.SecondTest}</td>
+                          <td>{subject.Project}</td>
+                          <td>{subject.MidTermTest}</td>
+                          <td>{subject.FirstAss}</td>
+                          <td>{subject.SecondAss}</td>
+                          <td>{subject.CA}</td>
+                          <td>{subject.Exam}</td>
+                          <td>{subject.Total}</td>
+                          <td>{subject.Grade}</td>
+                          <td>{subject.SubjectPosition}</td>
+                          <td
+                            className={`${getColorClass(
+                              subject.Remark
+                            )} fw-bold `}
+                          >
+                            {subject.Remark}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="card p-4">
+                <div className="resultCard table-responsive p-2">
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Summary</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Total Score</td>
+                        <td>{result.resultsummary.TotalScore}</td>
+                      </tr>
+                      <tr>
+                        <td>Average Score</td>
+                        <td>{result.resultsummary.Average}</td>
+                      </tr>
+                      <tr>
+                        <td>Position</td>
+                        <td>{result.resultsummary.Position}</td>
+                      </tr>
+                      <tr>
+                        <td>Remark</td>
                         <td
                           className={`${getColorClass(
-                            subject.Remark
+                            result.resultsummary.Remark
                           )} fw-bold `}
                         >
-                          {subject.Remark}
+                          {result.resultsummary.Remark}
                         </td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="card p-3 px-5">
-                <div className="row justify-content-between">
-                  <div className="resultCard table-responsive p-4">
-                    <table className="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Summary</th>
-                          <th>Value</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Total Score</td>
-                          <td>{result.resultsummary.TotalScore}</td>
-                        </tr>
-                        <tr>
-                          <td>Average Score</td>
-                          <td>{result.resultsummary.Average}</td>
-                        </tr>
-                        <tr>
-                          <td>Position</td>
-                          <td>{result.resultsummary.Position}</td>
-                        </tr>
-                        <tr>
-                          <td>Remark</td>
-                          <td>{result.resultsummary.Remark}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

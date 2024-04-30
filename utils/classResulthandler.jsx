@@ -17,8 +17,10 @@
     }
 
     const average = (totalScore, totalSubjects) => {
-      return totalSubjects > 0 ? totalScore / totalSubjects : '-';
-    }
+      const averageScore = totalSubjects > 0 ? totalScore / totalSubjects : '-';
+      return typeof averageScore === 'number' ? Number(averageScore.toFixed(2)) : averageScore;
+    };
+    
 
     function position(students) {
       students.sort((a, b) => {
