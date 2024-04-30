@@ -6,6 +6,7 @@ import { StudentsContext } from "@/data/Studentcontextdata";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { useContext, useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import "@/components/Datatable/Datatable.css";
 
 const ResultPage = () => {
   const [showResult, setShowResult] = useState(false);
@@ -83,7 +84,9 @@ const ResultPage = () => {
       if (response.status === 404) {
         throw new Error("Invalid Credentials, Please try again");
       } else if (response.status === 400) {
-        throw new Error("Your Result have not been published yet, Please check back later");
+        throw new Error(
+          "Your Result have not been published yet, Please check back later"
+        );
       }
       const jsonData = await response.json();
       setResults(jsonData);
@@ -93,7 +96,11 @@ const ResultPage = () => {
         {
           show: true,
           message: `${error.message}`,
-          type: `${error.message === "Invalid Credentials, Please try again" ? "danger" : "warning"}`,
+          type: `${
+            error.message === "Invalid Credentials, Please try again"
+              ? "danger"
+              : "warning"
+          }`,
         },
         setTimeout(() => {
           setShowAlert({ show: false, message: "", type: "" });
@@ -199,13 +206,17 @@ const ResultPage = () => {
                 className="btn btn-primary w-100"
                 disabled={loadingresults}
               >
-                {loadingresults ? <>
-                  <span
-                    className="spinner-border spinner-border-sm me-2"
-                    aria-hidden="true"
-                  ></span>
-                  <span>Loading Results</span>
-                </> : "View Result"}
+                {loadingresults ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      aria-hidden="true"
+                    ></span>
+                    <span>Loading Results</span>
+                  </>
+                ) : (
+                  "View Result"
+                )}
               </button>
             </form>
           </div>
@@ -216,7 +227,7 @@ const ResultPage = () => {
               <h4 className="mb-4">Your Result</h4>
               <div className="card p-5">
                 <div className="row align-items-center">
-                  <div className="col-lg-2">
+                  <div className="col-md-3">
                     {StudentData.headshot ? (
                       <img
                         src={StudentData.headshot}
@@ -236,54 +247,56 @@ const ResultPage = () => {
                       </>
                     )}
                   </div>
-                  <div className="col-6 col-md-3">
-                    <p className="mb-1">
-                      <strong>Firstname: </strong>
-                      {result.resultsummary.Student_name.firstname}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Surname: </strong>
-                      {result.resultsummary.Student_name.surname}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Class: </strong>
-                      {StudentData.studentclass.class_}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Session: </strong>
-                      {result.resultsummary.AcademicSession.session}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Term: </strong>
-                      {result.resultsummary.Term.term}
-                    </p>
-                  </div>
-                  <div className="col-6 col-md-3">
-                    <p className="mb-1">
-                      <strong>Total Score: </strong>
-                      {result.resultsummary.TotalScore}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Total Number: </strong>
-                      {result.resultsummary.Totalnumber}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Average: </strong>
-                      {result.resultsummary.Average}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Position: </strong>
-                      {result.resultsummary.Position}
-                    </p>
-                    <p className="mb-1">
-                      <strong>Remark: </strong>
-                      {result.resultsummary.Remark}
-                    </p>
+                  <div className="col-md-7">
+                    <div className="row">
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Firstname: </strong>
+                          {result.resultsummary.Student_name.firstname}
+                        </p>
+                      </div>
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Surname: </strong>
+                          {result.resultsummary.Student_name.surname}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Class: </strong>
+                          {StudentData.studentclass.class_}
+                        </p>
+                      </div>
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Session: </strong>
+                          {result.resultsummary.AcademicSession.session}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Term: </strong>
+                          {result.resultsummary.Term.term}
+                        </p>
+                      </div>
+                      <div className="col-6">
+                        <p className="mb-1">
+                          <strong>Total Number: </strong>
+                          {result.resultsummary.Totalnumber}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4 card table-responsive p-5">
+              <div className="mt-4 card datatableCard table-responsive p-5">
                 <table className="table table-striped">
                   <thead>
                     <tr>
@@ -328,6 +341,38 @@ const ResultPage = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div className="card p-3 px-5">
+                <div className="row justify-content-between">
+                  <div>
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Summary</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Total Score</td>
+                        <td>{result.resultsummary.TotalScore}</td>
+                      </tr>
+                      <tr>
+                        <td>Average Score</td>
+                        <td>{result.resultsummary.Average}</td>
+                      </tr>
+                      <tr>
+                        <td>Position</td>
+                        <td>{result.resultsummary.Position}</td>
+                      </tr>
+                      <tr>
+                        <td>Remark</td>
+                        <td>{result.resultsummary.Remark}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
               </div>
             </div>
           )
