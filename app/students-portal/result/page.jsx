@@ -11,6 +11,7 @@ import { FaDownload } from "react-icons/fa6";
 import { TbArrowBackUp } from "react-icons/tb";
 import useJsxToPdf from "@/hooks/useJSXtoPDF";
 import { useMediaQuery } from "@react-hook/media-query";
+import { SiAdobeacrobatreader } from "react-icons/si";
 
 const ResultPage = () => {
   const [showResult, setShowResult] = useState(false);
@@ -34,7 +35,6 @@ const ResultPage = () => {
   });
   const [newsletter, setNewsletter] = useState({});
   const Resultref = useRef(null);
-  const newletterref = useRef(null);
   const isSmallerThanMd = useMediaQuery("(max-width: 768px)");
 
   const [storedresultdetails, setStoredResultDetails] = useLocalStorage(
@@ -78,16 +78,17 @@ const ResultPage = () => {
       );
       const newsletterData = await response.json();
       setNewsletter(newsletterData);
-      console.log(`${DJANGO_URL}/adminsapi/get_newsletter/${resultdetails.session_id}/${resultdetails.term_id}`)
-      console.log(newsletterData)
+      console.log(
+        `${DJANGO_URL}/adminsapi/get_newsletter/${resultdetails.session_id}/${resultdetails.term_id}`
+      );
+      console.log(newsletterData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    if (resultdetails.session_id && resultdetails.term_id)
-    fetchNewsletter();
+    if (resultdetails.session_id && resultdetails.term_id) fetchNewsletter();
   }, [resultdetails.session_id, resultdetails.term_id]);
 
   const handleSubmit = (e) => {
@@ -159,10 +160,6 @@ const ResultPage = () => {
     saveAsPDF(Resultref.current);
   };
 
-  const [loading2, saveAsPDF2] = useJsxToPdf();
-  const downloadToPdf2 = () => {
-    saveAsPDF2(newletterref.current);
-  };
   return (
     <div>
       <PageTitle pathname={"Student Result"} />
@@ -423,256 +420,64 @@ const ResultPage = () => {
                 </div>
               </div>
 
-              {/*  download Result btn*/}
-              <div className="px-1 px-md-5 d-flex justify-content-center justify-content-md-end ">
-                <button
-                  className="btn btn-primary my-4 mt-3"
-                  onClick={() => downloadToPdf()}
-                  disabled={loading}
-                >
-                  <FaDownload className="h5 me-2" />
-                  {loading ? (
-                    <>
-                      <span
-                        className="spinner-border spinner-border-sm me-2"
-                        aria-hidden="true"
-                      ></span>
-                      <span>downloading Result</span>
-                    </>
-                  ) : (
-                    "Download Result"
-                  )}
-                </button>
-              </div>
-
               {/* Newsletter */}
-              <div className="card mx-1 mx-md-5" ref={newletterref}>
-                <div className="mt-5 p-5 px-md-5">
-                  <div className="text-center">
-                    <h4>CITY OF GLORY SECONDARY SCHOOL ENEKWASUMPU</h4>
-                    <p className="mb-0">
-                      NEWS LETTER FOR SECOND TERM 2023/2024 ACADEMIC SESSION.
-                    </p>
-                    <p>22ND MARCH 2024</p>
-                  </div>
-
-                  <div className="mt-5">
-                    <h5>APPRECIATION</h5>
-                    <p>
-                      Compliment of the season in advance. We give God all glory
-                      and thanksgiving for the success of this term. He has been
-                      our sure anchor. We appreciate the supervising priest of
-                      the school, Rev. Canon Dr Eberechukwu Princewill Okonkwo,
-                      the vicar of St. Silas Anglican church Enekwasumpu ( CITY
-                      OF GLORY ) for being a great encouragement to us. Also ,
-                      the management board chairman, Engr Kingsley Ozor for his
-                      doggedness in helping pushing things to happen in the
-                      school. The entire special team of staff of the school, I
-                      salute your efforts. To all parents, I appreciate your
-                      retentless efforts to see that your ward get the best.
-                    </p>
-                  </div>
-
-                  <div className="mt-5">
-                    <h5>ACADEMICS</h5>
-                    <p>
-                      WE have come to the end of second term of 2023/2024
-                      academic session. Effective and Efficient teaching and
-                      learning process is progressive in our school and we hope
-                      to go higher.
-                    </p>
-                  </div>
-
-                  {/* DISCIPLINE */}
-                  <div className="mt-5">
-                    <h5>DISCIPLINE</h5>
-                    <p>
-                      The school still maintains zero tolerance for any act of
-                      indiscipline. Bullying, stealing, vandalization of school
-                      properties and breaking of schools rules and regulations
-                      attract their different levels of punishment - suspension
-                      or indefinite suspension as the case may be. Please take
-                      time to appeal to their consciences during this break.
-                      Make them to understand the need to be disciplined in the
-                      school.
-                    </p>
-                  </div>
-
-                  {/* COLLECTION OF RESULT */}
-                  <div className="mt-5">
-                    <h5>COLLECTION OF RESULT</h5>
-                    <p>
-                      Students are to check their result online and submit
-                      photocopy of the result to the school for documentation.
-                    </p>
-                  </div>
-
-                  {/* RESUMPTION */}
-                  <div className="mt-5">
-                    <h5>RESUMPTION</h5>
-                    <p>
-                      Coming to school late is highly prohibited. Students who
-                      report to school later than 7.30am will be seriously
-                      punished.
-                    </p>
-                  </div>
-
-                  {/* LATENESS TO SCHOOL */}
-                  <div className="mt-5">
-                    <h5>LATENESS TO SCHOOL</h5>
-                    <p>
-                      Coming to school late is highly prohibited. Students who
-                      report to school later than 7.30am will be seriously
-                      punished.
-                    </p>
-                  </div>
-
-                  {/* PARENT AND TEACHERS ASSOCIATION ( PTA ) */}
-                  <div className="mt-5">
-                    <h5>PARENT AND TEACHERS ASSOCIATION ( PTA )</h5>
-                    <p>
-                      The PTA of the school has been very active and we
-                      appreciate all parents. We wish to remind all parents that
-                      the PTA meeting are not optional. Refusal to attend
-                      attract a fine.
-                    </p>
-                  </div>
-
-                  {/* BUILDING PROJECT FEES */}
-                  <div className="mt-5">
-                    <h5>BUILDING PROJECT FEES</h5>
-                    <p>
-                      We, again thank all the parents for their concerted effort
-                      towards the building project going on. We wish to remind
-                      our parents that the agreement to pay #2000 per student
-                      still on.
-                    </p>
-                  </div>
-
-                  {/* WASSCE / NECO */}
-                  <div className="mt-5">
-                    <h5>WASSCE / NECO</h5>
-                    <p>
-                      The timetable for the West African Senior School
-                      Certificate Examination ( WASSCE ) has been released. The
-                      examination will start on 30th April 2024. NECO timetable
-                      is not yet out.
-                    </p>
-                  </div>
-
-                  {/* *SCHOOL FEES */}
-                  <div className="mt-5">
-                    <h5>SCHOOL FEES</h5>
-                    <p>
-                      Some students still own their school fees, parents are
-                      advised to pay up before their child / children resume for
-                      the third term. The fees to be paid this term are stated
-                      below and you are expected to pay with your child{"'"}s name.
-                    </p>
-                    <table className="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Payment Item</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>School fees </td>
-                          <td>#16,500</td>
-                        </tr>
-                        <tr>
-                          <td>Building project </td>
-                          <td>#2,000</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            Scratch card ( first, second and third term ){" "}
-                          </td>
-                          <td>#1,500</td>
-                        </tr>
-                        <tr>
-                          <td>Sent off </td>
-                          <td>#2,000</td>
-                        </tr>
-                        <tr>
-                          <td>Novel </td>
-                          <td>#500.</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {/* BANK DETAILS */}
-                  <div className="mt-5">
-                    <h5>BANK DETAILS</h5>
-                    <div className="row justify-content-between">
-                      <div className="col-md">
-                        <table className="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th colSpan={"2"} className="fw-bold">
-                                Akuchukwu microfinance
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Account name: </td>
-                              <td>City of Glory secondary school</td>
-                            </tr>
-                            <tr>
-                              <td>Account number </td>
-                              <td>1180001371</td>
-                            </tr>
-                            <tr>
-                              <td>Depositor</td>
-                              <td>Students name.</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      <div className="col-md">
-                        <table className="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th colSpan={"2"} className="fw-bold">
-                                Zenith Bank PLC
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Account name: </td>
-                              <td>City of Glory secondary school</td>
-                            </tr>
-                            <tr>
-                              <td>Account number </td>
-                              <td>1015358010</td>
-                            </tr>
-                            <tr>
-                              <td>Depositor</td>
-                              <td>Students name.</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+              {Object.keys(newsletter).length > 0 ? (
+                <div className="card mx-1 mx-md-5">
+                  <div className="row justify-content-between p-5 px-md-5 align-items-center">
+                    <div className="col-md-6">
+                      <h5>School Termly Newsletter</h5>
+                      <p>
+                        {newsletter.term.name} ({newsletter.session.name})
+                      </p>
+                    </div>
+                    <div className="col-md-4 ">
+                      <a
+                        href={newsletter.Newsletterfile}
+                        download
+                        target="_blank"
+                        className="btn btn-primary"
+                      >
+                        <FaDownload className="h5 me-2" />
+                        download Newsletter
+                      </a>
                     </div>
                   </div>
-
-                  <p className="mt-2">Thanks for your usual co-operation.</p>
-                  <div className="mt-5">
-                    <h5 className="text-muted">Signed</h5>
-                    <p className="font-weight-bold">Mrs Ezeuba Victoria.</p>
-                    <p className="font-italic">( Principal )</p>
+                </div>
+              ) : (
+                <div className="card mx-1 mx-md-5">
+                  <div className="mt-5 p-5 px-md-5">
+                    <p className="text-center">
+                      Newsletter for this term is not available
+                    </p>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Download Newsletter btn */}
               <div className="px-1 px-md-5">
                 <div className="d-block d-md-flex justify-content-center justify-content-md-end ">
+                  <button
+                    className={`btn btn-danger me-0 me-md-3 mb-4 mb-md-0 px-4 ${
+                      isSmallerThanMd ? "w-100" : ""
+                    }`}
+                    onClick={() => downloadToPdf()}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          aria-hidden="true"
+                        ></span>
+                        <span>downloading Result</span>
+                      </>
+                    ) : (
+                      <>
+                        <SiAdobeacrobatreader className="h5 me-2" /> Download Result
+                      </>
+                    )}
+                  </button>
+
                   <button
                     className={`btn btn-accent-primary me-0 me-md-3 mb-4 mb-md-0 ${
                       isSmallerThanMd ? "w-100" : ""
@@ -681,27 +486,6 @@ const ResultPage = () => {
                   >
                     <TbArrowBackUp className="h4 me-2" />
                     Back
-                  </button>
-
-                  <button
-                    className={`btn btn-primary mb-2 mb-md-0 ${
-                      isSmallerThanMd ? "w-100" : ""
-                    }`}
-                    onClick={() => downloadToPdf2()}
-                    disabled={loading2}
-                  >
-                    <FaDownload className="h5 me-2" />
-                    {loading2 ? (
-                      <>
-                        <span
-                          className="spinner-border spinner-border-sm me-2"
-                          aria-hidden="true"
-                        ></span>
-                        <span>downloading Newsletter</span>
-                      </>
-                    ) : (
-                      "Download Newsletter"
-                    )}
                   </button>
                 </div>
               </div>
