@@ -6,7 +6,7 @@ import { StudentsContext } from "@/data/Studentcontextdata";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { useContext, useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import "@/components/Datatable/Datatable.css";
+import "./result.css";
 
 const ResultPage = () => {
   const [showResult, setShowResult] = useState(false);
@@ -247,15 +247,16 @@ const ResultPage = () => {
                       </>
                     )}
                   </div>
+
                   <div className="col-md-7">
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Firstname: </strong>
                           {result.resultsummary.Student_name.firstname}
                         </p>
                       </div>
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Surname: </strong>
                           {result.resultsummary.Student_name.surname}
@@ -264,13 +265,13 @@ const ResultPage = () => {
                     </div>
 
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Class: </strong>
                           {StudentData.studentclass.class_}
                         </p>
                       </div>
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Session: </strong>
                           {result.resultsummary.AcademicSession.session}
@@ -279,13 +280,13 @@ const ResultPage = () => {
                     </div>
 
                     <div className="row">
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Term: </strong>
                           {result.resultsummary.Term.term}
                         </p>
                       </div>
-                      <div className="col-6">
+                      <div className="col-md-6">
                         <p className="mb-1">
                           <strong>Total Number: </strong>
                           {result.resultsummary.Totalnumber}
@@ -296,7 +297,7 @@ const ResultPage = () => {
                 </div>
               </div>
 
-              <div className="mt-4 card datatableCard table-responsive p-5">
+              <div className="mt-4 card resultCard table-responsive p-5">
                 <table className="table table-striped">
                   <thead>
                     <tr>
@@ -344,33 +345,33 @@ const ResultPage = () => {
               </div>
               <div className="card p-3 px-5">
                 <div className="row justify-content-between">
-                  <div>
-                  <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Summary</th>
-                        <th>Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Total Score</td>
-                        <td>{result.resultsummary.TotalScore}</td>
-                      </tr>
-                      <tr>
-                        <td>Average Score</td>
-                        <td>{result.resultsummary.Average}</td>
-                      </tr>
-                      <tr>
-                        <td>Position</td>
-                        <td>{result.resultsummary.Position}</td>
-                      </tr>
-                      <tr>
-                        <td>Remark</td>
-                        <td>{result.resultsummary.Remark}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div className="resultCard table-responsive p-4">
+                    <table className="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Summary</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Total Score</td>
+                          <td>{result.resultsummary.TotalScore}</td>
+                        </tr>
+                        <tr>
+                          <td>Average Score</td>
+                          <td>{result.resultsummary.Average}</td>
+                        </tr>
+                        <tr>
+                          <td>Position</td>
+                          <td>{result.resultsummary.Position}</td>
+                        </tr>
+                        <tr>
+                          <td>Remark</td>
+                          <td>{result.resultsummary.Remark}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
