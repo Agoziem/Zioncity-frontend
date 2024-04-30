@@ -32,6 +32,7 @@ const ResultPage = () => {
     message: "",
     type: "",
   });
+  const [newsletter, setNewsletter] = useState({});
   const Resultref = useRef(null);
   const newletterref = useRef(null);
   const isSmallerThanMd = useMediaQuery("(max-width: 768px)");
@@ -67,6 +68,27 @@ const ResultPage = () => {
     };
     fetchTerm();
   }, []);
+
+  // Fetch the newsletter for the term
+
+  const fetchNewsletter = async () => {
+    try {
+      const response = await fetch(
+        `${DJANGO_URL}/adminsapi/get_newsletter/${resultdetails.session_id}/${resultdetails.term_id}`
+      );
+      const newsletterData = await response.json();
+      setNewsletter(newsletterData);
+      console.log(`${DJANGO_URL}/adminsapi/get_newsletter/${resultdetails.session_id}/${resultdetails.term_id}`)
+      console.log(newsletterData)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (resultdetails.session_id && resultdetails.term_id)
+    fetchNewsletter();
+  }, [resultdetails.session_id, resultdetails.term_id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -406,6 +428,7 @@ const ResultPage = () => {
                 <button
                   className="btn btn-primary my-4 mt-3"
                   onClick={() => downloadToPdf()}
+                  disabled={loading}
                 >
                   <FaDownload className="h5 me-2" />
                   {loading ? (
@@ -521,7 +544,7 @@ const ResultPage = () => {
                     <p>
                       We, again thank all the parents for their concerted effort
                       towards the building project going on. We wish to remind
-                      our parents that the agreement to pay#2000 per student
+                      our parents that the agreement to pay #2000 per student
                       still on.
                     </p>
                   </div>
@@ -544,7 +567,7 @@ const ResultPage = () => {
                       Some students still own their school fees, parents are
                       advised to pay up before their child / children resume for
                       the third term. The fees to be paid this term are stated
-                      below and you are expected to pay with your child's name.
+                      below and you are expected to pay with your child{"'"}s name.
                     </p>
                     <table className="table table-bordered">
                       <thead>
@@ -665,6 +688,7 @@ const ResultPage = () => {
                       isSmallerThanMd ? "w-100" : ""
                     }`}
                     onClick={() => downloadToPdf2()}
+                    disabled={loading2}
                   >
                     <FaDownload className="h5 me-2" />
                     {loading2 ? (
