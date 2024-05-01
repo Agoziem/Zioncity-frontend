@@ -74,6 +74,8 @@ function calculatePosition(students) {
     previousTotal = currentTotal;
     previousPosition = student.SubjectPosition;
   });
+
+  return students;
 }
 
 
@@ -90,7 +92,6 @@ const calculateRemarks = (grade) => {
 
 // Function to calculate student results
 const calculateStudentResults = (data) => {
-  const students = [];
 
   if (!data) return students;
 
@@ -98,13 +99,17 @@ const calculateStudentResults = (data) => {
     const CA = calculateCA(student);
     const Total = calculateTotal(student, CA);
     const Grade = calculateGrade(Total);
-    const SubjectPosition = calculatePosition(students);
     const Remark = calculateRemarks(Grade);
 
-    students.push({ ...student, CA, Total, Grade, SubjectPosition, Remark });
+    student.CA = CA;
+    student.Total = Total;
+    student.Grade = Grade;
+    student.Remark = Remark;
   });
 
-  return students;
+  const sorteddata = calculatePosition(data);
+  
+  return sorteddata;
 };
 
 export default calculateStudentResults;

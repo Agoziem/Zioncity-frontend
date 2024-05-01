@@ -132,10 +132,6 @@ const Page = () => {
       });
       const jsonData = await response.json();
       setResults(jsonData);
-      const offeringStudents = jsonData.filter((item) => item.is_offering);
-      const notOfferingStudents = jsonData.filter((item) => !item.is_offering);
-      setStudentsOffering(offeringStudents);
-      setStudentsNotOffering(notOfferingStudents);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -168,16 +164,6 @@ const Page = () => {
           return item;
         });
         setResults(updatedResult);
-
-        // Update studentsOffering and studentsNotOffering lists based on the updated result
-        const offeringStudents = updatedResult.filter(
-          (item) => item.is_offering
-        );
-        const notOfferingStudents = updatedResult.filter(
-          (item) => !item.is_offering
-        );
-        setStudentsOffering(offeringStudents);
-        setStudentsNotOffering(notOfferingStudents);
       } else {
         console.error("Failed to update result in the backend");
       }
@@ -188,11 +174,15 @@ const Page = () => {
 
   // Compute the results by the passing it through the Student Result Computation Algorithm
   useEffect(() => {
-    if (studentsoffering.length > 0) {
-      const computedResults = calculateStudentResults(studentsoffering);
-      setComputedResults(computedResults);
+    if (result.length > 0) {
+      const calculatedResults = calculateStudentResults(result);
+      const offeringStudents = calculatedResults.filter((item) => item.is_offering);
+      const notOfferingStudents = calculatedResults.filter((item) => !item.is_offering);
+      setStudentsOffering(offeringStudents);
+      setStudentsNotOffering(notOfferingStudents);
+      setComputedResults(calculatedResults);
     }
-  }, [studentsoffering]);
+  }, [result]);
 
   // Publish or Unpublish the computed results
   const handlePublishOrUnpublishResults = async (publish) => {
@@ -313,7 +303,7 @@ const Page = () => {
         {showAlert.show && (
           <Alert type={showAlert.type}>{showAlert.message}</Alert>
         )}
-        <Datatable items={computedResults} setItems={setStudentsOffering}>
+        <Datatable items={studentsoffering} setItems={setStudentsOffering}>
           <ResultDatatableitems
             refresh={refresh}
             loading={loadingresults}
