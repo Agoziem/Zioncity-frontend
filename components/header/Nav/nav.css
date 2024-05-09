@@ -137,3 +137,20 @@
 .header-nav .profile .dropdown-item:hover {
   background-color: #f6f9ff;
 }
+
+.header-nav .dropdown-menu{
+  width: 80vw;
+  max-width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.header-nav .dropdown-menu::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.header-nav .dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: #aab7cf;
+}
