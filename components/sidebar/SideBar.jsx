@@ -111,7 +111,7 @@ function SideBar({ navList }) {
 
       {/* Side bar for Small Screen */}
 
-      <aside className="sidebar d-block d-md-block" ref={sidebarref}>
+      <aside className="sidebar d-block d-md-none" ref={sidebarref}>
         <ul className="sidebar-nav" id="sidebar-nav">
           {navList[0].Teacher.filter((navGroup) => {
             return !(

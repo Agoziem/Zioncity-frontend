@@ -46,13 +46,17 @@ const Page = () => {
   const [publishingResults, setPublishingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
+  // --------------------------------------------------
   // get the stored credentials from the local storage
+  // --------------------------------------------------
   const [storedCredentialValue, setValue] = useLocalStorage(
     "resultcredential",
     resultcredential
   );
 
+  // ---------------------------------------------------------
   // set the credentials to the Stored credentials on pageload
+  // ---------------------------------------------------------
   useEffect(() => {
     setResultscredential(storedCredentialValue);
   }, []);
@@ -63,7 +67,9 @@ const Page = () => {
   let teachersubjects = [];
   let schoolterms = [];
 
+  // --------------------------------------------------
   // set the needed data when they are available
+  // --------------------------------------------------
   if (schoolData && teacherData) {
     schoolsessions = schoolData.sessions || [];
     schoolID = schoolData.id || "";
@@ -72,7 +78,9 @@ const Page = () => {
     schoolterms = terms || [];
   }
 
+  // ----------------------------------------------------------------
   // update the credentials when the school_id is available or changes
+  // ----------------------------------------------------------------
   useEffect(() => {
     if (schoolID)
       setResultscredential((prevCredential) => ({
@@ -81,14 +89,18 @@ const Page = () => {
       }));
   }, [schoolID]);
 
+  // ----------------------------------------------------------------
   // store the credentials to the local storage & fetch the results
+  // ----------------------------------------------------------------
   const handleSubmit = (e) => {
     e.preventDefault();
     setValue(resultcredential);
     fetchResults();
   };
 
+  // ----------------------------------------------------------------
   // Fetch the Results when the details is available on page load & when the id changes
+  // ----------------------------------------------------------------
   useEffect(() => {
     if (
       resultcredential.school_id &&
@@ -101,7 +113,10 @@ const Page = () => {
     }
   }, [resultcredential.school_id]);
 
+  // ----------------------------------------------------------------
   // Fetch the terms for the school
+  // ----------------------------------------------------------------
+
   useEffect(() => {
     const fetchTerm = async () => {
       setLoadingterms(true);
@@ -119,7 +134,10 @@ const Page = () => {
     fetchTerm();
   }, []);
 
+  // ----------------------------------------------------------------
   // fetch the Results of the Students in a class for a particular Subject in a Class
+  // ----------------------------------------------------------------
+
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
@@ -139,7 +157,10 @@ const Page = () => {
     }
   };
 
+  // ----------------------------------------------------------------
   // Toggle the offering status of a Student for the Subject
+  // ----------------------------------------------------------------
+
   const toggleOfferingStatus = async (itemId) => {
     const itemToUpdate = result.find((item) => item.id === itemId);
     const newStatus = !itemToUpdate.is_offering;
@@ -172,7 +193,9 @@ const Page = () => {
     }
   };
 
-  // Compute the results by the passing it through the Student Result Computation Algorithm
+  // ----------------------------------------------------------------
+  // Compute the results by the passing it through the Student Result Computation Algorithm 
+  // ----------------------------------------------------------------
   useEffect(() => {
     if (result.length > 0) {
       const calculatedResults = calculateStudentResults(result);
@@ -184,7 +207,9 @@ const Page = () => {
     }
   }, [result]);
 
+  // ------------------------------------------------------------------
   // Publish or Unpublish the computed results
+  // ------------------------------------------------------------------
   const handlePublishOrUnpublishResults = async (publish) => {
     setPublishingResults(true);
     const endpoint = publish
@@ -244,7 +269,9 @@ const Page = () => {
   };
 
 
+  // -----------------------------------------------------------------
   // Refresh Result
+  // -----------------------------------------------------------------
   const refresh = () => {
     if (
       resultcredential.school_id &&

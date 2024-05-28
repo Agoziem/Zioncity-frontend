@@ -40,7 +40,9 @@ const Page = () => {
   const [publishingResults, setPublishingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
+  // ----------------------------------------------------
   // Fetch the terms for the school
+  // ----------------------------------------------------
   useEffect(() => {
     const fetchTerm = async () => {
       setLoadingterms(true);
@@ -58,7 +60,9 @@ const Page = () => {
     fetchTerm();
   }, []);
 
+  // ---------------------------------------------------------
   // update the Credentials with what is in the Local Storage
+  // ---------------------------------------------------------
   const [storedClassCredentialValue, setClassCredentialValue] = useLocalStorage(
     "classresultcredential",
     classresultcredential
@@ -67,7 +71,9 @@ const Page = () => {
     setClassResultscredential(storedClassCredentialValue);
   }, []);
 
+  // ---------------------------------------------------------
   // set the needed data when they are available
+  // ---------------------------------------------------------
   let schoolsessions = [];
   let schoolID;
   let classID;
@@ -87,7 +93,9 @@ const Page = () => {
     schoolterms = terms || [];
   }
 
+  // ------------------------------------------------------------------------------------
   // update the result credentials when the school_id & class_id is available or changes
+  // ------------------------------------------------------------------------------------
   useEffect(() => {
     if (schoolID && classID) {
       setClassResultscredential((prevCredential) => ({
@@ -98,8 +106,10 @@ const Page = () => {
     }
   }, [schoolID, classID]);
 
+  // ---------------------------------------------------------
   // Fetch the Results when the school_id is available on page load &
   // when the id changes by submitting the credential form
+  // ---------------------------------------------------------
   useEffect(() => {
     if (
       classresultcredential.school_id &&
@@ -111,14 +121,18 @@ const Page = () => {
     }
   }, [classresultcredential.school_id, classresultcredential.class_id]);
 
+  // ---------------------------------------------------------
   // store the credentials to the local storage & fetch the results when the form is submitted
+  // ---------------------------------------------------------
   const handleSubmit = (e) => {
     e.preventDefault();
     setClassCredentialValue(classresultcredential);
     fetchResults();
   };
 
+  // ------------------------------------------------------------------------------------
   // fetch the Results of the Students in a class for a particular Subject in a Class
+  // ------------------------------------------------------------------------------------
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
@@ -141,7 +155,9 @@ const Page = () => {
     }
   };
 
+  // -------------------------------------------------------------------------
   // Compute the results by the passing it through the Student Result Computation Algorithm
+  // -------------------------------------------------------------------------
   useEffect(() => {
     if (result.length > 0) {
       const computedResults = classResulthandler(result);
@@ -149,7 +165,9 @@ const Page = () => {
     }
   }, [result]);
 
+  // ---------------------------------------------------------
   // handle Publish & Unpublish results
+  // ---------------------------------------------------------
   const handlePublishOrUnpublishResults = async (publish) => {
     setPublishingResults(true);
     const endpoint = publish

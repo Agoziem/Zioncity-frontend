@@ -34,7 +34,9 @@ const Page = () => {
   let schoolID;
   let className;
 
-  // set the ID only if the data is available
+  // --------------------------------------------------
+  // set the IDs only if the Context data is available
+  // --------------------------------------------------
   if (
     schoolData &&
     teacherData &&
@@ -46,7 +48,9 @@ const Page = () => {
     className = teacherData.classFormed.name;
   }
 
-  // fetch the students on page load & when the ids change
+  // ----------------------------------------------------------------------
+  // fetch the students on page load & when the ids are available or change
+  // ----------------------------------------------------------------------
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -68,12 +72,16 @@ const Page = () => {
     }
   }, [schoolID, classID]);
 
+  // -------------------------------------------
   // toogle Modal Function
+  // -------------------------------------------
   const toggleModal = () => {
     setModal(!modal);
   };
 
+  // -------------------------------------------
   // Delete Student Function
+  // -------------------------------------------
   const handleDelete = async (id) => {
     setDeleting(true);
     try {
@@ -113,6 +121,10 @@ const Page = () => {
       setDeleting(false);
     }
   };
+
+  // -------------------------------------------
+  // Refresh Data Function
+  // -------------------------------------------
 
   const refreshData = () => {
     if (schoolID && classID) {
