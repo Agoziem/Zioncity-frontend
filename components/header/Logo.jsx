@@ -23,7 +23,7 @@ function Logo({portalname,portallink}) {
       <Link href={`/${portallink}`} className="logo d-flex align-items-center">
         {
           schoolData && schoolData.Schoollogo &&
-          <img src={schoolData.Schoollogo} alt="logo" width={50} className='me-3' />
+          <img src={schoolData.Schoollogo_url} alt="logo" width={50} className='me-3' />
         }
         <span className="d-none d-lg-block">{portalname}</span>
       </Link>

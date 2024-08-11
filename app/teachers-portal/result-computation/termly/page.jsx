@@ -21,7 +21,6 @@ const Page = () => {
   const { schoolData } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [terms, setTerms] = useState([]);
-
   const [result, setResults] = useState([]);
   const [studentsnotoffering, setStudentsNotOffering] = useState([]);
   const [studentsoffering, setStudentsOffering] = useState([]);
@@ -40,83 +39,14 @@ const Page = () => {
     school_id: "",
     subject_id: "",
   });
-
   const [loadingterms, setLoadingterms] = useState(false);
   const [loadingresults, setLoadingResults] = useState(false);
   const [publishingResults, setPublishingResults] = useState(false);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
 
-  // --------------------------------------------------
-  // get the stored credentials from the local storage
-  // --------------------------------------------------
-  const [storedCredentialValue, setValue] = useLocalStorage(
-    "resultcredential",
-    resultcredential
-  );
-
-  // ---------------------------------------------------------
-  // set the credentials to the Stored credentials on pageload
-  // ---------------------------------------------------------
-  useEffect(() => {
-    setResultscredential(storedCredentialValue);
-  }, []);
-
-  let schoolsessions = [];
-  let schoolID;
-  let teachersclasses = [];
-  let teachersubjects = [];
-  let schoolterms = [];
-
-  // --------------------------------------------------
-  // set the needed data when they are available
-  // --------------------------------------------------
-  if (schoolData && teacherData) {
-    schoolsessions = schoolData.sessions || [];
-    schoolID = schoolData.id || "";
-    teachersclasses = teacherData.classes_taught || [];
-    teachersubjects = teacherData.subjects_taught || [];
-    schoolterms = terms || [];
-  }
-
-  // ----------------------------------------------------------------
-  // update the credentials when the school_id is available or changes
-  // ----------------------------------------------------------------
-  useEffect(() => {
-    if (schoolID)
-      setResultscredential((prevCredential) => ({
-        ...prevCredential,
-        school_id: schoolID,
-      }));
-  }, [schoolID]);
-
-  // ----------------------------------------------------------------
-  // store the credentials to the local storage & fetch the results
-  // ----------------------------------------------------------------
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setValue(resultcredential);
-    fetchResults();
-  };
-
-  // ----------------------------------------------------------------
-  // Fetch the Results when the details is available on page load & when the id changes
-  // ----------------------------------------------------------------
-  useEffect(() => {
-    if (
-      resultcredential.school_id &&
-      resultcredential.class_id &&
-      resultcredential.term_id &&
-      resultcredential.session_id &&
-      resultcredential.subject_id
-    ) {
-      fetchResults();
-    }
-  }, [resultcredential.school_id]);
-
-  // ----------------------------------------------------------------
-  // Fetch the terms for the school
-  // ----------------------------------------------------------------
-
+  // ----------------------------------------------------------------------
+  // Set the Result Credentials
+  // ----------------------------------------------------------------------
   useEffect(() => {
     const fetchTerm = async () => {
       setLoadingterms(true);
@@ -130,14 +60,50 @@ const Page = () => {
         setLoadingterms(false);
       }
     };
-
     fetchTerm();
   }, []);
 
-  // ----------------------------------------------------------------
-  // fetch the Results of the Students in a class for a particular Subject in a Class
-  // ----------------------------------------------------------------
+  // update the Result Credential from the local storage or set new one
+  const [storedCredentialValue, setValue] = useLocalStorage(
+    "resultcredential",
+    resultcredential
+  );
+  useEffect(() => {
+    setResultscredential(storedCredentialValue);
+  }, []);
 
+  // update the Result Credential with School ID when the schoolID is set
+  useEffect(() => {
+    if (schoolData.id)
+      setResultscredential((prevCredential) => ({
+        ...prevCredential,
+        school_id: schoolData.id,
+      }));
+  }, [schoolData.id]);
+
+  // Fetch the Results when the result credential is set
+  useEffect(() => {
+    if (
+      resultcredential.school_id &&
+      resultcredential.class_id &&
+      resultcredential.term_id &&
+      resultcredential.session_id &&
+      resultcredential.subject_id
+    ) {
+      fetchResults();
+    }
+  }, [resultcredential.school_id]);
+
+  // fetch Class Result after the result credential is set
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setValue(resultcredential);
+    fetchResults();
+  };
+
+  // ----------------------------------------------------------------
+  // fetch the Results of the Students in a class
+  // ----------------------------------------------------------------
   const fetchResults = async () => {
     setLoadingResults(true);
     try {
@@ -157,10 +123,9 @@ const Page = () => {
     }
   };
 
-  // ----------------------------------------------------------------
+  // ------------------------------------------------------------------
   // Toggle the offering status of a Student for the Subject
-  // ----------------------------------------------------------------
-
+  // ------------------------------------------------------------------
   const toggleOfferingStatus = async (itemId) => {
     const itemToUpdate = result.find((item) => item.id === itemId);
     const newStatus = !itemToUpdate.is_offering;
@@ -177,14 +142,14 @@ const Page = () => {
       );
 
       if (response.ok) {
-        // Update the main result list
-        const updatedResult = result.map((item) => {
-          if (item.id === itemId) {
-            return { ...item, is_offering: newStatus };
-          }
-          return item;
-        });
-        setResults(updatedResult);
+        // update the result in the frontend
+        setResults((prevResults) =>
+          prevResults.map((result) =>
+            result.id === itemId
+              ? { ...result, is_offering: newStatus }
+              : result
+          )
+        );
       } else {
         console.error("Failed to update result in the backend");
       }
@@ -193,14 +158,18 @@ const Page = () => {
     }
   };
 
-  // ----------------------------------------------------------------
-  // Compute the results by the passing it through the Student Result Computation Algorithm 
-  // ----------------------------------------------------------------
+  // ------------------------------------------------------------------
+  // Compute the results of the students
+  // ------------------------------------------------------------------
   useEffect(() => {
     if (result.length > 0) {
       const calculatedResults = calculateStudentResults(result);
-      const offeringStudents = calculatedResults.filter((item) => item.is_offering);
-      const notOfferingStudents = calculatedResults.filter((item) => !item.is_offering);
+      const offeringStudents = calculatedResults.filter(
+        (item) => item.is_offering
+      );
+      const notOfferingStudents = calculatedResults.filter(
+        (item) => !item.is_offering
+      );
       setStudentsOffering(offeringStudents);
       setStudentsNotOffering(notOfferingStudents);
       setComputedResults(calculatedResults);
@@ -221,7 +190,7 @@ const Page = () => {
     const errorMessage = publish
       ? "Results not Published, an error occured. Try Again"
       : "Results not Unpublished, an error occured. Try Again";
-  
+
     try {
       const response = await fetch(endpoint, {
         method: "PUT",
@@ -230,7 +199,7 @@ const Page = () => {
         },
         body: JSON.stringify(computedResults),
       });
-  
+
       if (response.ok) {
         setComputedResults((prevResults) =>
           prevResults.map((result) => ({
@@ -264,10 +233,14 @@ const Page = () => {
           setShowAlert({ show: false, type: "", message: "" });
         }, 3000)
       );
-      console.error("Error:", publish ? "publishing" : "unpublishing", "results:", error);
+      console.error(
+        "Error:",
+        publish ? "publishing" : "unpublishing",
+        "results:",
+        error
+      );
     }
   };
-
 
   // -----------------------------------------------------------------
   // Refresh Result
@@ -287,10 +260,11 @@ const Page = () => {
   return (
     <>
       <PageTitle pathname={"Termly Result"} />
-      <h3>{selectedClassName} Students Result </h3>
+      <h3>{selectedClassName} Student Result </h3>
       <p className="mb-3">
-          compute Student results for your Subject and Class and publish it to the formteacher
-        </p>
+        compute Student results for your Subject and Class and publish it to the
+        formteacher
+      </p>
       <div className="row mt-3 justify-content-between">
         <div className="col-md-5 mb-4 mb-md-0">
           {computedResults[0] && computedResults[0].published ? (
@@ -347,10 +321,10 @@ const Page = () => {
             loadingresults={loadingresults}
             resultcredential={resultcredential}
             setResultscredential={setResultscredential}
-            schoolsessions={schoolsessions}
-            teachersclasses={teachersclasses}
-            teachersubjects={teachersubjects}
-            schoolterms={schoolterms}
+            schoolsessions={schoolData.sessions}
+            teachersclasses={teacherData.classes_taught}
+            teachersubjects={teacherData.subjects_taught}
+            schoolterms={terms}
           />
         </div>
         <div className="mt-3 col-md">

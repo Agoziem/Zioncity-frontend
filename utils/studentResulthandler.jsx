@@ -92,9 +92,7 @@ const calculateRemarks = (grade) => {
 
 // Function to calculate student results
 const calculateStudentResults = (data) => {
-
   if (!data) return students;
-
   data.forEach(student => {
     const CA = calculateCA(student);
     const Total = calculateTotal(student, CA);

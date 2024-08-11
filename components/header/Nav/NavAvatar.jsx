@@ -30,7 +30,7 @@ function NavAvatar() {
         >
           {currentUser && currentUser.headshot ? (
             <img
-              src={`${currentUser.headshot}`}
+              src={`${currentUser.headshot_url}`}
               alt="Profile"
               width={35}
               height={35}

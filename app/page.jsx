@@ -81,15 +81,17 @@ const Home = () => {
             style={{ maxWidth: "950px" }}
           >
             <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
-              <div className="mb-0 mb-md-5 text-center">
-                <img
-                  src={schoolData.Schoollogo}
-                  alt="logo"
-                  className="mb-0 mb-md-3 rounded-circle"
-                  style={{ width: "70%",maxWidth:"300px"}}
-                />
-                <h4 className="d-none d-md-block">{schoolData.Schoolname}</h4>
-              </div>
+              {schoolData && schoolData.Schoollogo ? (
+                <div className="mb-0 mb-md-5 text-center">
+                  <img
+                    src={schoolData.Schoollogo_url}
+                    alt="logo"
+                    className="mb-0 mb-md-3 rounded-circle"
+                    style={{ width: "70%", maxWidth: "300px" }}
+                  />
+                  <h4 className="d-none d-md-block">{schoolData.Schoolname}</h4>
+                </div>
+              ) : null}
             </div>
 
             {/* The Portals Card */}

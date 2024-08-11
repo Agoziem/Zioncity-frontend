@@ -9,39 +9,43 @@ const Resultcredentials = ({
   schoolsessions,
   teachersclasses,
   teachersubjects,
-  schoolterms,
+  schoolterms = [],
+  isAnnual = false,
 }) => {
   return (
     <div className="card px-4 py-5">
       <form className="row g-3" onSubmit={handleSubmit}>
         {/* term */}
-        <div className="col-md-6">
-          <label htmlFor="termselect" className="form-label">
-            Term
-          </label>
-          <select
-            id="termselect"
-            className="form-select"
-            value={resultcredential.term_id}
-            onChange={(e) =>
-              setResultscredential({
-                ...resultcredential,
-                term_id: e.target.value,
-              })
-            }
-          >
-            {schoolterms.length === 0 ? (
-              <option value="">No Term Found</option>
-            ) : (
-              <option value="">Select Term</option>
-            )}
-            {schoolterms.map((term) => (
-              <option key={term.id} value={term.id}>
-                {term.term}
-              </option>
-            ))}
-          </select>
-        </div>
+        {!isAnnual && (
+          <div className="col-md-6">
+            <label htmlFor="termselect" className="form-label">
+              Term
+            </label>
+            <select
+              id="termselect"
+              className="form-select"
+              value={resultcredential.term_id}
+              onChange={(e) =>
+                setResultscredential({
+                  ...resultcredential,
+                  term_id: e.target.value,
+                })
+              }
+            >
+              {schoolterms.length === 0 ? (
+                <option value="">No Term Found</option>
+              ) : (
+                <option value="">Select Term</option>
+              )}
+              {schoolterms.map((term) => (
+                <option key={term.id} value={term.id}>
+                  {term.term}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         {/* session */}
         <div className="col-md-6">
           <label htmlFor="sessionselect" className="form-label">
@@ -58,12 +62,12 @@ const Resultcredentials = ({
               })
             }
           >
-            {schoolsessions.length === 0 ? (
+            {schoolsessions?.length === 0 ? (
               <option value="">No Session Found</option>
             ) : (
               <option value="">Select Session</option>
             )}
-            {schoolsessions.map((session) => (
+            {schoolsessions?.map((session) => (
               <option key={session.id} value={session.id}>
                 {session.session}
               </option>
@@ -87,12 +91,12 @@ const Resultcredentials = ({
               })
             }
           >
-            {teachersclasses.length === 0 ? (
+            {teachersclasses?.length === 0 ? (
               <option value="">No Class Found</option>
             ) : (
               <option value="">Select Class</option>
             )}
-            {teachersclasses.map((class_) => (
+            {teachersclasses?.map((class_) => (
               <option key={class_.id} value={class_.id}>
                 {class_.name}
               </option>
@@ -117,12 +121,12 @@ const Resultcredentials = ({
               })
             }
           >
-            {teachersubjects.length === 0 ? (
+            {teachersubjects?.length === 0 ? (
               <option value="">No Subject Found</option>
             ) : (
               <option value="">Select Subject</option>
             )}
-            {teachersubjects.map((subject) => (
+            {teachersubjects?.map((subject) => (
               <option key={subject.id} value={subject.id}>
                 {subject.name}
               </option>
@@ -142,8 +146,7 @@ const Resultcredentials = ({
                   className="spinner-border spinner-border-sm me-2"
                   aria-hidden="true"
                 ></span>
-                <span>
-                    fetching Results...</span>
+                <span>fetching Results...</span>
               </>
             ) : (
               "Fetch Results"
