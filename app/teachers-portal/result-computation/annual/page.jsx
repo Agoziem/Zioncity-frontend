@@ -16,7 +16,7 @@ import AnnualResultHandler from "@/utils/AnnualStudentResultHandler";
 import Alert from "@/components/Alert/Alert";
 import Modal from "@/components/Modal/modal";
 
-const page = () => {
+const AnnualResultPage = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
   const { schoolData } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
@@ -377,4 +377,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AnnualResultPage;

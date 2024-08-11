@@ -16,7 +16,7 @@ import calculateStudentResults from "@/utils/studentResulthandler";
 import Alert from "@/components/Alert/Alert";
 import Modal from "@/components/Modal/modal";
 
-const Page = () => {
+const TermlyResultPage = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
   const { schoolData } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
@@ -395,4 +395,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default TermlyResultPage;
