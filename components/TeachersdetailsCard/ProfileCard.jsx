@@ -44,7 +44,7 @@ const ProfileCard = ({ showAlert, teacherData, setEditMode }) => {
                 <div className="mb-3 me-0 mb-md-0 me-md-4">
                   {teacherData && teacherData.headshot ? (
                     <img
-                      src={teacherData.headshot}
+                      src={teacherData.headshot_url}
                       className="rounded-circle object-fit-cover"
                       style={{
                         width: "60px",

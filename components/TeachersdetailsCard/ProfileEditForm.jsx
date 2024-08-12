@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import "./profile.css";
-import { LuUpload } from "react-icons/lu";
-import { FaTimes, FaUserCircle } from "react-icons/fa";
-import { MultiSelectDropdown } from "./MultiSelect";
-import { FaRegFileImage } from "react-icons/fa6";
+import { FaTimes } from "react-icons/fa";
+import { MultiSelectDropdown } from "../form/MultiSelect";
 import Alert from "../Alert/Alert";
+import ImageUploader from "../Imageuploader/ImageUploader";
 
 const ProfileEditForm = ({
   showAlert,
@@ -17,11 +16,61 @@ const ProfileEditForm = ({
   submitting,
 }) => {
   const [isformteacher, setIsformteacher] = useState(false);
-  const [fileName, setFileName] = useState("No Selected file");
-  const fileInput = useRef(null);
-  const [isclasslistOpen, setIsclasslistOpen] = useState(false);
-  const [isSubjectlistOpen, setIsSubjectlistOpen] = useState(false);
-  const image_URL = process.env.NEXT_PUBLIC_DJANGO_IMAGE_BASE_URL;
+  //   {
+  //     "id": 5,
+  //     "user": {
+  //         "id": 15,
+  //         "username": "@NdukweWinner9723"
+  //     },
+  //     "classes_taught": [
+  //         {
+  //             "id": 1,
+  //             "name": "Jss1A"
+  //         },
+  //         {
+  //             "id": 2,
+  //             "name": "Jss1B"
+  //         },
+  //         {
+  //             "id": 3,
+  //             "name": "Jss1C"
+  //         }
+  //     ],
+  //     "subjects_taught": [
+  //         {
+  //             "id": 1,
+  //             "name": "Mathematics"
+  //         },
+  //         {
+  //             "id": 2,
+  //             "name": "English"
+  //         },
+  //         {
+  //             "id": 3,
+  //             "name": "Igbo Language"
+  //         }
+  //     ],
+  //     "school": {
+  //         "id": 2,
+  //         "name": "Kings College"
+  //     },
+  //     "classFormed": {
+  //         "id": 2,
+  //         "name": "Jss1B"
+  //     },
+  //     "headshot": "/media/assets/TeachersProfileimages/IMG_20230808_195658_1.jpg",
+  //     "headshot_url": "http://127.0.0.1:8000/media/assets/TeachersProfileimages/IMG_20230808_195658_1.jpg",
+  //     "headshot_name": "IMG_20230808_195658_1.jpg",
+  //     "firstName": "Chiagoziem",
+  //     "surname": "Ndukwe",
+  //     "sex": "Female",
+  //     "phone_number": "08080982606",
+  //     "email": "chiagoziendukwe90@gmail.com",
+  //     "address": "No 2, Ojike Street, Awka, Anambra State",
+  //     "teachers_id": "teacher/9723",
+  //     "role": "Formteacher",
+  //     "is_formteacher": true
+  // }
 
   useEffect(() => {
     if (teacherData && Object.keys(teacherData).length) {
@@ -29,6 +78,10 @@ const ProfileEditForm = ({
       setIsformteacher(isformteacher);
     }
   }, [teacherData]);
+
+  const handleChange = (e) => {
+    setTeacherData({ ...teacherData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="profile-edit-card">
@@ -58,79 +111,13 @@ const ProfileEditForm = ({
 
               {/* custom picture uploader */}
               <div className="form-profile">
-                <input
-                  ref={fileInput}
-                  type="file"
-                  id="file"
-                  onChange={({ target: { files } }) => {
-                    files[0] && setFileName(files[0].name);
-                    if (files[0])
-                      setTeacherData({
-                        ...teacherData,
-                        // headshot: URL.createObjectURL(files[0]),
-                        headshot: `${files[0].name}`,
-                      });
-                  }}
-                  hidden
+                <ImageUploader
+                  imagekey={"headshot"}
+                  imageurlkey={"headshot_url"}
+                  imagename={"headshot_name"}
+                  formData={teacherData}
+                  setFormData={setTeacherData}
                 />
-
-                {/* display the image or the icon */}
-                <div>
-                  <div className="d-flex align-items-center mt-2">
-                    <div>
-                      {teacherData.headshot ? (
-                        <img
-                          src={teacherData.headshot}
-                          className="rounded-circle object-fit-cover me-3"
-                          alt="profile"
-                          height={75}
-                          width={75}
-                          style={{ objectPosition: "top center" }}
-                        />
-                      ) : (
-                        <>
-                          <FaUserCircle
-                            className="me-3 text-muted"
-                            alt="profile"
-                            style={{ fontSize: "75px" }}
-                          />
-                        </>
-                      )}
-                    </div>
-
-                    <div>
-                      <button
-                        className="btn btn-sm btn-outline-primary mt-3"
-                        disabled
-                        onClick={(e) => {
-                          e.preventDefault();
-                          fileInput.current.click();
-                        }}
-                      >
-                        <LuUpload className="h5 me-2" />
-                        {teacherData.headshot ? "Change Image" : "Upload Image"}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* display the file name & the delete icon */}
-                  <div className="d-flex align-items-center rounded py-3">
-                    <FaRegFileImage className="h4 text-primary" />
-                    <p className="font-medium text-sm mt-2 mx-3 mb-2">
-                      {fileName}
-                    </p>
-                    {teacherData.headshot && (
-                      <FaTimes
-                        className="h-5 w-6 text-danger ms-2"
-                        onClick={() => {
-                          setFileName("No Selected file");
-                          setTeacherData({ ...teacherData, headshot: null });
-                        }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    )}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -147,12 +134,8 @@ const ProfileEditForm = ({
                   id="name"
                   placeholder="firstname.."
                   value={teacherData.firstName}
-                  onChange={(e) => {
-                    setTeacherData({
-                      ...teacherData,
-                      firstName: e.target.value,
-                    });
-                  }}
+                  name="firstName"
+                  onChange={handleChange}
                 />
               </div>
               <div className="col-md">
@@ -165,9 +148,8 @@ const ProfileEditForm = ({
                   id="Surname"
                   placeholder="surname..."
                   value={teacherData.surname}
-                  onChange={(e) => {
-                    setTeacherData({ ...teacherData, surname: e.target.value });
-                  }}
+                  name="surname"
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -181,9 +163,8 @@ const ProfileEditForm = ({
                   className="profile-form-select form-select"
                   id="gender"
                   value={teacherData.sex}
-                  onChange={(e) => {
-                    setTeacherData({ ...teacherData, sex: e.target.value });
-                  }}
+                  name="sex"
+                  onChange={handleChange}
                 >
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -199,12 +180,8 @@ const ProfileEditForm = ({
                   id="phone"
                   placeholder="phone number..."
                   value={teacherData.phone_number}
-                  onChange={(e) => {
-                    setTeacherData({
-                      ...teacherData,
-                      phone_number: e.target.value,
-                    });
-                  }}
+                  name="phone_number"
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -219,9 +196,8 @@ const ProfileEditForm = ({
                 id="email"
                 placeholder="email..."
                 value={teacherData.email}
-                onChange={(e) => {
-                  setTeacherData({ ...teacherData, email: e.target.value });
-                }}
+                name="email"
+                onChange={handleChange}
               />
             </div>
 
@@ -235,9 +211,8 @@ const ProfileEditForm = ({
                 id="address"
                 placeholder="your address..."
                 value={teacherData.address}
-                onChange={(e) => {
-                  setTeacherData({ ...teacherData, address: e.target.value });
-                }}
+                name="address"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -293,9 +268,7 @@ const ProfileEditForm = ({
                   id="ClassFormed"
                   className="profile-form-select form-select"
                   aria-label="Default select example"
-                  value={
-                    teacherData.classFormed ? teacherData.classFormed.id : ""
-                  }
+                  value={teacherData?.classFormed?.id || ""}
                   onChange={(e) => {
                     setTeacherData({
                       ...teacherData,
@@ -319,37 +292,28 @@ const ProfileEditForm = ({
             )}
 
             {/* custom Multiple Select Form */}
-            <div className="mb-3">
-              <label htmlFor="classes_taught" className="form-label">
-                classes taught
-              </label>
+
+            <div className="my-3">
+              <label className="form-label">classes taught</label>
               <MultiSelectDropdown
-                setIsOpen={setIsclasslistOpen}
-                isOpen={isclasslistOpen}
-                itemName={"Classes"}
-                schoolData={schoolData && schoolData}
-                setTeacherData={setTeacherData}
-                teacherData={teacherData && teacherData}
-                teacherDataKey={"classes_taught"}
-                schoolDataKey={"classes"}
-                schoolDataListKey={"class"}
+                initiallist={schoolData?.classes}
+                currentlist={teacherData?.classes_taught}
+                setCurrentlist={(list) =>
+                  setTeacherData({ ...teacherData, classes_taught: list })
+                }
+                itemName="Classes"
               />
             </div>
 
-            <div className="mb-3">
-              <label htmlFor="subjects_taught" className="form-label">
-                Subjects taught
-              </label>
+            <div className="my-3">
+              <label className="form-label">subjects taught</label>
               <MultiSelectDropdown
-                setIsOpen={setIsSubjectlistOpen}
-                isOpen={isSubjectlistOpen}
-                itemName={"Subjects"}
-                schoolData={schoolData && schoolData}
-                setTeacherData={setTeacherData}
-                teacherData={teacherData && teacherData}
-                teacherDataKey={"subjects_taught"}
-                schoolDataKey={"subjects"}
-                schoolDataListKey={"subject"}
+                initiallist={schoolData?.subjects}
+                currentlist={teacherData?.subjects_taught}
+                setCurrentlist={(list) =>
+                  setTeacherData({ ...teacherData, subjects_taught: list })
+                }
+                itemName="Subjects"
               />
             </div>
           </div>

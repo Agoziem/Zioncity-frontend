@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import useWebSocket from "@/hooks/useWebSocket";
+// import useWebSocket from "@/hooks/useWebSocket";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 import Modal from "@/components/Modal/modal";
-import { time } from "echarts";
 
 function NavNotice() {
   const { currentUser, currentRoot } = useCurrentUser();
@@ -61,22 +60,38 @@ function NavNotice() {
     }
   }, [schoolData.id, user_group]);
 
-
-
   // WebSocket Connection for notifications
-  const { error, loading, sendMessage, closeWebSocket } = useWebSocket({
-    roomprefix: "notice",
-    room_name: `${user_group}`,
-    Connect: () => {
-      console.log("Connected to notice websocket");
-    },
-    Disconnect: () => {
-      console.log("Disconnected from notice websocket");
-    },
-    Receive: (e) => {
-      handleRecieve(e);
-    },
-  });
+  // const { error, loading, sendMessage, closeWebSocket } = useWebSocket({
+  //   roomprefix: "notice",
+  //   room_name: `${user_group}`,
+  //   Connect: () => {
+  //     console.log("Connected to notice websocket");
+  //   },
+  //   Disconnect: () => {
+  //     console.log("Disconnected from notice websocket");
+  //   },
+  //   Receive: (e) => {
+  //     handleRecieve(e);
+  //   },
+  // });
+
+  useEffect(() => {
+    if (user_group) {
+      const ws = new WebSocket(`ws://localhost:8000/ws/notice/${user_group}/`);
+      ws.onopen = () => {
+        console.log("Connected to notice websocket");
+      };
+      ws.onclose = () => {
+        console.log("Disconnected from notice websocket");
+      };
+      ws.onmessage = (e) => {
+        handleRecieve(e);
+      };
+      return () => {
+        ws.close();
+      };
+    }
+  }, [user_group]);
 
   // handle the received notification
   const handleRecieve = (e) => {
@@ -287,13 +302,14 @@ function NavNotice() {
         )}
       </ul>
 
-      <Modal showmodal={showmodal} toggleModal={()=>setShowModal(!showmodal)} >
-        <h4>{ modalContent.title}</h4>
+      <Modal showmodal={showmodal} toggleModal={() => setShowModal(!showmodal)}>
+        <h4>{modalContent.title}</h4>
         <p className="small text-muted">{modalContent.time}</p>
         <p>{modalContent.message}</p>
-        <button className="btn btn-primary" onClick={
-          ()=>setShowModal(!showmodal)
-        }>
+        <button
+          className="btn btn-primary"
+          onClick={() => setShowModal(!showmodal)}
+        >
           Close
         </button>
       </Modal>

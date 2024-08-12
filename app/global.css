@@ -1,14 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=League+Spartan:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-
-:root{
+@import url("https://use.typekit.net/oov2wcw.css");
+:root {
   scroll-behavior: smooth;
-  --primary: #007bff;
-  --secondary: #6c757d;
+  --primary-700: #00173f;
+  --primary: #012970;
+  --primary-600: #00348e;
+  --primary-500: #023a9b;
+  --primary-400: #025eff;
+  --primary-300: #afccff;
+  --secondary-600: #1d33ff;
+  --secondary: #4154f1;
+  --secondary-500: #4154f1;
+  --secondary-400: #9b9bff;
+  --secondary-300: #dfdff3;
   --success: #28a745;
+  --success-600: #218838;
+  --success-500: #2cc94b;
+  --success-400: #51ff7a;
+  --success-300: #d1e7dd;
   --info: #17a2b8;
   --warning: #ffc107;
   --danger: #dc3545;
+  --danger-600: #a11927;
+  --danger-500: #d12f3c;
+  --danger-400: #ff5a6e;
+  --danger-300: #f8d7da;
   --light: #f8f9fa;
   --dark: #343a40;
   --white: #fff;
@@ -33,7 +50,6 @@
 
 
 .body a {
-
   text-decoration: none;
   cursor: pointer;
 }
@@ -46,7 +62,7 @@
 .body h1,.body h2,.body h3,.body h4,.body h5,.body h6{
   font-family: "jost", sans-serif;
   font-weight: 700;
-  color: #012970;
+  color: var(--primary);
 }
 
 
@@ -65,6 +81,7 @@
   animation-fill-mode: both;
   border: 0;
   box-shadow: 0 5px 30px 0 rgba(82, 63, 105, 0.2);
+  min-width: 250px;
 }
 
 .body .dropdown-menu .dropdown-header,
@@ -154,8 +171,8 @@
 }
 
 .body .bg-secondary-light {
-  background-color: #e2e3e5;
-  border-color: #e2e3e5;
+  background-color: #dfdff3;
+  border-color: #dfdff3;
 }
 
 .body .bg-success-light {
@@ -186,6 +203,10 @@
 /* text */
 .body .text-primary{
   color: #012970;
+}
+
+.body .text-secondary{
+  color: #4154f1;
 }
 
 /* Card */

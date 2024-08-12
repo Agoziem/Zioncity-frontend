@@ -16,6 +16,11 @@ const StudentsContextProvider = ({ children }) => {
     }
   }, [storedStudentData])
 
+  // function to fetch all Students data paginated
+  // function to fetch Students data by Class
+  // function to fetch Student data by ID
+  // function to update Student data
+  // function to delete Student data
 
 
   // Step 4: Provide the context value to children components

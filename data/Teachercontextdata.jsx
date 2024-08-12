@@ -16,7 +16,11 @@ const TeacherContextProvider = ({ children }) => {
     }
   }, [storedTeacherData])
 
-  
+  // function to fetch all teachers data
+  // function to fetch teacher data by Class
+  // function to fetch teacher data by ID
+  // function to update teacher data
+  // function to delete teacher data
 
   // Step 4: Provide the context value to children components
   return (

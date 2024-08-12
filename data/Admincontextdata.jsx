@@ -16,6 +16,11 @@ const AdminContextProvider = ({ children }) => {
     }
   },[storedAdminData])
 
+  // function to fetch all admin data
+  // function to fetch admin data by ID
+  // function to update admin data
+  // function to delete admin data
+
   return (
     <AdminContext.Provider value={{ adminData, setAdminData }}>
       {children}

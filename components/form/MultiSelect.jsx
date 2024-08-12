@@ -1,80 +1,142 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useRef, useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import "@/components/header/Nav/nav.css";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import useClickOutside from "@/hooks/useClickOutside";
 
-export const MultiSelectinput = ({selectedOptions,setSelectedOptions,setIsOpen,isOpen}) => {
-    return (
-        <div className="my-4 w-[300px] py-2 px-4 bg-gray-200 border border-gray-300 rounded-md cursor-pointer">
-            {selectedOptions.length !== 0 && (
-                selectedOptions.map((option, index) => (
-                    <div key={index} className="bg-blue-600 text-white px-2 py-1 rounded-md mx-1">
-                        {option}
-                        <span className="mx-1" onClick={() => setSelectedOptions(selectedOptions.filter((item) => item !== option))}>x</span>
-                    </div>
-                ))
-            )}
-            <span onClick={() => setIsOpen(!isOpen)}>Select Fruit</span>
-        </div>
-    )
-}
-
-export const MultiSelectmenu = ({items,selectedOptions,setSelectedOptions}) => {
-    const handleChange = (event, item) => {
-        if (event.target.checked) {
-            setSelectedOptions([...selectedOptions, item]);
-        } else {
-            setSelectedOptions(selectedOptions.filter((i) => i !== item));
-        }
+export const MultiSelectinput = ({
+  multiselectbuttonref,
+  setIsOpen,
+  isOpen,
+  initiallist,
+  currentlist,
+  setCurrentlist,
+  itemName,
+}) => {
+  const handleChange = (event, item) => {
+    if (event.target.checked) {
+      setCurrentlist([...currentlist, {id: item.id, name: itemName === "Classes" ? item.class : item.subject}]);
+    } else {
+      setCurrentlist(currentlist.filter((i) => i.id !== parseInt(item.id)));
     }
-    return (
-        <div className="px-8 py-5">
-            <ul>
-                {items.map((item, index) => (
-                <li key={index}>
-                    <input
-                        type="checkbox"
-                        onChange={(event) => handleChange(event, item)}
-                        className='mr-3 cursor-pointer'
-                        checked={selectedOptions.includes(item)}
-                    />
-                    {item}
-                </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
-
-
-
-
-export const MultiSelectDropdown = () => {
-    const options = [
-        "Orange",
-        "Mango",
-        "Banana",
-        "Apple",
-        "Grapes"
-    ]
-    const [items, setItems] = useState(options)
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [isOpen,setIsOpen] = useState(false)
+  };
 
   return (
-    <div className='my-4'>
-        <MultiSelectinput
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-         />
+    <>
+      {/* the custom select item */}
+      <div
+        className="py-3 px-4 rounded"
+        style={{ border: "1px solid rgb(209 213 219 / 1)" }}
+      >
+        <div className="d-flex justify-content-between flex-wrap">
+          <div
+            className="d-flex flex-wrap align-items-center"
+            style={{ maxWidth: "85%" }}
+          >
+            {currentlist &&
+              currentlist.map((option) => (
+                <div
+                  key={option.id}
+                  className="bg-secondary-light px-3 py-1 rounded-pill mx-1 my-1"
+                  style={{ border: "1px solid var(--secondary)", color: "var(--secondary)"}}
+                >
+                  {option.name}
+                  <span
+                    className="mx-1"
+                    onClick={() => {
+                      setCurrentlist(
+                        currentlist.filter((i) => i.id !== parseInt(option.id))
+                      );
+                    }} // remove the item from the list
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FaTimes />
+                  </span>
+                </div>
+              ))}
 
-        {isOpen && <MultiSelectmenu
-            items={items}
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-            // isOpen = {isOpen}
-            // setIsOpen={setIsOpen}
-        />}
+            <div
+              className="mx-1 my-1"
+              onClick={() => setIsOpen(!isOpen)}
+              style={{ cursor: "pointer" }}
+            >
+              Select {itemName}
+            </div>
+          </div>
+
+          <div className="ms-2" ref={multiselectbuttonref}>
+            <RiArrowDropDownLine
+              className="h4"
+              onClick={() => setIsOpen(!isOpen)}
+              style={{ fontSize: "30px", cursor: "pointer" }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* the dropdown */}
+      <div className="dropdown px-4 py-2">
+        <ul
+          className={`dropdown-menu dropdown-menu-end dropdown-menu-arrow ${
+            isOpen ? "show" : ""
+          }`}
+          style={{maxHeight: "350px", overflowY: "auto" }}
+        >
+          {initiallist?.length > 0 &&
+            initiallist.map((item, index) => (
+              <React.Fragment key={item.id}>
+                <li className="dropdown-item d-flex align-items-center">
+                  <input
+                    type="checkbox"
+                    onChange={(event) => handleChange(event, item)}
+                    className="me-3 bg-primary-light"
+                    checked={currentlist.some((i) => i.id === item.id)}
+                    style={{ cursor: "pointer" }}
+                    id={`item-${item.id}`}
+                  />
+                  <label htmlFor={`item-${item.id}`}>
+                    {item.class || item.subject}
+                  </label>
+                </li>
+                {index !== initiallist.length - 1 && (
+                  <li key={`Divider-${index}`}>
+                    <hr className="dropdown-divider" />
+                  </li>
+                )}
+              </React.Fragment>
+            ))}
+        </ul>
+      </div>
+    </>
+  );
+};
+
+// The Main Dropdown component
+export const MultiSelectDropdown = ({
+  initiallist, // the initial list of items
+  currentlist, // the current list of items
+  setCurrentlist, // update the current list of items
+  itemName, // the name of the item
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const multipleselectdropdownRef = useRef(null);
+  const multiselectbuttonref = useRef(null);
+  useClickOutside(multipleselectdropdownRef, multiselectbuttonref, () =>
+    setIsOpen(false)
+  );
+
+  return (
+    <div ref={multipleselectdropdownRef}>
+      <MultiSelectinput
+        multiselectbuttonref={multiselectbuttonref}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+        initiallist={initiallist}
+        currentlist={currentlist}
+        setCurrentlist={setCurrentlist}
+        itemName={itemName}
+      />
     </div>
   );
 };
