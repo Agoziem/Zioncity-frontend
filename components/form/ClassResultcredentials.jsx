@@ -3,49 +3,46 @@ import React from "react";
 
 const ClassResultcredentials = ({
   handleSubmit,
-  loadingterms,
   loadingresults,
   classresultcredential,
   setClassResultscredential,
   schoolsessions,
-  schoolterms,
+  schoolterms = [],
+  isAnnual = false,
 }) => {
   return (
     <div>
       <form className="row g-3" onSubmit={handleSubmit}>
         {/* term */}
-        <div className="col-md-6">
-          <label htmlFor="termselect" className="form-label">
-            Term
-          </label>
-          <select
-            id="termselect"
-            className="form-select"
-            value={classresultcredential.term_id}
-            onChange={(e) =>
-              setClassResultscredential({
-                ...classresultcredential,
-                term_id: e.target.value,
-              })
-            }
-          >
-            {schoolterms.length === 0 && (
-              <option value="">No Term Found</option>
-            )}
-
-            {
-              <option value="">
-                {loadingterms ? "Loading Terms..." : "Select Term"}
-              </option>
-            }
-            
-            {schoolterms.map((term) => (
-              <option key={term.id} value={term.id}>
-                {term.term}
-              </option>
-            ))}
-          </select>
-        </div>
+        {!isAnnual && (
+          <div className="col-md-6">
+            <label htmlFor="termselect" className="form-label">
+              Term
+            </label>
+            <select
+              id="termselect"
+              className="form-select"
+              value={classresultcredential.term_id}
+              onChange={(e) =>
+                setClassResultscredential({
+                  ...classresultcredential,
+                  term_id: e.target.value,
+                })
+              }
+            >
+              {schoolterms.length === 0 ? (
+                <option value="">No Term Found</option>
+              ) : (
+                <option value="">Select Term</option>
+              )}
+              {schoolterms.map((term) => (
+                <option key={term.id} value={term.id}>
+                  {term.term}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* session */}
         <div className="col-md-6">
