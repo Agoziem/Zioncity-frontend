@@ -47,35 +47,44 @@ const calculateAverage = (student) => {
 
 //  Calculate the Grade
 const calculateGrade = (average) => {
-  if (average >= 70) return "A";
+  if (average === "-") return "-";
+  else if (average >= 70) return "A";
   else if (average >= 55) return "C";
   else if (average >= 40) return "P";
   else return "F";
 };
 
-
 // Calculate the Position
 const calculatePosition = (students) => {
-  students.sort((a, b) => b.Average - a.Average);
+  students.sort((a, b) => {
+    if (a.Average === "-" && b.Average === "-") {
+      return 0;
+    } else if (b.Average === "-") {
+      return -1;
+    } else {
+      return b.Average - a.Average;
+    }
+  });
 
   let previousAverage = null;
   let previousPosition = null;
 
   students.forEach((student, index) => {
-    const currentTotal = student.Average;
+    const currentAverage = student.Average;
     const suffix = getOrdinalSuffix(index + 1);
 
-    if (currentTotal === previousAverage) {
+    if (currentAverage === "-") {
+      student.SubjectPosition = "-";
+    } else if (currentAverage === previousAverage) {
       student.SubjectPosition = previousPosition;
     } else {
       student.SubjectPosition = `${index + 1}${suffix}`;
     }
 
-    previousAverage = currentTotal;
+    previousAverage = currentAverage;
     previousPosition = student.SubjectPosition;
   });
 };
-
 
 // Calculate the Remarks
 const calculateRemarks = (students) => {
@@ -90,24 +99,24 @@ const calculateRemarks = (students) => {
 
 // Function to handle the annual result of each student
 function AnnualResultHandler(data) {
-    const students = data.map((student) => {
-        const total = calculateTotal(student);
-        const average = calculateAverage({ ...student, Total: total });
-        const grade = calculateGrade(average);
-        return {
-            ...student,
-            Total: total,
-            Average: average,
-            Grade: grade,
-            SubjectPosition: "-",
-            Remark: "-",
-        };
-    });
+  const students = data.map((student) => {
+    const total = calculateTotal(student);
+    const average = calculateAverage({ ...student, Total: total });
+    const grade = calculateGrade(average);
+    return {
+      ...student,
+      Total: total,
+      Average: average,
+      Grade: grade,
+      SubjectPosition: "-",
+      Remark: "-",
+    };
+  });
 
-    calculatePosition(students);
-    calculateRemarks(students);
+  calculatePosition(students);
+  calculateRemarks(students);
 
-    return students;
+  return students;
 }
 
 export default AnnualResultHandler;

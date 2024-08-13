@@ -118,6 +118,7 @@ const TermlyResultPage = () => {
       console.log(jsonData);
       setResults(jsonData);
     } catch (error) {
+      setResults([]);
       console.error("Error fetching data:", error);
     } finally {
       setLoadingResults(false);
@@ -174,6 +175,10 @@ const TermlyResultPage = () => {
       setStudentsOffering(offeringStudents);
       setStudentsNotOffering(notOfferingStudents);
       setComputedResults(calculatedResults);
+    } else {
+      setComputedResults([]);
+      setStudentsNotOffering([]);
+      setStudentsOffering([]);
     }
   }, [result]);
 

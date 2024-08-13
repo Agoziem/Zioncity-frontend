@@ -1,15 +1,14 @@
 function AnnualClassResultHandler(students) {
   // Helper function to calculate the overall total score (sum of subject averages)
   function calculateTotal(student) {
-    let total = student.subjects.reduce((sum, subjectObj) => {
+    let overalltotal = student.subjects.reduce((sum, subjectObj) => {
       const subjectKey = Object.keys(subjectObj)[0];
       const average = subjectObj[subjectKey].Ave;
       return (
         sum + (isNaN(average) || average === "-" ? 0 : parseFloat(average))
       );
     }, 0);
-
-    return parseFloat(total.toFixed(2));
+    return parseFloat(overalltotal.toFixed(2));
   }
 
   // Helper function to calculate the average of the subject averages
@@ -20,6 +19,7 @@ function AnnualClassResultHandler(students) {
       return count + (isNaN(average) || average === "-" ? 0 : 1);
     }, 0);
 
+    if (validSubjectsCount === 0) return "-";
     let total = calculateTotal(student);
     let average = validSubjectsCount > 0 ? total / validSubjectsCount : 0;
 
@@ -28,7 +28,8 @@ function AnnualClassResultHandler(students) {
 
   // Helper function to calculate the grade based on average score
   function calculateGrade(student) {
-    if (student.Average >= 70) return "A";
+    if (student.Average === "-") return "-";
+    else if (student.Average >= 70) return "A";
     else if (student.Average >= 55) return "C";
     else if (student.Average >= 40) return "P";
     else return "F";
@@ -36,7 +37,15 @@ function AnnualClassResultHandler(students) {
 
   // Helper function to calculate the position of each student based on their average
   function calculatePosition(students) {
-    students.sort((a, b) => b.Average - a.Average);
+    students.sort((a, b) => {
+      if (a.Average === "-" && b.Average === "-") {
+        return 0;
+      } else if (b.Average === "-") {
+        return -1;
+      } else {
+        return b.Average - a.Average;
+      }
+    });
 
     const getOrdinalSuffix = (number) => {
       if (number === 11 || number === 12 || number === 13) {
@@ -63,7 +72,9 @@ function AnnualClassResultHandler(students) {
       const currentAverage = student.Average;
       const suffix = getOrdinalSuffix(index + 1);
 
-      if (currentAverage === previousAverage) {
+      if (currentAverage === "-") {
+        student.Position = "-";
+      } else if (currentAverage === previousAverage) {
         student.Position = previousPosition;
       } else {
         student.Position = `${index + 1}${suffix}`;
@@ -98,7 +109,7 @@ function AnnualClassResultHandler(students) {
 
   // Process each student
   students.forEach((student) => {
-    student.Total = calculateTotal(student); // Calculate the overall total
+    student.TotalScore = calculateTotal(student); // Calculate the overall total
     student.Average = calculateAverage(student); // Calculate the average of averages
     student.Grade = calculateGrade(student);
     student.Position = "-";

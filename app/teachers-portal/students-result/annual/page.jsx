@@ -136,7 +136,9 @@ const Page = () => {
       setComputedResults(computedResults);
     }
   }, [result]);
-  
+
+
+
   // ---------------------------------------------------------
   // handle Publish & Unpublish results
   // ---------------------------------------------------------
@@ -154,7 +156,7 @@ const Page = () => {
 
     try {
       const response = await fetch(endpoint, {
-        method: publish ? "POST" : "PUT",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

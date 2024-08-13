@@ -56,7 +56,7 @@ function calculatePosition(students) {
       }
     }
   };
-
+// 
   let previousTotal = null;
   let previousPosition = null;
 

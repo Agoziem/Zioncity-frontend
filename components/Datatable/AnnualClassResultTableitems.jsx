@@ -17,13 +17,9 @@ const AnnualClassResultDatatableitems = ({
       : [];
 
   const getColorClass = (remark) => {
-    if (remark === "Excellent") {
+    if (remark === "Promoted") {
       return "text-success";
-    } else if (remark === "Good") {
-      return "text-warning";
-    } else if (remark === "Pass") {
-      return "text-secondary";
-    } else {
+    } else if (remark === "Not Promoted") {
       return "text-danger";
     }
   };
@@ -81,7 +77,10 @@ const AnnualClassResultDatatableitems = ({
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={subjectCodes.length + 5} className="text-center p-2">
+                <td
+                  colSpan={subjectCodes.length + 5}
+                  className="text-center p-2"
+                >
                   Loading...
                 </td>
               </tr>
@@ -109,16 +108,19 @@ const AnnualClassResultDatatableitems = ({
                       <td className="mx-7 p-2">{item.Position}</td>
                       <td
                         className={`mx-7 p-2 ${getColorClass(
-                          item.Remark
+                          item.PrincipalVerdict
                         )} fw-bold`}
                       >
-                        {item.Remark}
+                        {item.PrincipalVerdict}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={subjectCodes.length + 6} className="text-center p-2">
+                    <td
+                      colSpan={subjectCodes.length + 6}
+                      className="text-center p-2"
+                    >
                       No Result Found for your Students
                     </td>
                   </tr>

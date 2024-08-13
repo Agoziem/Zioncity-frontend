@@ -156,6 +156,10 @@ const AnnualResultPage = () => {
       setStudentsOffering(offeringStudents);
       setStudentsNotOffering(notOfferingStudents);
       setComputedResults(calculatedResults);
+    } else {
+      setComputedResults([]);
+      setStudentsOffering([]);
+      setStudentsNotOffering([]);
     }
   }, [result]);
 
