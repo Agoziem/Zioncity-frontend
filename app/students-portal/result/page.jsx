@@ -94,6 +94,10 @@ const ResultPage = () => {
     }
   };
 
+
+  // -------------------------------------------------------------
+  // fetch the newsletter when the session_id & term_id changes
+  // -------------------------------------------------------------
   useEffect(() => {
     if (resultdetails.session_id && resultdetails.term_id) fetchNewsletter();
   }, [resultdetails.session_id, resultdetails.term_id]);

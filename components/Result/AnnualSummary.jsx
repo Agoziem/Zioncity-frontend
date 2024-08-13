@@ -28,7 +28,7 @@ const AnnualResultSummary = ({ Annualresultsummary, getColorClass }) => {
               </td>
             </tr>
             <tr>
-              <td>Principal's Verdict</td>
+              <td>Principal&apos;s Verdict</td>
               <td
                 className={`${getColorClass(
                   Annualresultsummary?.PrincipalVerdict
