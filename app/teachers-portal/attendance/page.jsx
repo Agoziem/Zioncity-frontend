@@ -4,7 +4,7 @@ import React from 'react'
 const page = () => {
   return (
     <>
-      <PageTitle pathname={'Student Attendance'} />
+      <PageTitle pathname={'Attendance'} />
     </>
   )
 }

@@ -13,7 +13,7 @@ function SmallScreenSideBar({ navList, sidebarref, currentUser, handleSidebarClo
         {navList[0].Teacher.filter((navGroup) => {
           return !(
             paths.startsWith("/teachers-portal") &&
-            !currentUser.is_formteacher &&
+            !currentUser?.is_formteacher &&
             (navGroup.name === "Students" ||
               navGroup.name === "Students-result" ||
               navGroup.name === "Attendance")
