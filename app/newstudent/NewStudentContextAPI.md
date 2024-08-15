@@ -1,4 +1,4 @@
-Below is a Markdown file (`new_student_layout_overview.md`) documenting the `NewStudentLayout` component and its context providers.
+Below is a Markdown file (`NewStudentContextAPI.md`) documenting the `NewStudentLayout` component and its context providers.
 
 # NewStudentLayout Component Overview
 
