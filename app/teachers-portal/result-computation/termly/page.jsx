@@ -115,7 +115,6 @@ const TermlyResultPage = () => {
         body: JSON.stringify(resultcredential),
       });
       const jsonData = await response.json();
-      console.log(jsonData);
       setResults(jsonData);
     } catch (error) {
       setResults([]);

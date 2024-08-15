@@ -1,12 +1,12 @@
 import PageTitle from '@/components/PageTitle/PageTitle'
 import React from 'react'
 
-const cbtquestions = () => {
+const MessagesPage = () => {
   return (
     <>
-      <PageTitle pathname={'CBT Questions'} />
+      <PageTitle pathname={'Messaging Section'} />
     </>
   )
 }
 
-export default cbtquestions
+export default MessagesPage

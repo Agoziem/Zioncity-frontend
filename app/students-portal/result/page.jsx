@@ -41,7 +41,7 @@ const ResultPage = () => {
     message: "",
     type: "",
   });
-  const [newsletter, setNewsletter] = useState({});
+  const [newsletter, setNewsletter] = useState(null);
   const Resultref = useRef(null);
   const isSmallerThanMd = useMediaQuery("(max-width: 768px)");
 
@@ -87,8 +87,10 @@ const ResultPage = () => {
       const response = await fetch(
         `${DJANGO_URL}/adminsapi/get_newsletter/${resultdetails.session_id}/${resultdetails.term_id}`
       );
-      const newsletterData = await response.json();
-      setNewsletter(newsletterData);
+      if (response.ok) {
+        const data = await response.json();
+        setNewsletter(data);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -259,7 +261,7 @@ const ResultPage = () => {
               </div>
 
               {/* Newsletter */}
-              {Object.keys(newsletter).length > 0 ? (
+              {newsletter ? (
                 <Newsletter newsletter={newsletter} />
               ) : (
                 <div className="card mx-1 mx-md-5">

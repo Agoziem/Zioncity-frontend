@@ -1,12 +1,12 @@
 import PageTitle from '@/components/PageTitle/PageTitle'
 import React from 'react'
 
-const ElearningPage = () => {
+const PerformancePage = () => {
   return (
     <div>
-      <PageTitle pathname={'School E-learning Portal'} />
+      <PageTitle pathname={"Performance Analysis"} />
     </div>
   )
 }
 
-export default ElearningPage
+export default PerformancePage

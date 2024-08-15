@@ -29,20 +29,20 @@ const Loginform = ({
     password: "",
   });
   const Django_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
-  const { teacherData, setTeacherData } = useContext(TeacherContext);
-  const { StudentData, setStudentData } = useContext(StudentsContext);
-  const { adminData, setAdminData } = useContext(AdminContext);
-  const [storedTeacherdata, setStoredTeacherdata] = useLocalStorage(
-    "teacherData",
-    {}
+  const { setTeacherData } = useContext(TeacherContext);
+  const { setStudentData } = useContext(StudentsContext);
+  const { setAdminData } = useContext(AdminContext);
+  const [storedTeacherID, setStoredTeacherID] = useLocalStorage(
+    "teacherID",
+    null
   );
-  const [storedStudentdata, setStoredStudentdata] = useLocalStorage(
-    "StudentData",
-    {}
+  const [storedStudentID, setStoredStudentID] = useLocalStorage(
+    "studentID",
+    null
   );
-  const [storedadminData, setStoredadmindata] = useLocalStorage(
-    "adminData",
-    {}
+  const [storedadminID, setStoredadminID] = useLocalStorage(
+    "adminID",
+    null
   );
   const [loadingPortal, setLoadingPortal] = useState(false);
   const router = useRouter();
@@ -64,17 +64,17 @@ const Loginform = ({
   const setuserdetails = (userdetails) => {
     if (selectedPortal === "students") {
       setStudentData(userdetails);
-      setStoredStudentdata(userdetails);
+      setStoredStudentID(userdetails.id);
       setUsercredentials({ id: "", password: "" });
       router.push("/students-portal");
     } else if (selectedPortal === "teachers") {
       setTeacherData(userdetails);
-      setStoredTeacherdata(userdetails);
+      setStoredTeacherID(userdetails.id);
       setUsercredentials({ id: "", password: "" });
       router.push("/teachers-portal");
     } else {
       setAdminData(userdetails);
-      setStoredadmindata(userdetails);
+      setStoredadminID(userdetails.id);
       setUsercredentials({ id: "", password: "" });
       router.push("/admin-portal");
     }

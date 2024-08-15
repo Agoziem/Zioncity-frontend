@@ -4,7 +4,7 @@ import React from 'react'
 const ChatPage = () => {
   return (
     <>
-      <PageTitle pathname={'Chat Room'} />
+      <PageTitle pathname={'Online Community'} />
     </>
   )
 }

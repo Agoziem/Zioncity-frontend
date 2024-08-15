@@ -8,12 +8,12 @@ const Newsletter = ({ newsletter }) => {
         <div className="col-md-6">
           <h5>School Termly Newsletter</h5>
           <p>
-            {newsletter.term.name} ({newsletter.session.name})
+            {newsletter?.term?.name} ({newsletter?.session?.name})
           </p>
         </div>
         <div className="col-md-4 ">
           <a
-            href={newsletter.Newsletterfile}
+            href={newsletter?.Newsletterfile}
             download
             target="_blank"
             className="btn btn-primary"

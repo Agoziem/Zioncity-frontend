@@ -8,15 +8,15 @@ import Modal from "@/components/Modal/modal";
 
 function NavAvatar() {
   const { currentUser, currentRoot } = useCurrentUser();
-  const [showModal,setShowModal] = useState(false)
-  const [loggingOut,setLoggingOut] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const router = useRouter();
 
   const logoutDashboard = () => {
-    setLoggingOut(true)
+    setLoggingOut(true);
     localStorage.clear();
-    setLoggingOut(false)
-    setShowModal(false)
+    setLoggingOut(false);
+    setShowModal(false);
     router.push("/");
   };
 
@@ -86,10 +86,11 @@ function NavAvatar() {
             <hr className="dropdown-divider" />
           </li>
 
+          {/* Account Settings */}
           <li>
             <a
               className="dropdown-item d-flex align-items-center"
-              href="users-profile.html"
+              href={`/${currentRoot}/profile`}
             >
               <i className="bi bi-gear"></i>
               <span>Account Settings</span>
@@ -99,10 +100,11 @@ function NavAvatar() {
             <hr className="dropdown-divider" />
           </li>
 
+          {/* Virtual Assistant */}
           <li>
             <a
               className="dropdown-item d-flex align-items-center"
-              href="pages-faq.html"
+              href='/#'
             >
               <i className="bi bi-question-circle"></i>
               <span>Need Help?</span>
@@ -112,6 +114,7 @@ function NavAvatar() {
             <hr className="dropdown-divider" />
           </li>
 
+          {/* Sign Out */}
           <li>
             <Link
               className="dropdown-item d-flex align-items-center"
@@ -130,7 +133,6 @@ function NavAvatar() {
         </ul>
       </li>
 
-      
       {/* Modal for logout */}
       <Modal showmodal={showModal} toggleModal={() => setShowModal(false)}>
         <div className="modal-body">

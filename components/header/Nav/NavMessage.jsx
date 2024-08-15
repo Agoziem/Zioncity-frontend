@@ -1,63 +1,53 @@
+import useCurrentUser from "@/hooks/useCurrentUser";
 import React from "react";
 
 function NavMessage() {
-  return (
-    <li className="nav-item dropdown">
-      <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-        <i className="bi bi-chat-left-text"></i>
-        {/* <span className="badge bg-success badge-number">3</span> */}
-      </a>
+  const { currentUser, currentRoot } = useCurrentUser();
 
-      <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-        <li className="dropdown-header">
-          You have 0 new messages at the moment
-          {/* <a href="#">
-            <span className="badge rounded-pill bg-primary p-2 ms-2">
-              View all
-            </span>
-          </a> */}
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li>
+  if (currentRoot && currentRoot !== "students-portal") {
+    return (
+      <li className="nav-item dropdown">
+        <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+          <i className="bi bi-chat-left-text"></i>
+          {/* Uncomment the line below if you want to display the number of new messages */}
+          {/* <span className="badge bg-success badge-number">3</span> */}
+        </a>
 
-        {/* <li className="message-item">
-          <a href="#">
-            <img
-              src="assets/img/messages-1.jpg"
-              alt=""
-              className="rounded-circle"
-            />
-            <div>
-              <h4>Maria Hudson</h4>
-              <p>
-                Velit asperiores et ducimus soluta repudiandae labore officia
-                est ut...
-              </p>
-              <p>4 hrs. ago</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <hr className="dropdown-divider" />
-        </li> */}
+        <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+          <li className="dropdown-header">
+            You have 0 new messages at the moment
+            {/* Uncomment the link below if you want to add a "View all" button */}
+            {/* <a href="#">
+              <span className="badge rounded-pill bg-primary p-2 ms-2">
+                View all
+              </span>
+            </a> */}
+          </li>
 
-        <li className="message-item">
-          <a href="#">
-            <div className="px-4">
-              <h4>Message header</h4>
-              <p>No messages yet</p>
-              <p>4 hrs. ago</p>
-            </div>
-          </a>
-        </li>
+          <li>
+            <hr className="dropdown-divider" />
+          </li>
 
-        {/* <li className="dropdown-footer">
-          <a href="#">Show all messages</a>
-        </li> */}
-      </ul>
-    </li>
-  );
+          <li className="message-item">
+            <a href="#">
+              <div className="px-4">
+                <h4>Message header</h4>
+                <p>No messages yet</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+
+          {/* Uncomment the line below if you want to add a footer link */}
+          {/* <li className="dropdown-footer">
+            <a href="#">Show all messages</a>
+          </li> */}
+        </ul>
+      </li>
+    );
+  }
+
+  return null;
 }
 
 export default NavMessage;

@@ -19,7 +19,9 @@ function NavNotice() {
 
   // const [notificationcheck, setNotificationCheck] = useState(false);
 
+  // ------------------------------------------------
   // set the user group based on the current root
+  // ------------------------------------------------
   const changeUserGroup = () => {
     if (currentRoot === "teachers-portal") {
       setUserGroup("Teachers");
@@ -38,7 +40,9 @@ function NavNotice() {
     }
   }, [currentRoot]);
 
+  // ----------------------------------------
   // fetch notifications from the server
+  // ----------------------------------------
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
@@ -93,7 +97,9 @@ function NavNotice() {
     }
   }, [user_group]);
 
+  // ------------------------------------
   // handle the received notification
+  // ------------------------------------
   const handleRecieve = (e) => {
     const newnotice = JSON.parse(e.data);
     if (newnotice.action == "delete") {
@@ -110,7 +116,9 @@ function NavNotice() {
     }
   };
 
+  // ----------------------------------------
   // handle the update/show notification
+  // ----------------------------------------
   const handleSend = (notification) => {
     // set the modal content
     setModalContent({
@@ -139,7 +147,9 @@ function NavNotice() {
     }
   };
 
+  // ----------------------------------------
   // shorten the notification message
+  // ----------------------------------------
   const shortenMessage = (message) => {
     if (message.length > 50) {
       return message.substring(0, 50) + "...";
@@ -147,7 +157,9 @@ function NavNotice() {
     return message;
   };
 
+  // -----------------------------------------------------------------------------
   // return the date as a string like 8 days ago, 2 weeks ago, 3 months ago etc
+  // -----------------------------------------------------------------------------
   const timeSince = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
     let interval = seconds / 31536000;
@@ -199,13 +211,13 @@ function NavNotice() {
         <i className="bi bi-bell"></i>
         {notifications.filter(
           (notification) =>
-            !notification.users_seen?.includes(currentUser.user.id)
+            !notification.users_seen?.includes(currentUser?.user.id)
         ).length > 0 ? (
           <span className="badge bg-danger badge-number">
             {
               notifications.filter(
                 (notification) =>
-                  !notification.users_seen?.includes(currentUser.user.id)
+                  !notification.users_seen?.includes(currentUser?.user.id)
               ).length
             }
           </span>
@@ -216,7 +228,7 @@ function NavNotice() {
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
         {notifications.filter(
           (notification) =>
-            !notification.users_seen?.includes(currentUser.user.id)
+            !notification.users_seen?.includes(currentUser?.user.id)
         ).length > 0 ? (
           <React.Fragment>
             <li className="dropdown-header">
@@ -224,7 +236,7 @@ function NavNotice() {
               {
                 notifications.filter(
                   (notification) =>
-                    !notification.users_seen?.includes(currentUser.user.id)
+                    !notification.users_seen?.includes(currentUser?.user.id)
                 ).length
               }{" "}
               unread notifications
@@ -257,7 +269,7 @@ function NavNotice() {
               >
                 <i
                   className={`bi bi-exclamation-circle  ${
-                    notification.users_seen?.includes(currentUser.user.id)
+                    notification.users_seen?.includes(currentUser?.user.id)
                       ? "text-muted"
                       : "text-warning"
                   }`}
@@ -265,7 +277,7 @@ function NavNotice() {
                 <div>
                   <h4
                     className={
-                      notification.users_seen?.includes(currentUser.user.id)
+                      notification.users_seen?.includes(currentUser?.user.id)
                         ? "text-muted"
                         : ""
                     }
@@ -274,7 +286,7 @@ function NavNotice() {
                   </h4>
                   <p
                     className={
-                      notification.users_seen?.includes(currentUser.user.id)
+                      notification.users_seen?.includes(currentUser?.user.id)
                         ? ""
                         : "text-dark"
                     }

@@ -3,12 +3,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapJs from "@/components/BootstrapJs";
 import "./global.css";
 import { SchoolContextProvider } from "@/data/Schoolcontextdata";
+import { SidebartoggleRefProvider } from "@/components/sidebar/sideBarTogglerContext";
+import { ChatroomContextProvider } from "@/data/Chat/ChatroomContext";
+import { ElibraryContextProvider } from "@/data/Elibrary/ElibraryContext";
+import { AlertsContextProvider } from "@/data/Messages/AlertsContext";
+import { MessagesContextProvider } from "@/data/Messages/MessagesContext";
+import { CartContextProvider } from "@/data/Payments/CartContext";
+import { AdminContextProvider } from "@/data/Admincontextdata";
 import { TeacherContextProvider } from "@/data/Teachercontextdata";
 import { StudentsContextProvider } from "@/data/Studentcontextdata";
-import { AdminContextProvider } from "@/data/Admincontextdata";
-import { AccountantContextProvider } from "@/data/Accountantcontextdata";
-import { SidebartoggleRefProvider } from "@/components/sidebar/sideBarTogglerContext";
- 
+import { SchoolScheduleContextProvider } from "@/data/Schedules/SchoolScheduleContext";
+
 export const metadata = {
   title: "City of Glory",
   description:
@@ -20,17 +25,27 @@ const Rootlayout = ({ children }) => {
     <html lang="en">
       <body className="body">
         <SchoolContextProvider>
-          <TeacherContextProvider>
-            <StudentsContextProvider>
-              <AdminContextProvider>
-                <AccountantContextProvider>
-                  <SidebartoggleRefProvider>
-                  {children}
-                  </SidebartoggleRefProvider>
-                </AccountantContextProvider>
-              </AdminContextProvider>
-            </StudentsContextProvider>
-          </TeacherContextProvider>
+          <AdminContextProvider>
+            <TeacherContextProvider>
+              <StudentsContextProvider>
+                <ChatroomContextProvider>
+                  <ElibraryContextProvider>
+                    <AlertsContextProvider>
+                      <MessagesContextProvider>
+                        <CartContextProvider>
+                          <SchoolScheduleContextProvider>
+                            <SidebartoggleRefProvider>
+                              {children}
+                            </SidebartoggleRefProvider>
+                          </SchoolScheduleContextProvider>
+                        </CartContextProvider>
+                      </MessagesContextProvider>
+                    </AlertsContextProvider>
+                  </ElibraryContextProvider>
+                </ChatroomContextProvider>
+              </StudentsContextProvider>
+            </TeacherContextProvider>
+          </AdminContextProvider>
         </SchoolContextProvider>
         <BootstrapJs />
       </body>
