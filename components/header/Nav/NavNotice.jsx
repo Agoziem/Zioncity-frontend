@@ -81,7 +81,7 @@ function NavNotice() {
 
   useEffect(() => {
     if (user_group) {
-      const ws = new WebSocket(`ws://localhost:8000/ws/notice/${user_group}/`);
+      const ws = new WebSocket(`${process.env.NEXT_PUBLIC_DJANGO_WEBSOCKET_URL}/ws/notice/${user_group}/`);
       ws.onopen = () => {
         console.log("Connected to notice websocket");
       };
