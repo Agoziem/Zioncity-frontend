@@ -96,7 +96,6 @@ const ResultPage = () => {
     }
   };
 
-
   // -------------------------------------------------------------
   // fetch the newsletter when the session_id & term_id changes
   // -------------------------------------------------------------
@@ -177,8 +176,10 @@ const ResultPage = () => {
           body: JSON.stringify(resultdetails),
         }
       );
-      const jsonData = await response.json();
-      setAnnualResults(jsonData);
+      if (response.ok) {
+        const jsonData = await response.json();
+        setAnnualResults(jsonData);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
