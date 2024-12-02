@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoArrowUndoSharp } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -9,14 +9,14 @@ import { AdminContext } from "@/data/Admincontextdata";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import "@/components/TeachersdetailsCard/profile.css";
 import Alert from "@/components/Alert/Alert";
+import { SchoolContext } from "@/data/Schoolcontextdata";
 
 const Loginform = ({
   datalist,
-  handleClasschange,
   classeslist,
   selectedPortal,
-  loadingStudents,
   setLoginState,
+  setStudents
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showAlert, setShowAlert] = useState({
@@ -32,6 +32,7 @@ const Loginform = ({
   const { setTeacherData } = useContext(TeacherContext);
   const { setStudentData } = useContext(StudentsContext);
   const { setAdminData } = useContext(AdminContext);
+  const { schoolData, academicsessions } = useContext(SchoolContext);
   const [storedTeacherID, setStoredTeacherID] = useLocalStorage(
     "teacherID",
     null
@@ -40,16 +41,41 @@ const Loginform = ({
     "studentID",
     null
   );
-  const [storedadminID, setStoredadminID] = useLocalStorage(
-    "adminID",
-    null
-  );
+  const [storedadminID, setStoredadminID] = useLocalStorage("adminID", null);
+  const [storedcurrentSessionID, setStoredCurrentSessionID] = useLocalStorage("currentStudentSessionID",null)
+  const [selectedClassid,setSelectedClassid] = useLocalStorage("currentclassid",null)
   const [loadingPortal, setLoadingPortal] = useState(false);
   const router = useRouter();
+  
+  const [loadingStudents, setLoadingStudents] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  // fetch the School Students
+  const fetchSchoolStudents = async () => {
+    setLoadingStudents(true);
+    try {
+      const res = await fetch(
+        `${Django_URL}/studentsapi/${schoolData.id}/${selectedClassid}/${storedcurrentSessionID}`
+      );
+      const data = await res.json();
+      setStudents(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingStudents(false);
+    }
+  };
+
+  useEffect(() => {
+    if (schoolData.id && selectedClassid && storedcurrentSessionID) {
+      fetchSchoolStudents();
+    }
+  }, [schoolData.id, selectedClassid,storedcurrentSessionID]);
+
+
 
   const apiurl = () => {
     if (selectedPortal === "students") {
@@ -105,7 +131,7 @@ const Loginform = ({
           setTimeout(() => {
             setShowAlert({ show: false, type: "", message: "" });
           }, 3000)
-        )
+        );
       }
     } catch (error) {
       setShowAlert(
@@ -117,7 +143,7 @@ const Loginform = ({
         setTimeout(() => {
           setShowAlert({ show: false, type: "", message: "" });
         }, 3000)
-      )
+      );
       console.error("Error:", error);
     } finally {
       setLoadingPortal(false);
@@ -131,23 +157,46 @@ const Loginform = ({
       )}
       <form>
         {selectedPortal === "students" && (
-          <div className="mb-3">
-            <label htmlFor="classselect" className="form-label">
-              Select Class
-            </label>
-            <select
-              className="profile-form-select form-select"
-              id="classselect"
-              onChange={handleClasschange}
-            >
-              <option>Select Class</option>
-              {classeslist?.map((cls) => (
-                <option key={cls.id} value={cls.id}>
-                  {cls.class}
-                </option>
-              ))}
-            </select>
-          </div>
+          <>
+            {/* Classes */}
+            <div className="mb-3">
+              <label htmlFor="classselect" className="form-label">
+                Select Class
+              </label>
+              <select
+                className="profile-form-select form-select"
+                id="classselect"
+                value={selectedClassid || ""}
+                onChange={(e)=> setSelectedClassid(e.target.value)}
+              >
+                <option>Select Class</option>
+                {classeslist?.map((cls) => (
+                  <option key={cls.id} value={cls.id}>
+                    {cls.class}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* Academic Session */}
+            <div className="mb-3">
+              <label htmlFor="classselect" className="form-label">
+                Select Session
+              </label>
+              <select
+                className="profile-form-select form-select"
+                id="sessionselect"
+                value={storedcurrentSessionID || ""}
+                onChange={(e)=> setStoredCurrentSessionID(e.target.value)}
+              >
+                <option>Select Session</option>
+                {academicsessions?.map((sess) => (
+                  <option key={sess.id} value={sess.id}>
+                    {sess.session}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
         )}
 
         <div className="mb-3">

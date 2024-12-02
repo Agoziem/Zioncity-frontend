@@ -4,6 +4,7 @@ import PageTitle from "@/components/PageTitle/PageTitle";
 import Form from "@/components/form/Form";
 import { useRouter } from "next/navigation";
 import { SchoolContext } from "@/data/Schoolcontextdata";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const CreateStudent = ({ params }) => {
   const [student, setStudent] = useState({
@@ -21,12 +22,12 @@ const CreateStudent = ({ params }) => {
     message: "",
     type: "",
   });
+  const [storedcurrentSessionID] = useLocalStorage("currentSessionID", null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    console.log(student);
-
+    if (!storedcurrentSessionID) return;
     try {
       const response = await fetch(
         `${DJANGO_URL}/studentsapi/create/${schoolData.id}/${classID}/`,
@@ -36,6 +37,7 @@ const CreateStudent = ({ params }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            academic_session: storedcurrentSessionID,
             firstname: student.firstname,
             surname: student.surname,
             sex: student.sex,
@@ -78,7 +80,7 @@ const CreateStudent = ({ params }) => {
       <div className="row justify-content-center">
         <div className="col-md-7">
           <Form
-          showAlert={showAlert}
+            showAlert={showAlert}
             type={"create"}
             student={student}
             setStudent={setStudent}

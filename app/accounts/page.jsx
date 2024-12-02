@@ -5,7 +5,7 @@ import useJsxToPdf from "@/hooks/useJSXtoPDF";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 
 const AccountsPage = () => {
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData,academicsessions } = useContext(SchoolContext);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
   const [paginateddata, setPaginatedData] = useState({});
   const [loadingStudents, setLoadingStudents] = useState(false);

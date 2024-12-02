@@ -75,8 +75,7 @@ const Datatableitems = ({
               </tr>
             ) : (
               <>
-                {currentItems &&
-                  currentItems.length > 0 &&
+                {currentItems && currentItems.length > 0 ? (
                   currentItems.map((item) => (
                     <tr key={item.id} item={item}>
                       <td className="mx-7 p-2">{item.firstname}</td>
@@ -108,7 +107,14 @@ const Datatableitems = ({
                         />
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center p-2">
+                      No Student Record found
+                    </td>
+                  </tr>
+                )}
               </>
             )}
           </tbody>

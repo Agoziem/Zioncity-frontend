@@ -211,13 +211,13 @@ function NavNotice() {
         <i className="bi bi-bell"></i>
         {notifications.filter(
           (notification) =>
-            !notification.users_seen?.includes(currentUser?.user.id)
+            !notification.users_seen?.includes(currentUser?.user?.id)
         ).length > 0 ? (
           <span className="badge bg-danger badge-number">
             {
               notifications.filter(
                 (notification) =>
-                  !notification.users_seen?.includes(currentUser?.user.id)
+                  !notification.users_seen?.includes(currentUser?.user?.id)
               ).length
             }
           </span>
@@ -228,7 +228,7 @@ function NavNotice() {
       <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
         {notifications.filter(
           (notification) =>
-            !notification.users_seen?.includes(currentUser?.user.id)
+            !notification.users_seen?.includes(currentUser?.user?.id)
         ).length > 0 ? (
           <React.Fragment>
             <li className="dropdown-header">
@@ -236,7 +236,7 @@ function NavNotice() {
               {
                 notifications.filter(
                   (notification) =>
-                    !notification.users_seen?.includes(currentUser?.user.id)
+                    !notification.users_seen?.includes(currentUser?.user?.id)
                 ).length
               }{" "}
               unread notifications
@@ -269,7 +269,7 @@ function NavNotice() {
               >
                 <i
                   className={`bi bi-exclamation-circle  ${
-                    notification.users_seen?.includes(currentUser?.user.id)
+                    notification.users_seen?.includes(currentUser?.user?.id)
                       ? "text-muted"
                       : "text-warning"
                   }`}
@@ -277,7 +277,7 @@ function NavNotice() {
                 <div>
                   <h4
                     className={
-                      notification.users_seen?.includes(currentUser?.user.id)
+                      notification.users_seen?.includes(currentUser?.user?.id)
                         ? "text-muted"
                         : ""
                     }
@@ -286,7 +286,7 @@ function NavNotice() {
                   </h4>
                   <p
                     className={
-                      notification.users_seen?.includes(currentUser?.user.id)
+                      notification.users_seen?.includes(currentUser?.user?.id)
                         ? ""
                         : "text-dark"
                     }

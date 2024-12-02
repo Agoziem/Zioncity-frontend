@@ -1,7 +1,7 @@
 // components/ResultDetails/ResultDetails.jsx
 import React from "react";
 
-const ResultDetails = ({ result, StudentData, getColorClass }) => {
+const ResultDetails = ({ result, StudentData, getColorClass,studentClass }) => {
   return (
     <div className="card p-5">
       <div className="row align-items-center">
@@ -31,7 +31,7 @@ const ResultDetails = ({ result, StudentData, getColorClass }) => {
             <div className="col-md-6">
               <p className="mb-1">
                 <strong>Class: </strong>
-                {StudentData.studentclass.class_}
+                {studentClass.class}
               </p>
             </div>
             <div className="col-md-6">

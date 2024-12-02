@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PageTitle from "@/components/PageTitle/PageTitle";
 import Form from "@/components/form/Form";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const UpdateStudent = () => {
   const [student, setStudent] = useState({
@@ -20,6 +21,7 @@ const UpdateStudent = () => {
     message: "",
     type: "",
   });
+  const [storedcurrentSessionID] = useLocalStorage("currentSessionID",null)
 
   useEffect(() => {
     const getStudentDetails = async () => {
@@ -41,7 +43,7 @@ const UpdateStudent = () => {
   const updateStudent = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-
+    if (!storedcurrentSessionID) return;
     if (!studentID) return alert("Missing studentID!");
 
     try {
@@ -53,6 +55,7 @@ const UpdateStudent = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            academic_session:storedcurrentSessionID,
             firstname: student.firstname,
             surname: student.surname,
             sex: student.sex,

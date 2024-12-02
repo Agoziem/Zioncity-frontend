@@ -11,14 +11,16 @@ import "@/components/Modal/modal.css";
 import Link from "next/link";
 import "@/components/Datatable/Datatable.css";
 import Alert from "@/components/Alert/Alert";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const Page = () => {
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData, academicsessions } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [student, setStudent] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [storedcurrentSessionID, setStoredCurrentSessionID] = useLocalStorage("currentSessionID",null)
   const [studenttodelete, setStudenttodelete] = useState({
     studentID: "",
     studentName: "",
@@ -55,7 +57,7 @@ const Page = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${DJANGO_URL}/studentsapi/${schoolID}/${classID}/`
+        `${DJANGO_URL}/studentsapi/${schoolID}/${classID}/${storedcurrentSessionID}`
       );
       const jsonData = await response.json();
       setStudent(jsonData);
@@ -67,10 +69,10 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (schoolID && classID) {
+    if (schoolID && classID && storedcurrentSessionID) {
       fetchData();
     }
-  }, [schoolID, classID]);
+  }, [schoolID, classID, storedcurrentSessionID]);
 
   // -------------------------------------------
   // toogle Modal Function
@@ -127,7 +129,7 @@ const Page = () => {
   // -------------------------------------------
 
   const refreshData = () => {
-    if (schoolID && classID) {
+    if (schoolID && classID && storedcurrentSessionID) {
       fetchData();
     }
   };
@@ -135,11 +137,26 @@ const Page = () => {
   return (
     <>
       <PageTitle pathname={"Students"} />
-      <div className="row mt-4 mb-4 justify-content-between align-items-center">
-        <div className="col-md-7 mb-2 mb-md-0">
+      <div className="d-flex mt-4 mb-4 justify-content-between align-items-center">
+        <div className="mb-2 mb-md-0">
           <h3>{className} Class List </h3>
         </div>
-        <div className="col-md-3">
+        <div className="d-flex">
+          <div className="mx-3">
+            <select
+              id="academicSession"
+              className="form-select"
+              value={storedcurrentSessionID || ""}
+              onChange={(e) => setStoredCurrentSessionID(e.target.value)}
+            >
+              <option value="" disabled>Session...</option>
+              {academicsessions?.map((session) => (
+                <option key={session.id} value={session.id}>
+                  {session.session}
+                </option>
+              ))}
+            </select>
+          </div>
           <Link
             style={{ fontWeight: 500 }}
             type="button"

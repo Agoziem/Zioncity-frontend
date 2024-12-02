@@ -18,7 +18,7 @@ import Modal from "@/components/Modal/modal";
 
 const AnnualResultPage = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData, academicsessions } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [result, setResults] = useState([]);
   const [studentsnotoffering, setStudentsNotOffering] = useState([]);
@@ -307,7 +307,7 @@ const AnnualResultPage = () => {
             loadingresults={loadingresults}
             resultcredential={resultcredential}
             setResultscredential={setResultscredential}
-            schoolsessions={schoolData.sessions}
+            schoolsessions={academicsessions}
             teachersclasses={teacherData.classes_taught}
             teachersubjects={teacherData.subjects_taught}
             isAnnual={true}

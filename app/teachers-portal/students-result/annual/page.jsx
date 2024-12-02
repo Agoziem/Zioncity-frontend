@@ -16,7 +16,7 @@ import Modal from "@/components/Modal/modal";
 import AnnualClassResultDatatableitems from "@/components/Datatable/AnnualClassResultTableitems";
 
 const Page = () => {
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData,academicsessions } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [result, setResults] = useState([]);
   const [computedResults, setComputedResults] = useState([]);
@@ -50,7 +50,6 @@ const Page = () => {
   // ---------------------------------------------------------
   // set the needed data when they are available
   // ---------------------------------------------------------
-  let schoolsessions = [];
   let schoolID;
   let classID;
   let className;
@@ -61,7 +60,6 @@ const Page = () => {
     Object.keys(schoolData).length &&
     Object.keys(teacherData).length
   ) {
-    schoolsessions = schoolData.sessions || [];
     schoolID = schoolData.id || "";
     classID = teacherData.classFormed.id || "";
     className = teacherData.classFormed.name || "";
@@ -271,7 +269,7 @@ const Page = () => {
             <ClassResultcredentials
               handleSubmit={handleSubmit}
               loadingresults={loadingresults}
-              schoolsessions={schoolsessions}
+              schoolsessions={academicsessions}
               setClassResultscredential={setClassResultscredential}
               classresultcredential={classresultcredential}
               isAnnual={true}

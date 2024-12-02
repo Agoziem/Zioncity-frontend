@@ -1,7 +1,16 @@
 import React from "react";
 import Card from "./Card";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const StudentCards = ({ studentData, schoolData }) => {
+  const [selectedClassid, setSelectedClassid] = useLocalStorage(
+    "currentclassid",
+    null
+  );
+  const studentClass = schoolData?.classes?.find(
+    (classItem) => classItem.id === parseInt(selectedClassid)
+  );
+
   return (
     <div className="row">
       {studentData &&
@@ -21,13 +30,11 @@ const StudentCards = ({ studentData, schoolData }) => {
             />
             <Card
               cardtitle="Student Class"
-              cardbody={studentData.studentclass.class_}
+              cardbody={studentClass.class}
               icon={"bi bi-people"}
             />
           </>
         )}
-
-        
     </div>
   );
 };

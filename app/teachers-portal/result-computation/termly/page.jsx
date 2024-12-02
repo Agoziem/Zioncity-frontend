@@ -18,7 +18,7 @@ import Modal from "@/components/Modal/modal";
 
 const TermlyResultPage = () => {
   const [selectedClassName, setSelectedClassName] = useState(null);
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData, academicsessions } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [terms, setTerms] = useState([]);
   const [result, setResults] = useState([]);
@@ -326,7 +326,7 @@ const TermlyResultPage = () => {
             loadingresults={loadingresults}
             resultcredential={resultcredential}
             setResultscredential={setResultscredential}
-            schoolsessions={schoolData.sessions}
+            schoolsessions={academicsessions}
             teachersclasses={teacherData.classes_taught}
             teachersubjects={teacherData.subjects_taught}
             schoolterms={terms}

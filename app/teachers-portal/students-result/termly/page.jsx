@@ -16,7 +16,7 @@ import Alert from "@/components/Alert/Alert";
 import Modal from "@/components/Modal/modal";
 
 const Page = () => {
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData,academicsessions } = useContext(SchoolContext);
   const { teacherData } = useContext(TeacherContext);
   const [terms, setTerms] = useState([]);
   const [result, setResults] = useState([]);
@@ -73,7 +73,6 @@ const Page = () => {
   // ---------------------------------------------------------
   // set the needed data when they are available
   // ---------------------------------------------------------
-  let schoolsessions = [];
   let schoolID;
   let classID;
   let className;
@@ -85,7 +84,6 @@ const Page = () => {
     Object.keys(schoolData).length &&
     Object.keys(teacherData).length
   ) {
-    schoolsessions = schoolData.sessions || [];
     schoolID = schoolData.id || "";
     classID = teacherData.classFormed.id || "";
     className = teacherData.classFormed.name || "";
@@ -302,7 +300,7 @@ const Page = () => {
               loadingterms={loadingterms}
               loadingresults={loadingresults}
               schoolterms={schoolterms}
-              schoolsessions={schoolsessions}
+              schoolsessions={academicsessions}
               setClassResultscredential={setClassResultscredential}
               classresultcredential={classresultcredential}
             />

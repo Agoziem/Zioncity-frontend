@@ -1,7 +1,6 @@
 "use client";
 import Loginform from "@/components/loginforms/Loginform";
 // import MainHeader from "@/components/header/Mainheader/MainHeader";
-import Image from "next/image";
 // import Link from "next/link";
 import { SchoolContext } from "@/data/Schoolcontextdata";
 import { useContext, useEffect, useState } from "react";
@@ -11,15 +10,12 @@ import {
   FaUserLock,
   FaUserTie,
 } from "react-icons/fa6";
-import Link from "next/link";
 
 const Home = () => {
   const { schoolData } = useContext(SchoolContext);
   const [schoolTeachers, setSchoolTeachers] = useState([]);
-  const [schoolStudents, setSchoolStudents] = useState([]);
-  const [loadingStudents, setLoadingStudents] = useState(false);
   const [schoolAdmin, setSchoolAdmin] = useState([]);
-  const [selectedClassid, setSelectedClassid] = useState(null);
+  const [schoolStudents, setSchoolStudents] = useState([]);
   const [loginState, setLoginState] = useState(false);
   const [selectedPortal, setSelectedPortal] = useState(null);
   const Django_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
@@ -35,27 +31,7 @@ const Home = () => {
     }
   }, [schoolData.id]);
 
-  // fetch the School Students
-  const fetchSchoolStudents = async () => {
-    setLoadingStudents(true);
-    try {
-      const res = await fetch(
-        `${Django_URL}/studentsapi/${schoolData.id}/${selectedClassid}/`
-      );
-      const data = await res.json();
-      setSchoolStudents(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingStudents(false);
-    }
-  };
-
-  useEffect(() => {
-    if (schoolData.id && selectedClassid) {
-      fetchSchoolStudents();
-    }
-  }, [schoolData.id, selectedClassid]);
+  
 
   // fetch the School Admin
   useEffect(() => {
@@ -114,12 +90,9 @@ const Home = () => {
                         ? schoolTeachers
                         : schoolAdmin
                     }
-                    handleClasschange={(e) =>
-                      setSelectedClassid(e.target.value)
-                    }
+                    setStudents ={setSchoolStudents}
                     classeslist={schoolData.classes}
                     selectedPortal={selectedPortal}
-                    loadingStudents={loadingStudents}
                     setLoginState={setLoginState}
                   />
                 </div>

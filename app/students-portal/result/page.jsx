@@ -21,7 +21,7 @@ import Newsletter from "@/components/Result/Newsletter";
 
 const ResultPage = () => {
   const [showResult, setShowResult] = useState(false);
-  const { schoolData } = useContext(SchoolContext);
+  const { schoolData,academicsessions } = useContext(SchoolContext);
   const { StudentData } = useContext(StudentsContext);
   const [terms, setTerms] = useState([]);
   const [resultdetails, setResultDetails] = useState({
@@ -48,6 +48,14 @@ const ResultPage = () => {
   const [storedresultdetails, setStoredResultDetails] = useLocalStorage(
     "resultdetails",
     resultdetails
+  );
+
+  const [selectedClassid, setSelectedClassid] = useLocalStorage(
+    "currentclassid",
+    null
+  );
+  const studentClass = schoolData?.classes?.find(
+    (classItem) => classItem.id === parseInt(selectedClassid)
   );
 
   useEffect(() => {
@@ -226,7 +234,7 @@ const ResultPage = () => {
               handleSubmit={handleSubmit}
               showAlert={showAlert}
               terms={terms}
-              schoolData={schoolData}
+              sessions={academicsessions}
               loadingresults={loadingresults}
             />
           </div>
@@ -240,6 +248,7 @@ const ResultPage = () => {
                   result={result}
                   StudentData={StudentData}
                   getColorClass={getColorClass}
+                  studentClass={studentClass}
                 />
                 <ResultSummary
                   resultsummary={result.resultsummary}

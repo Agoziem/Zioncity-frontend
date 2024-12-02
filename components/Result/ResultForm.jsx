@@ -7,7 +7,7 @@ const ResultForm = ({
   handleSubmit,
   showAlert,
   loadingresults,
-  schoolData,
+  sessions,
   terms,
 }) => {
   return (
@@ -32,9 +32,9 @@ const ResultForm = ({
             }}
           >
             <option value="0">Select Session</option>
-            {schoolData.sessions &&
-              schoolData.sessions.length > 0 &&
-              schoolData.sessions.map((session) => (
+            {sessions &&
+              sessions.length > 0 &&
+              sessions.map((session) => (
                 <option key={session.id} value={session.id}>
                   {session.session}
                 </option>
