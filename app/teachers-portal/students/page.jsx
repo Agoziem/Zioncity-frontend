@@ -20,7 +20,10 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [storedcurrentSessionID, setStoredCurrentSessionID] = useLocalStorage("currentSessionID",null)
+  const [storedcurrentSessionID, setStoredCurrentSessionID] = useLocalStorage(
+    "currentSessionID",
+    null
+  );
   const [studenttodelete, setStudenttodelete] = useState({
     studentID: "",
     studentName: "",
@@ -149,7 +152,9 @@ const Page = () => {
               value={storedcurrentSessionID || ""}
               onChange={(e) => setStoredCurrentSessionID(e.target.value)}
             >
-              <option value="" disabled>Session...</option>
+              <option value="" disabled>
+                Session...
+              </option>
               {academicsessions?.map((session) => (
                 <option key={session.id} value={session.id}>
                   {session.session}

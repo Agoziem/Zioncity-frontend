@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Access-cards.css";
 import useJsxToPdf from "@/hooks/useJSXtoPDF";
 import { SchoolContext } from "@/data/Schoolcontextdata";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const AccountsPage = () => {
-  const { schoolData,academicsessions } = useContext(SchoolContext);
+  const { schoolData, academicsessions } = useContext(SchoolContext);
   const DJANGO_URL = process.env.NEXT_PUBLIC_DJANGO_API_BASE_URL;
   const [paginateddata, setPaginatedData] = useState({});
   const [loadingStudents, setLoadingStudents] = useState(false);
@@ -14,6 +15,10 @@ const AccountsPage = () => {
   const cardbackref = useRef(null);
   const [loading, generatePdf] = useJsxToPdf();
   const [loadingback, generatePdfback] = useJsxToPdf();
+  const [storedcurrentSessionID, setStoredCurrentSessionID] = useLocalStorage(
+    "currentSessionID",
+    null
+  );
 
   const number_of_students_per_card = 21;
   const total_number_of_students = 318;
@@ -25,7 +30,7 @@ const AccountsPage = () => {
     setLoadingStudents(true);
     try {
       const res = await fetch(
-        `${DJANGO_URL}/studentsapi/${schoolData.id}/?=1&page=${page}`
+        `${DJANGO_URL}/studentsapi/${storedcurrentSessionID}?=1&page=${page}`
       );
       const data = await res.json();
       setPaginatedData(data);
@@ -37,10 +42,10 @@ const AccountsPage = () => {
   };
 
   useEffect(() => {
-    if (schoolData.id) {
+    if (storedcurrentSessionID) {
       fetchSchoolStudents();
     }
-  }, [schoolData.id, page]);
+  }, [page, storedcurrentSessionID]);
 
   const handleDownloadfront = async () => {
     await generatePdf(cardfrontref.current);
@@ -54,6 +59,7 @@ const AccountsPage = () => {
     <section className="py-4 d-flex flex-column align-items-center">
       <div className="d-flex mb-3 align-items-center">
         <h5>COG Students Card - Front </h5>
+
         <button
           className="btn btn-sm btn-primary ms-5"
           onClick={handleDownloadfront}
@@ -69,16 +75,13 @@ const AccountsPage = () => {
         </button>
       </div>
 
-      <div
-        ref={cardfrontref}
-        className="student_card_container"
-      >
+      <div ref={cardfrontref} className="student_card_container">
         {Array.from({ length: number_of_students_per_card }, (_, index) => (
           <div key={index} className="student_card">
             {/* Content of each student card */}
             <img
               className="studentcardimg"
-              src="/images/student_card_front.png"
+              src="/images/student_card_front.jpg"
               alt={`Student Card ${index + 1}`}
             />
           </div>
@@ -88,7 +91,7 @@ const AccountsPage = () => {
       <div className="d-flex my-5 align-items-center">
         <h5>SMSS Students Card - Back</h5>
         <div className="ms-3">
-          { paginateddata && paginateddata.previous !== null && (
+          {paginateddata && paginateddata.previous !== null && (
             <>
               <span
                 className="me-2"
@@ -108,27 +111,41 @@ const AccountsPage = () => {
           )}
           page <span className="fw-bold">{page}</span> of{" "}
           <span className="fw-bold me-2">{number_of_cards}</span>
-
-          {
-            paginateddata && paginateddata.next !== null && (
-              <>
-                <span
-                  className="me-2"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setPage(page + 1)}
-                >
-                  Next
-                </span>
-                <span
-                  className="me-2"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setPage(number_of_cards)}
-                >
-                  Last {"»"}
-                </span>
-              </>
-            )
-          }
+          {paginateddata && paginateddata.next !== null && (
+            <>
+              <span
+                className="me-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+              </span>
+              <span
+                className="me-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => setPage(number_of_cards)}
+              >
+                Last {"»"}
+              </span>
+            </>
+          )}
+        </div>
+        <div className="mx-3">
+          <select
+            id="academicSession"
+            className="form-select"
+            value={storedcurrentSessionID || ""}
+            onChange={(e) => setStoredCurrentSessionID(e.target.value)}
+          >
+            <option value="" disabled>
+              Session...
+            </option>
+            {academicsessions?.map((session) => (
+              <option key={session.id} value={session.id}>
+                {session.session}
+              </option>
+            ))}
+          </select>
         </div>
         <button
           className="btn btn-sm btn-primary ms-5"
@@ -145,10 +162,7 @@ const AccountsPage = () => {
         </button>
       </div>
 
-      <div
-        ref={cardbackref}
-        className="student_card_container"
-      >
+      <div ref={cardbackref} className="student_card_container">
         {loadingStudents ? (
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -158,12 +172,12 @@ const AccountsPage = () => {
             <div key={student.id} className="studentcard">
               <img
                 className="studentcardimg"
-                src="/images/student_card_Back.png"
+                src="/images/student_card_Back.jpg"
                 alt=""
               />
               <div className="text-overlay">
                 <h1 style={{ color: "#113325" }}>
-                  {student.studentclass.class_}
+                  {student.class_.class_name}
                 </h1>
                 <h2 style={{ color: "#113325" }}>
                   {student.firstname} {student.surname}
