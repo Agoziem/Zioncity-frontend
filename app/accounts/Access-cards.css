@@ -33,6 +33,7 @@
 
   .text-overlay h1 {
     margin: 12px;
+    margin-left: 0;
     font-size: 29.516px;
     font-weight: bolder;
   }
