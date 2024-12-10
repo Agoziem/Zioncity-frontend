@@ -21,7 +21,7 @@ const AccountsPage = () => {
   );
 
   const number_of_students_per_card = 21;
-  const total_number_of_students = 318;
+  const total_number_of_students = 407;
   const number_of_cards = Math.ceil(
     total_number_of_students / number_of_students_per_card
   );
