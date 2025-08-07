@@ -26,6 +26,8 @@ function AnnualClassResultHandler(students) {
     return parseFloat(average.toFixed(2));
   }
 
+  
+
   // Helper function to calculate the grade based on average score
   function calculateGrade(student) {
     if (student.Average === "-") return "-";
