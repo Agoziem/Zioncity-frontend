@@ -14,8 +14,6 @@
 
   .body .studentcard {
     position: relative;
-    width: 276.67px;
-    height: 153.85px;
   }
   
   .studentcardimg {
@@ -26,8 +24,8 @@
   
   .body .text-overlay {
     position: absolute;
-    top: -7.472441px;
-    left: 25.793701px;
+    top: 30px;
+    left: 28px;
     color: #113325; 
   }
 

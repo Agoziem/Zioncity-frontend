@@ -26,6 +26,16 @@ const AccountsPage = () => {
     total_number_of_students / number_of_students_per_card
   );
 
+  // Dummy data for testing card back
+  const dummyStudents = Array.from({ length: number_of_students_per_card }, (_, i) => ({
+    id: i + 1,
+    firstname: `John${i + 1}`,
+    surname: `Doe${i + 1}`,
+    student_id: `STU${String(i + 1).padStart(4, '0')}`,
+    student_pin: `${Math.floor(1000 + Math.random() * 9000)}`,
+    class_: { class_name: `JSS ${(i % 3) + 1}` }
+  }));
+
   const fetchSchoolStudents = async () => {
     setLoadingStudents(true);
     try {
@@ -167,8 +177,8 @@ const AccountsPage = () => {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : paginateddata.results && paginateddata.results.length > 0 ? (
-          paginateddata.results.map((student) => (
+        ) : (
+          dummyStudents.map((student) => (
             <div key={student.id} className="studentcard">
               <img
                 className="studentcardimg"
@@ -176,19 +186,17 @@ const AccountsPage = () => {
                 alt=""
               />
               <div className="text-overlay">
-                <h1 style={{ color: "#113325" }}>
-                  {student.class_.class_name}
-                </h1>
                 <h2 style={{ color: "#113325" }}>
                   {student.firstname} {student.surname}
                 </h2>
                 <p>{student.student_id}</p>
                 <p>{student.student_pin}</p>
+                <h1 style={{ color: "#113325" }}>
+                  {student.class_.class_name}
+                </h1>
               </div>
             </div>
           ))
-        ) : (
-          <p>No students found</p>
         )}
       </div>
     </section>
