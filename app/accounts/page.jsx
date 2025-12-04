@@ -177,8 +177,8 @@ const AccountsPage = () => {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : (
-          dummyStudents.map((student) => (
+        ) : paginateddata.results && paginateddata.results.length > 0 ? (
+          paginateddata.results.map((student) => (
             <div key={student.id} className="studentcard">
               <img
                 className="studentcardimg"
@@ -197,6 +197,8 @@ const AccountsPage = () => {
               </div>
             </div>
           ))
+        ) : (
+          <p>No students found</p>
         )}
       </div>
     </section>
